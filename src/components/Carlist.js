@@ -11,7 +11,20 @@
 
 
   return(
-    <div></div>
+    <div> <table>
+      <tbody>
+      {
+        cars.map((car, index) =>
+          <tr key={index}>
+            <td>{car.brand}</td>
+            <td>{car.model}</td>
+            <td>{car.color}</td>
+            <td>{car.year}</td>
+            <td>{car.price}</td>
+          </tr>)
+      }
+      </tbody>
+    </table></div>
   );
  }
  export default Carlist;
