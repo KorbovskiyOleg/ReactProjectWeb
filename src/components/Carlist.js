@@ -19,7 +19,8 @@
             <td>{car.brand}</td>
             <td>{car.model}</td>
             <td>{car.color}</td>
-            <td>{car.year}</td>
+            <td>{car.yearOfCar}</td>
+            <td>{car.registerNumber}</td>
             <td>{car.price}</td>
           </tr>)
       }
