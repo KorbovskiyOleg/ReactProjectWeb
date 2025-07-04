@@ -37,10 +37,12 @@
    }
 
     const onDelClick = (url) => {
+   if (window.confirm("Are you sure to delete?")){  
   fetch(url,  {method:  'DELETE'})
   .then(response => {fetchCars(); setOpen(true);})
   .catch(err => console.error(err))
- }
+     }
+   }
 
 
   return(
