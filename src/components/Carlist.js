@@ -1,10 +1,11 @@
  import React, {useEffect, useState } from 'react';
+  import { SERVER_URL } from '../constants.js'
 
  function Carlist() {
      const [cars, setCars] = useState([]);
 
      useEffect(() => {
-        fetch('http://localhost:8080/api/cars')
+        fetch(SERVER_URL+'api/cars')
     .then(response => response.json())
     .then(data => setCars(data._embedded.cars))
     .catch(err => console.error(err)); }, [])
