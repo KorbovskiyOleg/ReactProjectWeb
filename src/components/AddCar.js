@@ -27,6 +27,11 @@ function AddCar(props) {
     setCar({ ...car, [event.target.name]: event.target.value });
   };
 
+  const handleSave = () => {
+  props.addCar(car);
+  handleClose();
+ }
+
   return (
     <div>
       <button onClick={handleClickOpen}>New Car</button>
