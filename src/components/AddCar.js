@@ -61,8 +61,8 @@ function AddCar(props) {
           <br />{" "}
           <input
             placeholder="Year"
-            name="year"
-            value={car.year}
+            name="yearOfCar"
+            value={car.yearOfCar}
             onChange={handleChange}
           />
           <br />
