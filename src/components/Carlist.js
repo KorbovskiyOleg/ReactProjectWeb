@@ -213,7 +213,7 @@ function Carlist() {
 
   return (
     <React.Fragment>
-      <Box display="flex" justifyContent="center" alignItems="center" mb={2}>
+      <Box display="flex" justifyContent="center" alignItems="center" mt={2} mb={2}>
         <AddCar addCar={addCar} />
       </Box>
       <div style={{ height: 500, width: "100%" }}>
