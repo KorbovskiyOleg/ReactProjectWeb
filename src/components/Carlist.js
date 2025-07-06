@@ -121,8 +121,8 @@ import AddCar from "./AddCar.js";
 import EditCar from "./EditCar.js";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function Carlist() {
   const [cars, setCars] = useState([]);
@@ -147,9 +147,9 @@ function Carlist() {
       sortable: false,
       filterable: false,
       renderCell: (row) => (
-        <Button onClick={() => onDelClick(row.id)} color="error">
-          Delete
-        </Button>
+        <IconButton onClick={() => onDelClick(row.id)}>
+          <DeleteIcon color="error" />
+        </IconButton>
       ),
     },
   ];
@@ -211,11 +211,16 @@ function Carlist() {
       })
       .catch((err) => console.error(err));
   };
-  
 
   return (
     <React.Fragment>
-      <Box display="flex" justifyContent="center" alignItems="center" mt={2} mb={2}>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        mt={2}
+        mb={2}
+      >
         <AddCar addCar={addCar} />
       </Box>
       <div style={{ height: 500, width: "100%" }}>
