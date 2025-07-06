@@ -3,6 +3,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import Button from '@mui/material/Button';
 
 function EditCar(props) {
   const [open, setOpen] = useState(false);
@@ -86,8 +87,9 @@ function EditCar(props) {
           <br />{" "}
         </DialogContent>
         <DialogActions>
-          <button onClick={handleClose}> Cancel</button>
-          <button onClick={handleSave}>Save</button>
+           <Button onClick={handleClose}>Cancel
+            </Button>
+            <Button onClick={handleSave}>Save</Button>
         </DialogActions>
       </Dialog>
     </div>
