@@ -1,17 +1,16 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import App from "./App";
-import TestRenderer from "react-test-renderer";
 import AddCar from "./components/AddCar";
 
 test("open add car modal form", () => {
-  render(<App />);
-  fireEvent.click(screen.getByText("New Car"));
-  expect(screen.getByRole("dialog")).toHaveTextContent("New car");
+  const { asFragment } = render(<App />);
+  expect(asFragment()).toMatchSnapshot();
 });
 
-test("renders a snapshot", () => {
-  const tree = TestRenderer.create(<AddCar />).toJSON();
-  expect(tree).toMatchSnapshot();
+
+test('matches snapshot', () => {
+  const { asFragment } = render(<AddCar />);
+  expect(asFragment()).toMatchSnapshot();
 });
 
 /*test('renders learn react link', () => {

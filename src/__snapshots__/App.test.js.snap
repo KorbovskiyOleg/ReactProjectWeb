@@ -1,3 +1,1080 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-74d805-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      New Car
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`open add car modal form 1`] = `
+<DocumentFragment>
+  <div
+    class="App"
+  >
+    <header
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionStatic css-ptdwpq-MuiPaper-root-MuiAppBar-root"
+      style="--Paper-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);"
+    >
+      <div
+        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-1ygil4i-MuiToolbar-root"
+      >
+        <h6
+          class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
+        >
+          Carshop
+        </h6>
+      </div>
+    </header>
+    <div
+      class="MuiBox-root css-dbawi2"
+    >
+      <div>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-74d805-MuiButtonBase-root-MuiButton-root"
+          tabindex="0"
+          type="button"
+        >
+          New Car
+        </button>
+      </div>
+    </div>
+    <div
+      style="height: 500px; width: 100%;"
+    >
+      <div
+        class="MuiDataGrid-root MuiDataGrid-root--densityStandard MuiDataGrid-withBorderColor MuiDataGridVariables-3851315942 css-1ix9rmu-MuiDataGrid-root"
+        style="--DataGrid-hasScrollX: 1; --DataGrid-hasScrollY: 0; --DataGrid-scrollbarSize: 0px; --DataGrid-rowWidth: 1100px; --DataGrid-columnsTotalWidth: 1100px; --DataGrid-leftPinnedWidth: 0px; --DataGrid-rightPinnedWidth: 0px; --DataGrid-headerHeight: 56px; --DataGrid-headersTotalHeight: 56px; --DataGrid-topContainerHeight: 56px; --DataGrid-bottomContainerHeight: 0px; --height: 52px;"
+      >
+        <div
+          class="MuiDataGrid-mainContent"
+          role="presentation"
+        >
+          <div
+            aria-orientation="horizontal"
+            class="MuiDataGrid-toolbar css-1e8d8dc-MuiDataGrid-toolbar"
+            role="toolbar"
+          >
+            <button
+              aria-haspopup="true"
+              aria-label="Columns"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-53g0n7-MuiButtonBase-root-MuiIconButton-root"
+              data-mui-internal-clone-element="true"
+              id="«r5»"
+              tabindex="0"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+                data-testid="ColumnIconIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M14.67 5v14H9.33V5zm1 14H21V5h-5.33zm-7.34 0V5H3v14z"
+                />
+              </svg>
+            </button>
+            <button
+              aria-haspopup="true"
+              aria-label="Filters"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-53g0n7-MuiButtonBase-root-MuiIconButton-root"
+              data-mui-internal-clone-element="true"
+              id="«ra»"
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                class="MuiBadge-root css-63ezxx-MuiBadge-root"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+                  data-testid="FilterListIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"
+                  />
+                </svg>
+                <span
+                  class="MuiBadge-badge MuiBadge-dot MuiBadge-invisible MuiBadge-anchorOriginTopRight MuiBadge-anchorOriginTopRightRectangular MuiBadge-overlapRectangular MuiBadge-colorPrimary css-16foeyp-MuiBadge-badge"
+                />
+              </span>
+            </button>
+            <div
+              aria-orientation="vertical"
+              class="MuiDivider-root MuiDivider-fullWidth MuiDivider-vertical MuiDataGrid-toolbarDivider css-y7j7xx-MuiDivider-root-MuiDataGrid-toolbarDivider"
+              role="separator"
+            />
+            <button
+              aria-controls="«r2»"
+              aria-haspopup="true"
+              aria-label="Export"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-53g0n7-MuiButtonBase-root-MuiIconButton-root"
+              data-mui-internal-clone-element="true"
+              id="«r3»"
+              tabindex="-1"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+                data-testid="DownloadIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z"
+                />
+              </svg>
+            </button>
+            <div
+              aria-orientation="vertical"
+              class="MuiDivider-root MuiDivider-fullWidth MuiDivider-vertical MuiDataGrid-toolbarDivider css-y7j7xx-MuiDivider-root-MuiDataGrid-toolbarDivider"
+              role="separator"
+            />
+            <div
+              class="MuiDataGrid-toolbarQuickFilter css-15tq9oh-MuiDataGrid-toolbarQuickFilter"
+              style="--trigger-width: 0px;"
+            >
+              <button
+                aria-controls="«rh»"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-label="Search"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1gxrdpv-MuiButtonBase-root-MuiIconButton-root-MuiDataGrid-toolbarQuickFilterTrigger"
+                data-mui-internal-clone-element="true"
+                tabindex="-1"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+                  data-testid="SearchIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                  />
+                </svg>
+              </button>
+              <div
+                aria-label="Search"
+                class="MuiFormControl-root MuiTextField-root css-13ka3r-MuiFormControl-root-MuiTextField-root-MuiDataGrid-toolbarQuickFilterControl"
+              >
+                <div
+                  class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-sizeSmall MuiInputBase-adornedStart css-4bojcr-MuiInputBase-root-MuiOutlinedInput-root"
+                >
+                  <div
+                    class="MuiInputAdornment-root MuiInputAdornment-positionStart MuiInputAdornment-outlined MuiInputAdornment-sizeSmall css-1ois9w0-MuiInputAdornment-root"
+                  >
+                    <span
+                      aria-hidden="true"
+                      class="notranslate"
+                    >
+                      ​
+                    </span>
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+                      data-testid="SearchIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    aria-invalid="false"
+                    class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputSizeSmall MuiInputBase-inputAdornedStart css-1q55ijt-MuiInputBase-input-MuiOutlinedInput-input"
+                    id="«rh»"
+                    placeholder="Search…"
+                    role="searchbox"
+                    tabindex="-1"
+                    type="text"
+                    value=""
+                  />
+                  <fieldset
+                    aria-hidden="true"
+                    class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="css-1nf2c5d-MuiNotchedOutlined-root"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="notranslate"
+                      >
+                        ​
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-colcount="7"
+            aria-multiselectable="false"
+            aria-rowcount="1"
+            class="MuiDataGrid-main css-1bgckiu-MuiDataGrid-main"
+            role="grid"
+            tabindex="-1"
+          >
+            <div
+              class="css-18l11qw"
+              data-id="gridPanelAnchor"
+              role="presentation"
+            />
+            <div
+              class="MuiDataGrid-virtualScroller MuiDataGrid-virtualScroller--hasScrollX css-1vigakz-MuiDataGrid-virtualScroller"
+              role="presentation"
+              style="overflow-x: hidden;"
+            >
+              <div
+                class="MuiDataGrid-topContainer MuiDataGrid-container--top css-b1wygl"
+                role="presentation"
+              >
+                <div
+                  class="MuiDataGrid-columnHeaders css-1gtv474-MuiDataGrid-columnHeaders"
+                  role="presentation"
+                >
+                  <div
+                    aria-rowindex="1"
+                    class="MuiDataGrid-row--borderBottom css-yseucu-MuiDataGrid-columnHeaderRow"
+                    role="row"
+                    style="height: 56px;"
+                  >
+                    <div
+                      role="presentation"
+                      style="width: 0px;"
+                    />
+                    <div
+                      aria-colindex="1"
+                      aria-sort="none"
+                      class="MuiDataGrid-columnHeader MuiDataGrid-columnHeader--sortable MuiDataGrid-withBorderColor"
+                      data-field="brand"
+                      role="columnheader"
+                      style="width: 200px;"
+                      tabindex="0"
+                    >
+                      <div
+                        class="MuiDataGrid-columnHeaderDraggableContainer"
+                        draggable="false"
+                        role="presentation"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderTitleContainer"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainerContent"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                              data-mui-internal-clone-element="true"
+                            >
+                              Brand
+                            </div>
+                          </div>
+                          <div
+                            class="MuiDataGrid-iconButtonContainer css-ltf0zy-MuiDataGrid-iconButtonContainer"
+                          >
+                            <button
+                              aria-label="Sort"
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-sortButton css-1vkrt00-MuiButtonBase-root-MuiIconButton-root-MuiDataGrid-sortButton"
+                              field="brand"
+                              tabindex="-1"
+                              title="Sort"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon css-120dh41-MuiSvgIcon-root"
+                                data-testid="ArrowUpwardIcon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-menuIcon"
+                        >
+                          <button
+                            aria-expanded="false"
+                            aria-haspopup="menu"
+                            aria-label="Brand column menu"
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                            data-mui-internal-clone-element="true"
+                            id="«rs»"
+                            tabindex="-1"
+                            type="button"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                              data-testid="TripleDotsVerticalIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                        style="min-height: 56px;"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                          data-testid="SeparatorIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <rect
+                            height="24"
+                            rx="0.5"
+                            width="1"
+                            x="11.5"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div
+                      aria-colindex="2"
+                      aria-sort="none"
+                      class="MuiDataGrid-columnHeader MuiDataGrid-columnHeader--sortable MuiDataGrid-withBorderColor"
+                      data-field="model"
+                      role="columnheader"
+                      style="width: 200px;"
+                      tabindex="-1"
+                    >
+                      <div
+                        class="MuiDataGrid-columnHeaderDraggableContainer"
+                        draggable="false"
+                        role="presentation"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderTitleContainer"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainerContent"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                              data-mui-internal-clone-element="true"
+                            >
+                              Model
+                            </div>
+                          </div>
+                          <div
+                            class="MuiDataGrid-iconButtonContainer css-ltf0zy-MuiDataGrid-iconButtonContainer"
+                          >
+                            <button
+                              aria-label="Sort"
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-sortButton css-1vkrt00-MuiButtonBase-root-MuiIconButton-root-MuiDataGrid-sortButton"
+                              field="model"
+                              tabindex="-1"
+                              title="Sort"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon css-120dh41-MuiSvgIcon-root"
+                                data-testid="ArrowUpwardIcon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-menuIcon"
+                        >
+                          <button
+                            aria-expanded="false"
+                            aria-haspopup="menu"
+                            aria-label="Model column menu"
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                            data-mui-internal-clone-element="true"
+                            id="«r12»"
+                            tabindex="-1"
+                            type="button"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                              data-testid="TripleDotsVerticalIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                        style="min-height: 56px;"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                          data-testid="SeparatorIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <rect
+                            height="24"
+                            rx="0.5"
+                            width="1"
+                            x="11.5"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div
+                      aria-colindex="3"
+                      aria-sort="none"
+                      class="MuiDataGrid-columnHeader MuiDataGrid-columnHeader--sortable MuiDataGrid-withBorderColor"
+                      data-field="color"
+                      role="columnheader"
+                      style="width: 200px;"
+                      tabindex="-1"
+                    >
+                      <div
+                        class="MuiDataGrid-columnHeaderDraggableContainer"
+                        draggable="false"
+                        role="presentation"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderTitleContainer"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainerContent"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                              data-mui-internal-clone-element="true"
+                            >
+                              Color
+                            </div>
+                          </div>
+                          <div
+                            class="MuiDataGrid-iconButtonContainer css-ltf0zy-MuiDataGrid-iconButtonContainer"
+                          >
+                            <button
+                              aria-label="Sort"
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-sortButton css-1vkrt00-MuiButtonBase-root-MuiIconButton-root-MuiDataGrid-sortButton"
+                              field="color"
+                              tabindex="-1"
+                              title="Sort"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon css-120dh41-MuiSvgIcon-root"
+                                data-testid="ArrowUpwardIcon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-menuIcon"
+                        >
+                          <button
+                            aria-expanded="false"
+                            aria-haspopup="menu"
+                            aria-label="Color column menu"
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                            data-mui-internal-clone-element="true"
+                            id="«r18»"
+                            tabindex="-1"
+                            type="button"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                              data-testid="TripleDotsVerticalIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                        style="min-height: 56px;"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                          data-testid="SeparatorIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <rect
+                            height="24"
+                            rx="0.5"
+                            width="1"
+                            x="11.5"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div
+                      aria-colindex="4"
+                      aria-sort="none"
+                      class="MuiDataGrid-columnHeader MuiDataGrid-columnHeader--sortable MuiDataGrid-withBorderColor"
+                      data-field="yearOfCar"
+                      role="columnheader"
+                      style="width: 150px;"
+                      tabindex="-1"
+                    >
+                      <div
+                        class="MuiDataGrid-columnHeaderDraggableContainer"
+                        draggable="false"
+                        role="presentation"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderTitleContainer"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainerContent"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                              data-mui-internal-clone-element="true"
+                            >
+                              Year
+                            </div>
+                          </div>
+                          <div
+                            class="MuiDataGrid-iconButtonContainer css-ltf0zy-MuiDataGrid-iconButtonContainer"
+                          >
+                            <button
+                              aria-label="Sort"
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-sortButton css-1vkrt00-MuiButtonBase-root-MuiIconButton-root-MuiDataGrid-sortButton"
+                              field="yearOfCar"
+                              tabindex="-1"
+                              title="Sort"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon css-120dh41-MuiSvgIcon-root"
+                                data-testid="ArrowUpwardIcon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-menuIcon"
+                        >
+                          <button
+                            aria-expanded="false"
+                            aria-haspopup="menu"
+                            aria-label="Year column menu"
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                            data-mui-internal-clone-element="true"
+                            id="«r1e»"
+                            tabindex="-1"
+                            type="button"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                              data-testid="TripleDotsVerticalIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                        style="min-height: 56px;"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                          data-testid="SeparatorIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <rect
+                            height="24"
+                            rx="0.5"
+                            width="1"
+                            x="11.5"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div
+                      aria-colindex="5"
+                      aria-sort="none"
+                      class="MuiDataGrid-columnHeader MuiDataGrid-columnHeader--sortable MuiDataGrid-withBorderColor"
+                      data-field="price"
+                      role="columnheader"
+                      style="width: 150px;"
+                      tabindex="-1"
+                    >
+                      <div
+                        class="MuiDataGrid-columnHeaderDraggableContainer"
+                        draggable="false"
+                        role="presentation"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderTitleContainer"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainerContent"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                              data-mui-internal-clone-element="true"
+                            >
+                              Price
+                            </div>
+                          </div>
+                          <div
+                            class="MuiDataGrid-iconButtonContainer css-ltf0zy-MuiDataGrid-iconButtonContainer"
+                          >
+                            <button
+                              aria-label="Sort"
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-sortButton css-1vkrt00-MuiButtonBase-root-MuiIconButton-root-MuiDataGrid-sortButton"
+                              field="price"
+                              tabindex="-1"
+                              title="Sort"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall MuiDataGrid-sortIcon css-120dh41-MuiSvgIcon-root"
+                                data-testid="ArrowUpwardIcon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-menuIcon"
+                        >
+                          <button
+                            aria-expanded="false"
+                            aria-haspopup="menu"
+                            aria-label="Price column menu"
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                            data-mui-internal-clone-element="true"
+                            id="«r1k»"
+                            tabindex="-1"
+                            type="button"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                              data-testid="TripleDotsVerticalIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                        style="min-height: 56px;"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                          data-testid="SeparatorIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <rect
+                            height="24"
+                            rx="0.5"
+                            width="1"
+                            x="11.5"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div
+                      aria-colindex="6"
+                      aria-sort="none"
+                      class="MuiDataGrid-columnHeader MuiDataGrid-withBorderColor"
+                      data-field="_links.car.href"
+                      role="columnheader"
+                      style="width: 100px;"
+                      tabindex="-1"
+                    >
+                      <div
+                        class="MuiDataGrid-columnHeaderDraggableContainer"
+                        draggable="false"
+                        role="presentation"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderTitleContainer"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainerContent"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                              data-mui-internal-clone-element="true"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-menuIcon"
+                        >
+                          <button
+                            aria-expanded="false"
+                            aria-haspopup="menu"
+                            aria-label=" column menu"
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                            data-mui-internal-clone-element="true"
+                            id="«r1q»"
+                            tabindex="-1"
+                            type="button"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                              data-testid="TripleDotsVerticalIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                        style="min-height: 56px;"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                          data-testid="SeparatorIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <rect
+                            height="24"
+                            rx="0.5"
+                            width="1"
+                            x="11.5"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div
+                      aria-colindex="7"
+                      aria-sort="none"
+                      class="MuiDataGrid-columnHeader MuiDataGrid-withBorderColor MuiDataGrid-columnHeader--lastUnpinned MuiDataGrid-columnHeader--last"
+                      data-field="_links.self.href"
+                      role="columnheader"
+                      style="width: 100px;"
+                      tabindex="-1"
+                    >
+                      <div
+                        class="MuiDataGrid-columnHeaderDraggableContainer"
+                        draggable="false"
+                        role="presentation"
+                      >
+                        <div
+                          class="MuiDataGrid-columnHeaderTitleContainer"
+                          role="presentation"
+                        >
+                          <div
+                            class="MuiDataGrid-columnHeaderTitleContainerContent"
+                          >
+                            <div
+                              class="MuiDataGrid-columnHeaderTitle css-1gqmilo-MuiDataGrid-columnHeaderTitle"
+                              data-mui-internal-clone-element="true"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          class="MuiDataGrid-menuIcon"
+                        >
+                          <button
+                            aria-expanded="false"
+                            aria-haspopup="menu"
+                            aria-label=" column menu"
+                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall MuiDataGrid-menuIconButton css-155wbr6-MuiButtonBase-root-MuiIconButton-root"
+                            data-mui-internal-clone-element="true"
+                            id="«r1v»"
+                            tabindex="-1"
+                            type="button"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1ckov0h-MuiSvgIcon-root"
+                              data-testid="TripleDotsVerticalIcon"
+                              focusable="false"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiDataGrid-columnSeparator MuiDataGrid-columnSeparator--resizable MuiDataGrid-columnSeparator--sideRight"
+                        style="min-height: 56px;"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiDataGrid-iconSeparator css-1umw9bq-MuiSvgIcon-root"
+                          data-testid="SeparatorIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <rect
+                            height="24"
+                            rx="0.5"
+                            width="1"
+                            x="11.5"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div
+                      class="MuiDataGrid-filler"
+                      role="presentation"
+                    />
+                    <div
+                      class="MuiDataGrid-scrollbarFiller MuiDataGrid-scrollbarFiller--header"
+                      role="presentation"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="MuiDataGrid-overlayWrapper css-1jemwpa-MuiDataGrid-overlayWrapper"
+              >
+                <div
+                  class="MuiDataGrid-overlayWrapperInner css-1mbsuzk-MuiDataGrid-overlayWrapperInner"
+                  style="width: 0px;"
+                >
+                  <div
+                    class="MuiDataGrid-overlay css-w16tsr-MuiDataGrid-overlay"
+                  >
+                    No rows
+                  </div>
+                </div>
+              </div>
+              <div
+                class="MuiDataGrid-virtualScrollerContent css-aymtem-MuiDataGrid-virtualScrollerContent"
+                role="presentation"
+                style="width: auto; flex-shrink: 0;"
+              >
+                <div
+                  class="MuiDataGrid-virtualScrollerRenderZone css-11dqcl8-MuiDataGrid-virtualScrollerRenderZone"
+                  role="rowgroup"
+                  style="transform: translate3d(0, 0px, 0);"
+                />
+              </div>
+              <div
+                class="MuiDataGrid-bottomContainer MuiDataGrid-container--bottom css-gzxaox"
+                role="presentation"
+              />
+            </div>
+            <div
+              aria-hidden="true"
+              class="MuiDataGrid-scrollbar MuiDataGrid-scrollbar--horizontal css-2n9dey"
+              tabindex="-1"
+            >
+              <div
+                class="MuiDataGrid-scrollbarContent"
+              />
+            </div>
+          </div>
+          <div
+            class="MuiDataGrid-footerContainer MuiDataGrid-withBorderColor css-15lx25q-MuiDataGrid-footerContainer"
+          >
+            <div />
+            <div
+              class="MuiTablePagination-root css-y1ejz4-MuiTablePagination-root"
+            >
+              <div
+                class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular MuiTablePagination-toolbar css-1gak8h1-MuiToolbar-root-MuiTablePagination-toolbar"
+              >
+                <div
+                  class="MuiTablePagination-spacer css-1wtxofq-MuiTablePagination-spacer"
+                />
+                <p
+                  class="MuiTablePagination-selectLabel css-s09cke-MuiTablePagination-selectLabel"
+                  id="«rn»"
+                >
+                  Rows per page:
+                </p>
+                <div
+                  class="MuiInputBase-root MuiInputBase-colorPrimary MuiTablePagination-select MuiSelect-root MuiTablePagination-input css-oegngy-MuiInputBase-root-MuiTablePagination-select"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
+                    aria-labelledby="«rn» «rm»"
+                    class="MuiSelect-select MuiTablePagination-select MuiSelect-standard MuiInputBase-input css-18zjd9i-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input"
+                    id="«rm»"
+                    role="combobox"
+                    tabindex="0"
+                  >
+                    100
+                  </div>
+                  <input
+                    aria-hidden="true"
+                    aria-invalid="false"
+                    class="MuiSelect-nativeInput css-j0riat-MuiSelect-nativeInput"
+                    tabindex="-1"
+                    value="100"
+                  />
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiTablePagination-selectIcon MuiSelect-iconStandard css-ug7h84-MuiSvgIcon-root-MuiNativeSelect-root-MuiSelect-icon"
+                    data-testid="ArrowDropDownIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M7 10l5 5 5-5z"
+                    />
+                  </svg>
+                </div>
+                <p
+                  class="MuiTablePagination-displayedRows css-11cfq65-MuiTablePagination-displayedRows"
+                >
+                  0–0 of 0
+                </p>
+                <div
+                  class="MuiTablePaginationActions-root MuiTablePagination-actions css-sjsoon-MuiTablePaginationActions-root"
+                >
+                  <button
+                    aria-label="Go to previous page"
+                    class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-colorInherit MuiIconButton-sizeMedium css-h7cjts-MuiButtonBase-root-MuiIconButton-root"
+                    disabled=""
+                    tabindex="-1"
+                    title="Go to previous page"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                      data-testid="KeyboardArrowLeftIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    aria-label="Go to next page"
+                    class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-colorInherit MuiIconButton-sizeMedium css-h7cjts-MuiButtonBase-root-MuiIconButton-root"
+                    disabled=""
+                    tabindex="-1"
+                    title="Go to next page"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                      data-testid="KeyboardArrowRightIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <style
+          href="/MuiDataGridVariables-3851315942"
+        >
+          .MuiDataGridVariables-3851315942{--DataGrid-t-spacing-unit:8px;--DataGrid-t-color-border-base:rgba(224, 224, 224, 1);--DataGrid-t-color-background-base:#fff;--DataGrid-t-color-background-overlay:#fff;--DataGrid-t-color-background-backdrop:rgba(255, 255, 255, 0.38);--DataGrid-t-color-foreground-base:rgba(0, 0, 0, 0.87);--DataGrid-t-color-foreground-muted:rgba(0, 0, 0, 0.6);--DataGrid-t-color-foreground-accent:#1565c0;--DataGrid-t-color-foreground-disabled:rgba(0, 0, 0, 0.38);--DataGrid-t-color-foreground-error:#c62828;--DataGrid-t-color-interactive-hover:rgba(0, 0, 0, 0.04);--DataGrid-t-color-interactive-hover-opacity:0.04;--DataGrid-t-color-interactive-focus:rgba(from #1976d2 r g b / 1);--DataGrid-t-color-interactive-focus-opacity:0.12;--DataGrid-t-color-interactive-disabled:rgba(from rgba(0, 0, 0, 0.26) r g b / 1);--DataGrid-t-color-interactive-disabled-opacity:0.38;--DataGrid-t-color-interactive-selected:#1976d2;--DataGrid-t-color-interactive-selected-opacity:0.08;--DataGrid-t-header-background-base:#fff;--DataGrid-t-cell-background-pinned:#fff;--DataGrid-t-radius-base:4px;--DataGrid-t-typography-font-family-base:"Roboto", "Helvetica", "Arial", sans-serif;--DataGrid-t-typography-font-weight-light:300;--DataGrid-t-typography-font-weight-regular:400;--DataGrid-t-typography-font-weight-medium:500;--DataGrid-t-typography-font-weight-bold:700;--DataGrid-t-typography-font-body:400 0.875rem / 1.43 "Roboto", "Helvetica", "Arial", sans-serif;--DataGrid-t-typography-font-small:400 0.75rem / 1.66 "Roboto", "Helvetica", "Arial", sans-serif;--DataGrid-t-typography-font-large:400 1rem / 1.5 "Roboto", "Helvetica", "Arial", sans-serif;--DataGrid-t-transition-easing-ease-in:cubic-bezier(0.4, 0, 1, 1);--DataGrid-t-transition-easing-ease-out:cubic-bezier(0.0, 0, 0.2, 1);--DataGrid-t-transition-easing-ease-in-out:cubic-bezier(0.4, 0, 0.2, 1);--DataGrid-t-transition-duration-short:200ms;--DataGrid-t-transition-duration-base:250ms;--DataGrid-t-transition-duration-long:300ms;--DataGrid-t-shadow-base:0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);--DataGrid-t-shadow-overlay:0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);--DataGrid-t-z-index-panel:1300;--DataGrid-t-z-index-menu:1300;}
+        </style>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`renders a snapshot 1`] = `null`;
