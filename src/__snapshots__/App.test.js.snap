@@ -1076,5 +1076,3 @@ exports[`open add car modal form 1`] = `
   </div>
 </DocumentFragment>
 `;
-
-exports[`renders a snapshot 1`] = `null`;
