@@ -56,41 +56,24 @@ function EditCar(props) {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Edit car</DialogTitle>
         <DialogContent>
-          <input
-            placeholder="Brand"
-            name="brand"
-            value={car.brand}
-            onChange={handleChange}
-          />
-          <br />
-          <input
-            placeholder="Model"
-            name="model"
-            value={car.model}
-            onChange={handleChange}
-          />
-          <br />
-          <input
-            placeholder="Color"
-            name="color"
-            value={car.color}
-            onChange={handleChange}
-          />
-          <br />
-          <input
-            placeholder="Year"
-            name="yearOfCar"
-            value={car.yearOfCar}
-            onChange={handleChange}
-          />
-          <br />
-          <input
-            placeholder="Price"
-            name="price"
-            value={car.price}
-            onChange={handleChange}
-          />
-          <br />{" "}
+           <Stack spacing={2} mt={1}>
+              <TextField label="Brand" name="brand" 
+                  autoFocus
+                variant="standard" value={car.brand} 
+                onChange={handleChange}/>
+              <TextField label="Model" name="model" 
+                variant="standard" value={car.model} 
+                onChange={handleChange}/>
+              <TextField label="Color" name="color" 
+                variant="standard" value={car.color} 
+                onChange={handleChange}/>
+              <TextField label="Year" name="yearOfCar" 
+                variant="standard" value={car.yearOfCar} 
+                onChange={handleChange}/>
+              <TextField label="Price" name="price" 
+                variant="standard" value={car.price} 
+                onChange={handleChange}/>
+            </Stack>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
