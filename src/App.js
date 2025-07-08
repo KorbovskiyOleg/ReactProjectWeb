@@ -43,7 +43,7 @@ const theme = createTheme({
       main: '#dc004e',
     },
     background: {
-      default: '#f5f7fa',
+      default: '#e0e2e5',
     },
   },
   typography: {
