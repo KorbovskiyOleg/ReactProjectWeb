@@ -288,7 +288,7 @@ function App() {
                   letterSpacing: '0.05em',
                 }}
               >
-                CarShop Manager
+                CARSHOP MANEGER
               </Typography>
             </Box>
             
