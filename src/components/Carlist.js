@@ -94,7 +94,14 @@ export default function Carlist() {
       flex: 1,
       minWidth: 150,
       renderCell: (params) => (
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+            width: "100%",
+          }}
+        >
           <Box
             sx={{
               backgroundColor: params.value.toLowerCase(),
@@ -103,6 +110,7 @@ export default function Carlist() {
               borderRadius: "50%",
               marginRight: 1,
               border: "1px solid #ddd",
+              alignSelf: "center",
             }}
           />
           <Typography
@@ -111,6 +119,7 @@ export default function Carlist() {
               ml: 1,
               color: "#333",
               fontWeight: 500,
+              alignSelf: "center",
             }}
           >
             {params.value}
