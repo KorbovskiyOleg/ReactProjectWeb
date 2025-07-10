@@ -11,13 +11,6 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(3),
-  margin: theme.spacing(2),
-  borderRadius: 15,
-  boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-  backgroundColor: "#ffffff",
-}));
 
 const StyledHeader = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
@@ -26,7 +19,11 @@ const StyledHeader = styled(Typography)(({ theme }) => ({
   fontSize: "1.8rem",
 }));
 
-export default function Carlist() {
+export default function Carlist({fullWidth = false  }) {
+
+
+  
+
   const [cars, setCars] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -214,6 +211,15 @@ export default function Carlist() {
     }
   };
 
+  const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(3),
+  margin: theme.spacing(2),
+   width: fullWidth ? '100%' : 'auto',
+  //borderRadius: 15,
+  //boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+  //backgroundColor: "#ffffff",
+  }));
+
   return (
     <StyledPaper>
       <StyledHeader variant="h4">Car Inventory</StyledHeader>
@@ -224,7 +230,7 @@ export default function Carlist() {
 
       <Box
         sx={{
-          height: 600,
+          height: '65vh',
           width: "100%",
           "& .header-theme": {
             backgroundColor: "#1976d2 !important ",
@@ -242,10 +248,15 @@ export default function Carlist() {
           "& .MuiDataGrid-root": {
             border: "none",
             borderRadius: 2,
+            width: '100%',
+
           },
+          '& .MuiDataGrid-virtualScroller': {
+            overflow: 'auto',},
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: "#1976d2 !important",
             color: "#fff",
+             minWidth: '100% !important',
           },
 
           "& .MuiDataGrid-cell:focus": {
@@ -255,7 +266,11 @@ export default function Carlist() {
       >
         <DataGrid
           rows={cars}
-          columns={columns}
+          columns={columns.map(col => ({
+            ...col,
+            flex: fullWidth ? 1 : undefined, // Растягиваем колонки
+            minWidth: fullWidth ? 150 : undefined,
+          }))}
           pageSize={10}
           rowsPerPageOptions={[10, 20, 50]}
           getRowId={(row) => row._links.self.href}
