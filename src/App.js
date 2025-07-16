@@ -1,4 +1,4 @@
-import { useState } from "react";
+/*import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -211,3 +211,25 @@ function App() {
 }
 
 export default App;
+*/
+import { AppBar, Box, Button, Container, IconButton, Toolbar, Typography } from "@mui/material";
+import React from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+
+export default function App() {
+  return (
+    <AppBar position="fixed">
+      <Container fixed>
+        <Toolbar>
+          <IconButton edge="start" color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6">CarShop</Typography>
+          <Box>
+            <Button color="secondary" variant="contained">Sign up</Button>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+}
