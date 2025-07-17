@@ -3,15 +3,17 @@ import { SERVER_URL } from "../constants.js";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import Carlist from "./Carlist";
 import Snackbar from "@mui/material/Snackbar";
+import Box from "@mui/material/Box";
 
-function Login() {
+function Login({ onLoginSuccess }) {
+  // Принимаем пропс из App.js
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
-  const [isAuthenticated, setAuth] = useState(false);
+
+  const [open, setOpen] = useState(false);
 
   const handleChange = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
@@ -27,42 +29,50 @@ function Login() {
         const jwtToken = res.headers.get("Authorization");
         if (jwtToken !== null) {
           sessionStorage.setItem("jwt", jwtToken);
-          setAuth(true);
+          onLoginSuccess(); // Вызываем колбэк из App.js вместо setAuth
         } else {
           setOpen(true);
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setOpen(true);
+      });
   };
 
-  const [open, setOpen] = useState(false);
-
-  if (isAuthenticated) {
-    return <Carlist />;
-  } else {
-    return (
-      <div>
-        {" "}
-        <Stack spacing={2} alignItems="center" mt={2}>
-          <TextField name="username" label="Username" onChange={handleChange} />
-          <TextField
-            type="password"
-            name="password"
-            label="Password"
-            onChange={handleChange}
-          />
-          <Button variant="outlined" color="primary" onClick={login}>
-            Login
-          </Button>
-        </Stack>
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          onClose={() => setOpen(false)}
-          message="Login failed: Check your username and password"
+  return (
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="80vh"
+    >
+      <Stack spacing={2} alignItems="center" sx={{ width: 300 }}>
+        <TextField
+          name="username"
+          label="Username"
+          fullWidth
+          onChange={handleChange}
         />
-      </div>
-    );
-  }
+        <TextField
+          type="password"
+          name="password"
+          label="Password"
+          fullWidth
+          onChange={handleChange}
+        />
+        <Button variant="contained" fullWidth onClick={login} sx={{ mt: 2 }}>
+          Login
+        </Button>
+      </Stack>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={() => setOpen(false)}
+        message="Login failed: Check your username and password"
+      />
+    </Box>
+  );
 }
+
 export default Login;

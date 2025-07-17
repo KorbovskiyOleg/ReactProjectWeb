@@ -7,10 +7,8 @@ import { Snackbar } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
 
 const StyledHeader = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
@@ -19,15 +17,10 @@ const StyledHeader = styled(Typography)(({ theme }) => ({
   fontSize: "1.8rem",
 }));
 
-export default function Carlist({fullWidth = false  }) {
-
-
-  
-
+export default function Carlist() {
   const [cars, setCars] = useState([]);
   const [open, setOpen] = useState(false);
 
-  // Функция для обновления автомобиля
   const updateCar = (car, link) => {
     const token = sessionStorage.getItem("jwt");
     fetch(link, {
@@ -48,7 +41,6 @@ export default function Carlist({fullWidth = false  }) {
       .catch((err) => console.error(err));
   };
 
-  // Функция для добавления автомобиля
   const addCar = (car) => {
     const token = sessionStorage.getItem("jwt");
     fetch(SERVER_URL + "api/cars", {
@@ -211,17 +203,8 @@ export default function Carlist({fullWidth = false  }) {
     }
   };
 
-  const StyledPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(3),
-  margin: theme.spacing(2),
-   width: fullWidth ? '100%' : 'auto',
-  //borderRadius: 15,
-  //boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-  //backgroundColor: "#ffffff",
-  }));
-
   return (
-    <StyledPaper>
+    <Box sx={{ width: "100%", p: 3 }}>
       <StyledHeader variant="h4">Car Inventory</StyledHeader>
 
       <Box sx={{ mb: 3 }}>
@@ -230,11 +213,11 @@ export default function Carlist({fullWidth = false  }) {
 
       <Box
         sx={{
-          height: '65vh',
+          height: 600,
           width: "100%",
           "& .header-theme": {
-            backgroundColor: "#1976d2 !important ",
-            color: "#ffffff ",
+            backgroundColor: "#1976d2 !important",
+            color: "#ffffff !important",
             fontSize: "0.875rem",
             fontWeight: "bold",
           },
@@ -248,17 +231,11 @@ export default function Carlist({fullWidth = false  }) {
           "& .MuiDataGrid-root": {
             border: "none",
             borderRadius: 2,
-            width: '100%',
-
           },
-          '& .MuiDataGrid-virtualScroller': {
-            overflow: 'auto',},
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: "#1976d2 !important",
             color: "#fff",
-             minWidth: '100% !important',
           },
-
           "& .MuiDataGrid-cell:focus": {
             outline: "none",
           },
@@ -266,11 +243,7 @@ export default function Carlist({fullWidth = false  }) {
       >
         <DataGrid
           rows={cars}
-          columns={columns.map(col => ({
-            ...col,
-            flex: fullWidth ? 1 : undefined, // Растягиваем колонки
-            minWidth: fullWidth ? 150 : undefined,
-          }))}
+          columns={columns}
           pageSize={10}
           rowsPerPageOptions={[10, 20, 50]}
           getRowId={(row) => row._links.self.href}
@@ -285,6 +258,6 @@ export default function Carlist({fullWidth = false  }) {
         message="Car deleted successfully"
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       />
-    </StyledPaper>
+    </Box>
   );
 }

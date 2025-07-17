@@ -1,4 +1,4 @@
-/*import { useState } from "react";
+import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -6,54 +6,30 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 import Login from "./components/Login";
 import Carlist from "./components/Carlist";
 import { styled } from "@mui/material/styles";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import Paper from "@mui/material/Paper";
 
-const backgroundImage =
-  "https://avatars.mds.yandex.net/i?id=ad5823f7184ca4b975ed9a4a999960e1_l-5519086-images-thumbs&ref=rim&n=13&w=2048&h=1152";
-
+// Создаем кастомную тему
 const theme = createTheme({
   palette: {
     primary: {
       main: "#5d4037",
-      contrastText: "#ffffff",
     },
     secondary: {
       main: "#dc004e",
     },
     background: {
-      default: "rgba(255,255,255,0.8)",
+      default: "#f5f7fa",
     },
   },
   typography: {
-    fontFamily: '"Montserrat", "Roboto", sans-serif',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h6: {
-      fontWeight: 700,
-      letterSpacing: "0.03em",
-    },
-  },
-  components: {
-    MuiAppBar: {
-      styleOverrides: {
-        root: {
-          background:
-            "linear-gradient(45deg, rgba(93,64,55,0.9) 30%, rgba(141,110,99,0.9) 90%)",
-          boxShadow: "0 3px 5px rgba(0,0,0,0.1)",
-          backdropFilter: "blur(8px)",
-        },
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "rgba(255,255,255,0.85)",
-          backdropFilter: "blur(6px)",
-        },
-      },
+      fontWeight: 600,
     },
   },
 });
@@ -62,37 +38,18 @@ const AppContainer = styled("div")({
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
-  backgroundImage: `url(${backgroundImage})`,
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundAttachment: "fixed",
 });
 
 const MainContent = styled("main")(({ theme }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center", // Центрирование по вертикали
-  width: "100%",
-}));
-
-const ContentPaper = styled(Paper)(({ theme }) => ({
-  width: "95%",
-  maxWidth: "none", // Ширина 90% от ширины экрана
-  minHeight: "80vh", // Высота 80% от высоты экрана
-  padding: theme.spacing(4),
-  margin: theme.spacing(2, "auto"),
-  borderRadius: 16, // Увеличено скругление углов
-  boxShadow: theme.shadows[10], // Более выраженная тень
-  //display: 'flex',
-  //flexDirection: 'column',
-  overflow: "auto", // Добавляем прокрутку при необходимости
+  backgroundColor: theme.palette.background.default,
 }));
 
 function App() {
   const [isAuthenticated, setAuth] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLoginSuccess = () => {
     setAuth(true);
@@ -103,106 +60,130 @@ function App() {
     sessionStorage.removeItem("jwt");
     setAuth(false);
     setShowLogin(true);
+    setMenuOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <style>
-        {`
-          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
-          body { margin: 0; }
-        `}
-      </style>
-
       <AppContainer>
-        <AppBar position="sticky" elevation={0}>
+        <AppBar position="static" elevation={1}>
           <Toolbar>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                flexGrow: 1,
-                gap: 2,
-              }}
+            {isAuthenticated && (
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={toggleMenu}
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}
             >
               <DirectionsCarIcon
                 sx={{
-                  fontSize: 32,
-                  color: "inherit",
-                  transform: "rotateY(180deg)",
+                  mr: 1.5,
+                  fontSize: "1.8rem",
+                  background:
+                    "linear-gradient(45deg, #5d4037 30%, #d84315 90%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
                 }}
               />
-              <Typography
-                variant="h6"
-                component="h1"
-                sx={{
-                  fontWeight: 700,
-                  fontSize: "1.4rem",
-                  letterSpacing: "0.05em",
-                }}
-              >
-                CarShop Manager
-              </Typography>
-            </Box>
+              CarShop Manager
+            </Typography>
+
             {isAuthenticated && (
               <Button
                 color="inherit"
                 onClick={handleLogout}
-                startIcon={<ExitToAppIcon />}
                 sx={{
-                  fontWeight: 500,
                   "&:hover": {
-                    backgroundColor: "rgba(255,255,255,0.1)",
+                    backgroundColor: "rgba(216, 20, 20, 0.1)",
                   },
                 }}
               >
-                Выйти
+                Logout
               </Button>
             )}
           </Toolbar>
         </AppBar>
 
+        {/* Боковое меню (пример реализации) */}
+        {menuOpen && (
+          <Box
+            sx={{
+              width: 250,
+              height: "100%",
+              backgroundColor: "#5d4037",
+              color: "white",
+              p: 2,
+              position: "fixed",
+              left: 0,
+              top: 64,
+              zIndex: 1200,
+              boxShadow: 3,
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{ p: 2, borderBottom: "1px solid rgba(255,255,255,0.2)" }}
+            >
+              Меню
+            </Typography>
+            <Button
+              color="inherit"
+              fullWidth
+              sx={{ justifyContent: "flex-start", mt: 1 }}
+            >
+              Профиль
+            </Button>
+            <Button
+              color="inherit"
+              fullWidth
+              sx={{ justifyContent: "flex-start" }}
+            >
+              Настройки
+            </Button>
+          </Box>
+        )}
+
         <MainContent>
           {isAuthenticated ? (
-            <ContentPaper sx={{ width: "98vw", mx: "auto" }}>
-              <Typography
-                variant="h4"
-                gutterBottom
-                sx={{
-                  mb: 3,
-                  color: "#5d4037",
-                  textAlign: "center",
-                }}
-              >
-                Car Inventory
-              </Typography>
-              <Box sx={{ width: "100%", height: "65vh", overflow: "auto" }}>
-                <Carlist fullWidth={true} />
-              </Box>
-            </ContentPaper>
+            <Carlist />
           ) : showLogin ? (
-            <ContentPaper
-              sx={{
-                maxWidth: 500,
-                minHeight: "auto",
-              }}
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              minHeight="80vh"
             >
               <Login onLoginSuccess={handleLoginSuccess} />
-            </ContentPaper>
+            </Box>
           ) : null}
         </MainContent>
 
         <Box
           component="footer"
           sx={{
-            py: 3,
-            backgroundColor: "rgba(0,0,0,0.7)",
+            py: 2,
+            px: 3,
+            backgroundColor: "#d5d5d5",
             textAlign: "center",
           }}
         >
-          <Typography variant="body2" color="#fff">
-            © {new Date().getFullYear()} CarShop Manager. All rights reserved.
+          <Typography variant="body2" color="textSecondary">
+            © {new Date().getFullYear()} CarShop Manager - All rights reserved
           </Typography>
         </Box>
       </AppContainer>
@@ -211,25 +192,3 @@ function App() {
 }
 
 export default App;
-*/
-import { AppBar, Box, Button, Container, IconButton, Toolbar, Typography } from "@mui/material";
-import React from "react";
-import MenuIcon from "@mui/icons-material/Menu";
-
-export default function App() {
-  return (
-    <AppBar position="fixed">
-      <Container fixed>
-        <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6">CarShop</Typography>
-          <Box>
-            <Button color="secondary" variant="contained">Sign up</Button>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
-  );
-}
