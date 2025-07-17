@@ -1,4 +1,4 @@
-import { useState,useRef } from "react";
+import { useState,useRef,useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -101,6 +101,31 @@ function App() {
   const [showLogin, setShowLogin] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const audioRef = useRef(null);
+  const [isMusicAllowed, setIsMusicAllowed] = useState(false);
+
+  // Предложение включить музыку
+  const enableMusic = () => {
+    setIsMusicAllowed(true);
+    localStorage.setItem('musicAllowed', 'true');
+    if (audioRef.current) {
+      audioRef.current.play().catch(e => console.log("Play error:", e));
+    }
+  };
+
+  useEffect(() => {
+    // Проверяем настройки пользователя
+    if (localStorage.getItem('musicAllowed') === 'true') {
+      setIsMusicAllowed(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isMusicAllowed && audioRef.current) {
+      audioRef.current.loop = true; // Зацикливание
+      audioRef.current.volume = 0.2; // Громкость 30%
+      audioRef.current.play().catch(e => console.log("Auto-play blocked"));
+    }
+  }, [isMusicAllowed]);
 
   const handleLoginSuccess = () => {
     if (audioRef.current) {
@@ -124,11 +149,29 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <audio 
-        ref={audioRef} 
-        src="/sounds/engine.mp3" 
+       <audio
+        ref={audioRef}
+        src="/sounds/background.mp3"
         preload="auto"
       />
+
+      {/* Кнопка/баннер для включения музыки */}
+      {!isMusicAllowed && (
+        <div style={{
+          position: 'fixed',
+          bottom: 20,
+          right: 20,
+          background: 'rgba(0,0,0,0.7)',
+          color: 'white',
+          padding: '10px 15px',
+          borderRadius: '8px',
+          zIndex: 1000,
+          cursor: 'pointer'
+        }} onClick={enableMusic}>
+          ♫ Включить фоновую музыку
+        </div>
+      )}
+     
       <CssBaseline />
       <AppContainer>
         <StyledAppBar position="static" elevation={0}>
