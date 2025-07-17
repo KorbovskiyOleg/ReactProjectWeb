@@ -9,12 +9,27 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+// Новые иконки
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import ModelIcon from "@mui/icons-material/PrecisionManufacturing";
+import PaletteIcon from "@mui/icons-material/Palette";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const StyledHeader = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
   color: theme.palette.primary.main,
   fontWeight: 600,
   fontSize: "1.8rem",
+}));
+
+const IconWrapper = styled(Box)(({ theme }) => ({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  marginRight: theme.spacing(1),
+  color: theme.palette.primary.main,
 }));
 
 export default function Carlist() {
@@ -60,25 +75,47 @@ export default function Carlist() {
       })
       .catch((err) => console.error(err));
   };
+  
 
   const columns = [
     {
       field: "brand",
-      headerName: "🚗 Brand",
+      headerName: (
+        <>
+          <IconWrapper>
+            <DirectionsCarIcon fontSize="small" />
+          </IconWrapper>
+          Brand
+        </>
+      ),
       headerClassName: "header-theme",
       flex: 1,
       minWidth: 150,
     },
     {
       field: "model",
-      headerName: "🏎 Model",
+      headerName: (
+        <>
+          <IconWrapper>
+            <ModelIcon fontSize="small" />
+          </IconWrapper>
+          Model
+        </>
+      ),
       headerClassName: "header-theme",
       flex: 1,
       minWidth: 150,
     },
     {
       field: "color",
-      headerName: "🎨 Color",
+      headerName: (
+        <>
+          <IconWrapper>
+            <PaletteIcon fontSize="small" />
+          </IconWrapper>
+          Color
+        </>
+      ),
       headerClassName: "header-theme",
       flex: 1,
       minWidth: 150,
@@ -118,7 +155,14 @@ export default function Carlist() {
     },
     {
       field: "make",
-      headerName: "📅 Year",
+      headerName: (
+        <>
+          <IconWrapper>
+            <CalendarTodayIcon fontSize="small" />
+          </IconWrapper>
+          Year
+        </>
+      ),
       headerClassName: "header-theme",
       type: "number",
       flex: 1,
@@ -126,7 +170,14 @@ export default function Carlist() {
     },
     {
       field: "price",
-      headerName: "💰 Price ($)",
+      headerName: (
+        <>
+          <IconWrapper>
+            <AttachMoneyIcon fontSize="small" />
+          </IconWrapper>
+          Price ($)
+        </>
+      ),
       headerClassName: "header-theme",
       type: "number",
       flex: 1,
@@ -135,7 +186,14 @@ export default function Carlist() {
     },
     {
       field: "actions",
-      headerName: "⚙️ Actions",
+      headerName: (
+        <>
+          <IconWrapper>
+            <SettingsIcon fontSize="small" />
+          </IconWrapper>
+          Actions
+        </>
+      ),
       headerClassName: "header-theme",
       sortable: false,
       width: 180,
