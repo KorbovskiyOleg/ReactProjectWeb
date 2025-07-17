@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -100,8 +100,13 @@ function App() {
   const [isAuthenticated, setAuth] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const audioRef = useRef(null);
 
   const handleLoginSuccess = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0; // Перематываем на начало
+      audioRef.current.play().catch(e => console.log("Auto-play prevented:", e));
+    }
     setAuth(true);
     setShowLogin(false);
   };
@@ -119,6 +124,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <audio 
+        ref={audioRef} 
+        src="/sounds/engine.mp3" 
+        preload="auto"
+      />
       <CssBaseline />
       <AppContainer>
         <StyledAppBar position="static" elevation={0}>
