@@ -75,7 +75,6 @@ export default function Carlist() {
       })
       .catch((err) => console.error(err));
   };
-  
 
   const columns = [
     {

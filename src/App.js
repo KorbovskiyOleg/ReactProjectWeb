@@ -1,4 +1,4 @@
-import { useState,useRef,useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -14,7 +14,8 @@ import Carlist from "./components/Carlist";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { styled, alpha } from "@mui/material/styles";
 
-const backgroundImageUrl = "https://avatars.mds.yandex.net/i?id=ad5823f7184ca4b975ed9a4a999960e1_l-5519086-images-thumbs&ref=rim&n=13&w=2048&h=1152";
+const backgroundImageUrl =
+  "https://avatars.mds.yandex.net/i?id=ad5823f7184ca4b975ed9a4a999960e1_l-5519086-images-thumbs&ref=rim&n=13&w=2048&h=1152";
 // Улучшенная кастомная тема
 const theme = createTheme({
   palette: {
@@ -79,7 +80,10 @@ const MainContent = styled("main")(({ theme }) => ({
 }));
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  background: `linear-gradient(45deg, ${alpha(theme.palette.primary.dark, 0.9)} 0%, ${alpha(theme.palette.primary.main, 0.9)} 100%)`,
+  background: `linear-gradient(45deg, ${alpha(
+    theme.palette.primary.dark,
+    0.9
+  )} 0%, ${alpha(theme.palette.primary.main, 0.9)} 100%)`,
   boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
   backdropFilter: "blur(10px)",
 }));
@@ -106,15 +110,15 @@ function App() {
   // Предложение включить музыку
   const enableMusic = () => {
     setIsMusicAllowed(true);
-    localStorage.setItem('musicAllowed', 'true');
+    localStorage.setItem("musicAllowed", "true");
     if (audioRef.current) {
-      audioRef.current.play().catch(e => console.log("Play error:", e));
+      audioRef.current.play().catch((e) => console.log("Play error:", e));
     }
   };
 
   useEffect(() => {
     // Проверяем настройки пользователя
-    if (localStorage.getItem('musicAllowed') === 'true') {
+    if (localStorage.getItem("musicAllowed") === "true") {
       setIsMusicAllowed(true);
     }
   }, []);
@@ -123,14 +127,16 @@ function App() {
     if (isMusicAllowed && audioRef.current) {
       audioRef.current.loop = true; // Зацикливание
       audioRef.current.volume = 0.2; // Громкость 30%
-      audioRef.current.play().catch(e => console.log("Auto-play blocked"));
+      audioRef.current.play().catch((e) => console.log("Auto-play blocked"));
     }
   }, [isMusicAllowed]);
 
   const handleLoginSuccess = () => {
     if (audioRef.current) {
       audioRef.current.currentTime = 0; // Перематываем на начало
-      audioRef.current.play().catch(e => console.log("Auto-play prevented:", e));
+      audioRef.current
+        .play()
+        .catch((e) => console.log("Auto-play prevented:", e));
     }
     setAuth(true);
     setShowLogin(false);
@@ -149,29 +155,28 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-       <audio
-        ref={audioRef}
-        src="/sounds/background.mp3"
-        preload="auto"
-      />
+      <audio ref={audioRef} src="/sounds/background.mp3" preload="auto" />
 
       {/* Кнопка/баннер для включения музыки */}
       {!isMusicAllowed && (
-        <div style={{
-          position: 'fixed',
-          bottom: 20,
-          right: 20,
-          background: 'rgba(0,0,0,0.7)',
-          color: 'white',
-          padding: '10px 15px',
-          borderRadius: '8px',
-          zIndex: 1000,
-          cursor: 'pointer'
-        }} onClick={enableMusic}>
+        <div
+          style={{
+            position: "fixed",
+            bottom: 20,
+            right: 20,
+            background: "rgba(0,0,0,0.7)",
+            color: "white",
+            padding: "10px 15px",
+            borderRadius: "8px",
+            zIndex: 1000,
+            cursor: "pointer",
+          }}
+          onClick={enableMusic}
+        >
           ♫ Включить фоновую музыку
         </div>
       )}
-     
+
       <CssBaseline />
       <AppContainer>
         <StyledAppBar position="static" elevation={0}>
@@ -237,7 +242,6 @@ function App() {
           </Toolbar>
         </StyledAppBar>
 
-        
         {menuOpen && (
           <Box
             sx={{
@@ -306,9 +310,9 @@ function App() {
           {isAuthenticated ? (
             <Carlist />
           ) : showLogin ? (
-              <Login onLoginSuccess={handleLoginSuccess} />
-           // </Box>
-          ) : null}
+            <Login onLoginSuccess={handleLoginSuccess} />
+          ) : // </Box>
+          null}
         </MainContent>
 
         <Box
