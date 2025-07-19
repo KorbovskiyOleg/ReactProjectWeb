@@ -14,8 +14,8 @@ import Carlist from "./components/Carlist";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { styled, alpha } from "@mui/material/styles";
 
-const backgroundImageUrl =
-  "https://avatars.mds.yandex.net/i?id=ad5823f7184ca4b975ed9a4a999960e1_l-5519086-images-thumbs&ref=rim&n=13&w=2048&h=1152";
+const backgroundImage =
+  "/images/imagback.webp";
 // Улучшенная кастомная тема
 const theme = createTheme({
   palette: {
@@ -50,7 +50,7 @@ const AppContainer = styled("div")({
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
-  backgroundImage: `url(${backgroundImageUrl})`,
+  backgroundImage: `url(${backgroundImage})`,
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundAttachment: "fixed",
