@@ -16,6 +16,7 @@ import PaletteIcon from "@mui/icons-material/Palette";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { motion } from "framer-motion";
 
 const StyledHeader = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
@@ -262,7 +263,25 @@ export default function Carlist() {
 
   return (
     <Box sx={{ width: "100%", p: 3 }}>
-      <StyledHeader variant="h4">Car Inventory</StyledHeader>
+      <motion.div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
+        <StyledHeader
+          variant="h4"
+          sx={{
+            fontSize: "3rem",
+            fontWeight: 500,
+            color: "rgba(255, 68, )",
+            fontStyle: ["italic", "normal"], // Дополнительное изящество
+          }}
+        >
+          Car Inventory
+        </StyledHeader>
+      </motion.div>
 
       <Box sx={{ mb: 3 }}>
         <AddCar addCar={addCar} />
