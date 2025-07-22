@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # Сервис MariaDB
+  cardb:
+    image: mariadb:latest
+    container_name: cardb
+    environment:
+      MYSQL_ROOT_PASSWORD: karbit
+      MYSQL_DATABASE: cardb
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - car-network
+
+  # Сервис Spring Boot (бэкенд)
+  carapp:
+    image: carbackend
+    container_name: carapp
+    depends_on:
+      - cardb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://cardb:3306/cardb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: karbit
+    ports:
+      - "8080:8080"
+    networks:
+      - car-network
+
+  # Новый сервис React (фронтенд)
+  react-app:
+    image: react-frontend
+    container_name: react-app
+    ports:
+      - "3000:3000"  # Стандартный порт React
+    environment:
+      - REACT_APP_API_URL=http://carapp:8080  # URL бэкенда
+    depends_on:
+      - carapp  # Ждем запуска бэкенда
+    networks:
+      - car-network
+
+volumes:
+  mysql_data:
+
+networks:
+  car-network:
+    driver: bridge
