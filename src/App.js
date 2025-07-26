@@ -13,12 +13,10 @@ import Login from "./components/Login";
 import Carlist from "./components/Carlist";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { styled, alpha } from "@mui/material/styles";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Badge from '@mui/material/Badge';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Badge from "@mui/material/Badge";
 
-
-const backgroundImage =
-  "/images/imagback.webp";
+const backgroundImage = "/images/imagback.webp";
 // Улучшенная кастомная тема
 const theme = createTheme({
   palette: {
@@ -109,7 +107,8 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const audioRef = useRef(null);
   const [isMusicAllowed, setIsMusicAllowed] = useState(false);
-
+  //const [cartItems, setCartItems] = useState([]);
+  const [cartItemsCount, setCartItemsCount] = useState(0);
   // Предложение включить музыку
   const enableMusic = () => {
     setIsMusicAllowed(true);
@@ -155,6 +154,7 @@ function App() {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -226,41 +226,43 @@ function App() {
             </Typography>
 
             {isAuthenticated && (
-          <>
-            <IconButton
-              color="inherit"
-              aria-label="cart"
-              onClick={() => console.log("Cart clicked")} // Здесь можно добавить обработчик открытия корзины
-              sx={{
-                mr: 2,
-                position: 'relative',
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)'
-                }
-              }}
-            >
-              <Badge badgeContent={4} color="secondary"> {/* Здесь 4 - количество товаров, можно заменить на переменную */}
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
+              <>
+                <IconButton
+                  color="inherit"
+                  aria-label="cart"
+                  onClick={() => setCartItemsCount(prev => prev + 1)} // Здесь можно добавить обработчик открытия корзины
+                  sx={{
+                    mr: 2,
+                    position: "relative",
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    },
+                  }}
+                >
+                  <Badge badgeContent={cartItemsCount} color="secondary">
+                    {" "}
+                    {/* Здесь 4 - количество товаров, можно заменить на переменную */}
+                    <ShoppingCartIcon />
+                  </Badge>
+                </IconButton>
 
-            <Button
-              variant="outlined"
-              color="inherit"
-              onClick={handleLogout}
-              sx={{
-                borderWidth: 2,
-                fontWeight: 600,
-                "&:hover": {
-                  backgroundColor: "rgba(255,255,255,0.1)",
-                  borderWidth: 2,
-                },
-              }}
-            >
-              Exit
-            </Button>
-          </>
-        )}
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  onClick={handleLogout}
+                  sx={{
+                    borderWidth: 2,
+                    fontWeight: 600,
+                    "&:hover": {
+                      backgroundColor: "rgba(255,255,255,0.1)",
+                      borderWidth: 2,
+                    },
+                  }}
+                >
+                  Exit
+                </Button>
+              </>
+            )}
           </Toolbar>
         </StyledAppBar>
 
