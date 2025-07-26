@@ -324,6 +324,7 @@ export default function Carlist() {
           rowsPerPageOptions={[10, 20, 50]}
           getRowId={(row) => row._links.self.href}
           disableSelectionOnClick
+           disableColumnSelector// отключаем выбор колонок(был баг)
         />
       </Box>
 
