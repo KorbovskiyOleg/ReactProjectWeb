@@ -13,6 +13,9 @@ import Login from "./components/Login";
 import Carlist from "./components/Carlist";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { styled, alpha } from "@mui/material/styles";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Badge from '@mui/material/Badge';
+
 
 const backgroundImage =
   "/images/imagback.webp";
@@ -223,22 +226,41 @@ function App() {
             </Typography>
 
             {isAuthenticated && (
-              <Button
-                variant="outlined"
-                color="inherit"
-                onClick={handleLogout}
-                sx={{
+          <>
+            <IconButton
+              color="inherit"
+              aria-label="cart"
+              onClick={() => console.log("Cart clicked")} // Здесь можно добавить обработчик открытия корзины
+              sx={{
+                mr: 2,
+                position: 'relative',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                }
+              }}
+            >
+              <Badge badgeContent={4} color="secondary"> {/* Здесь 4 - количество товаров, можно заменить на переменную */}
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+
+            <Button
+              variant="outlined"
+              color="inherit"
+              onClick={handleLogout}
+              sx={{
+                borderWidth: 2,
+                fontWeight: 600,
+                "&:hover": {
+                  backgroundColor: "rgba(255,255,255,0.1)",
                   borderWidth: 2,
-                  fontWeight: 600,
-                  "&:hover": {
-                    backgroundColor: "rgba(255,255,255,0.1)",
-                    borderWidth: 2,
-                  },
-                }}
-              >
-                Exit
-              </Button>
-            )}
+                },
+              }}
+            >
+              Exit
+            </Button>
+          </>
+        )}
           </Toolbar>
         </StyledAppBar>
 
