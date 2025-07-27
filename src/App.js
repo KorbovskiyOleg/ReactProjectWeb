@@ -13,8 +13,7 @@ import Login from "./components/Login";
 import Carlist from "./components/Carlist";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { styled, alpha } from "@mui/material/styles";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Badge from "@mui/material/Badge";
+
 
 const backgroundImage = "/images/imagback.webp";
 // Улучшенная кастомная тема
@@ -107,8 +106,6 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const audioRef = useRef(null);
   const [isMusicAllowed, setIsMusicAllowed] = useState(false);
-  //const [cartItems, setCartItems] = useState([]);
-  const [cartItemsCount, setCartItemsCount] = useState(0);
   // Предложение включить музыку
   const enableMusic = () => {
     setIsMusicAllowed(true);
@@ -226,26 +223,7 @@ function App() {
             </Typography>
 
             {isAuthenticated && (
-              <>
-                <IconButton
-                  color="inherit"
-                  aria-label="cart"
-                  onClick={() => setCartItemsCount(prev => prev + 1)} // Здесь можно добавить обработчик открытия корзины
-                  sx={{
-                    mr: 2,
-                    position: "relative",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    },
-                  }}
-                >
-                  <Badge badgeContent={cartItemsCount} color="secondary">
-                    {" "}
-                    {/* Здесь 4 - количество товаров, можно заменить на переменную */}
-                    <ShoppingCartIcon />
-                  </Badge>
-                </IconButton>
-
+              
                 <Button
                   variant="outlined"
                   color="inherit"
@@ -261,7 +239,6 @@ function App() {
                 >
                   Exit
                 </Button>
-              </>
             )}
           </Toolbar>
         </StyledAppBar>

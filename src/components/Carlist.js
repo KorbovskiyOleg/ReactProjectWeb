@@ -17,7 +17,6 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { motion } from "framer-motion";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
 
@@ -207,24 +206,7 @@ export default function Carlist() {
             data={{ row: params.row, id: params.id }}
             updateCar={updateCar}
           />
-          <IconButton
-        onClick={() => addCar(params.row)}
-        sx={{
-          color: "#1976d2",
-          "&:hover": {
-            backgroundColor: "rgba(25, 118, 210, 0.1)",
-          },
-        }}
-      >
-        <ShoppingCartIcon fontSize="small" />
-        <Typography variant="caption" sx={{ ml: 0.5 }}>
-          Add to Cart
-        </Typography>
-      </IconButton>
-
-
-
-
+         
           <IconButton
             onClick={() => onDelClick(params.row._links.self.href)}
             sx={{
