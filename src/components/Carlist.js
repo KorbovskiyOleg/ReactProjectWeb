@@ -17,6 +17,9 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { motion } from "framer-motion";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+
 
 const StyledHeader = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
@@ -196,13 +199,31 @@ export default function Carlist() {
       ),
       headerClassName: "header-theme",
       sortable: false,
-      width: 180,
+      width: 220,
       renderCell: (params) => (
         <Box sx={{ display: "flex", gap: 1 }}>
           <EditCar
             data={{ row: params.row, id: params.id }}
             updateCar={updateCar}
           />
+          <IconButton
+        onClick={() => addCar(params.row)}
+        sx={{
+          color: "#1976d2",
+          "&:hover": {
+            backgroundColor: "rgba(25, 118, 210, 0.1)",
+          },
+        }}
+      >
+        <ShoppingCartIcon fontSize="small" />
+        <Typography variant="caption" sx={{ ml: 0.5 }}>
+          Add to Cart
+        </Typography>
+      </IconButton>
+
+
+
+
           <IconButton
             onClick={() => onDelClick(params.row._links.self.href)}
             sx={{
