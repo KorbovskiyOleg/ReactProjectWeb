@@ -16,7 +16,7 @@ import { styled, alpha } from "@mui/material/styles";
 import { CartProvider } from "./components/CartContext";
 import { CartIcon } from "./components/CartIcon";
 import { CartDrawer } from "./components/CartDrawer";
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from "framer-motion";
 //import { alpha } from '@mui/material/styles';
 
 const backgroundImage = "/images/imagback.webp";
@@ -104,15 +104,15 @@ const MenuButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-  const menuVariants = {
+const menuVariants = {
   open: {
     x: 0,
     opacity: 1,
     transition: {
       type: "spring",
       stiffness: 300,
-      damping: 30
-    }
+      damping: 30,
+    },
   },
   closed: {
     x: "-100%",
@@ -121,14 +121,14 @@ const MenuButton = styled(Button)(({ theme }) => ({
       type: "spring",
       stiffness: 300,
       damping: 30,
-      delay: 0.15
-    }
-  }
+      delay: 0.15,
+    },
+  },
 };
 
 const backdropVariants = {
   open: { opacity: 0.5 },
-  closed: { opacity: 0 }
+  closed: { opacity: 0 },
 };
 
 function App() {
@@ -185,246 +185,267 @@ function App() {
   };
 
   return (
-  <CartProvider>
-    <ThemeProvider theme={theme}>
-      <audio ref={audioRef} src="/sounds/background.mp3" preload="auto" />
+    <CartProvider>
+      <ThemeProvider theme={theme}>
+        <audio ref={audioRef} src="/sounds/background.mp3" preload="auto" />
 
-      {/* Кнопка включения музыки */}
-      {!isMusicAllowed && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{
-            position: "fixed",
-            bottom: 20,
-            right: 20,
-            background: "rgba(0,0,0,0.7)",
-            color: "white",
-            padding: "10px 15px",
-            borderRadius: "8px",
-            zIndex: 1000,
-            cursor: "pointer",
-          }}
-          onClick={enableMusic}
-        >
-          ♫ Включить фоновую музыку
-        </motion.div>
-      )}
+        {/* Кнопка включения музыки */}
+        {!isMusicAllowed && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{
+              position: "fixed",
+              bottom: 20,
+              right: 20,
+              background: "rgba(0,0,0,0.7)",
+              color: "white",
+              padding: "10px 15px",
+              borderRadius: "8px",
+              zIndex: 1000,
+              cursor: "pointer",
+            }}
+            onClick={enableMusic}
+          >
+            ♫ Включить фоновую музыку
+          </motion.div>
+        )}
 
-      <CssBaseline />
-      <AppContainer>
-        <StyledAppBar position="static" elevation={0}>
-          <Toolbar>
-            {isAuthenticated && (
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                onClick={toggleMenu}
-                sx={{ mr: 2 }}
-              >
-                {menuOpen ? <CloseIcon /> : <MenuIcon />}
-              </IconButton>
-            )}
-
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{
-                flexGrow: 1,
-                display: "flex",
-                alignItems: "center",
-                fontWeight: 700,
-              }}
-            >
-              <motion.div
-                animate={menuOpen ? { rotate: 10 } : { rotate: -5 }}
-                transition={{ type: "spring" }}
-              >
-                <DirectionsCarIcon
-                  sx={{
-                    mr: 1.5,
-                    fontSize: "1.8rem",
-                    background: "linear-gradient(45deg, #ffb74d 30%, #ff9100 90%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                />
-              </motion.div>
-              <Box
-                component="span"
-                sx={{ textShadow: "0 2px 4px rgba(0,0,0,0.2)" }}
-              >
-                CarShop Manager
-              </Box>
-            </Typography>
-
-            {isAuthenticated && (
-              <>
+        <CssBaseline />
+        <AppContainer>
+          <StyledAppBar position="static" elevation={0}>
+            <Toolbar>
+              {isAuthenticated && (
                 <IconButton
+                  edge="start"
                   color="inherit"
-                  onClick={() => setCartOpen(true)}
+                  aria-label="menu"
+                  onClick={toggleMenu}
                   sx={{ mr: 2 }}
                 >
-                  <CartIcon />
+                  {menuOpen ? <CloseIcon /> : <MenuIcon />}
                 </IconButton>
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  onClick={handleLogout}
-                  sx={{
-                    borderWidth: 2,
-                    fontWeight: 600,
-                    "&:hover": {
-                      backgroundColor: "rgba(255,255,255,0.1)",
-                      borderWidth: 2,
-                    },
-                  }}
-                >
-                  Exit
-                </Button>
-              </>
-            )}
-          </Toolbar>
-        </StyledAppBar>
+              )}
 
-        <AnimatePresence>
-          {menuOpen && (
-            <>
-              <motion.div
-                variants={backdropVariants}
-                initial="closed"
-                animate="open"
-                exit="closed"
-                onClick={toggleMenu}
-                style={{
-                  position: "fixed",
-                  top: 64,
-                  left: 0,
-                  width: "100vw",
-                  height: "calc(100vh - 64px)",
-                  backgroundColor: "black",
-                  zIndex: 1100,
-                }}
-              />
-
-              <Box
-                component={motion.div}
-                variants={menuVariants}
-                initial="closed"
-                animate="open"
-                exit="closed"
-                style={{
-                  width: 280,
-                  height: "calc(100vh - 64px)",
-                  backgroundColor: alpha(theme.palette.primary.dark, 0.95),
-                  color: "white",
-                  position: "fixed",
-                  left: 0,
-                  top: 64,
-                  zIndex: 1200,
-                  boxShadow: 24,
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{
+                  flexGrow: 1,
                   display: "flex",
-                  flexDirection: "column",
-                  padding: 24,
-                  backdropFilter: "blur(5px)",
+                  alignItems: "center",
+                  fontWeight: 700,
                 }}
               >
-                <Typography
-                  variant="h6"
-                  sx={{
-                    p: 2,
-                    mb: 2,
-                    borderBottom: `1px solid ${alpha("#fff", 0.2)}`,
-                    display: "flex",
-                    alignItems: "center",
-                  }}
+                <motion.div
+                  animate={menuOpen ? { rotate: 10 } : { rotate: -5 }}
+                  transition={{ type: "spring" }}
                 >
-                  <Box
-                    component="span"
+                  <DirectionsCarIcon
                     sx={{
-                      width: 8,
-                      height: 8,
-                      bgcolor: "secondary.main",
-                      borderRadius: "50%",
                       mr: 1.5,
+                      fontSize: "1.8rem",
+                      background:
+                        "linear-gradient(45deg, #ffb74d 30%, #ff9100 90%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
                     }}
                   />
-                  Navigation
-                </Typography>
+                </motion.div>
+                <Box
+                  component="span"
+                  sx={{ textShadow: "0 2px 4px rgba(0,0,0,0.2)" }}
+                >
+                  CarShop Manager
+                </Box>
+              </Typography>
 
-                <MenuButton startIcon={<span>🏠</span>}>Home</MenuButton>
-                <MenuButton startIcon={<span>🚗</span>}>Cars</MenuButton>
-                <MenuButton startIcon={<span>👤</span>}>Profile</MenuButton>
-                <MenuButton startIcon={<span>⚙️</span>}>Settings</MenuButton>
+              {isAuthenticated && (
+                <>
+                  <IconButton
+                    color="inherit"
+                    onClick={() => setCartOpen(true)}
+                    sx={{ mr: 2 }}
+                  >
+                    <CartIcon />
+                  </IconButton>
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    onClick={handleLogout}
+                    sx={{
+                      borderWidth: 2,
+                      fontWeight: 600,
+                      "&:hover": {
+                        backgroundColor: "rgba(255,255,255,0.1)",
+                        borderWidth: 2,
+                      },
+                    }}
+                  >
+                    Exit
+                  </Button>
+                </>
+              )}
+            </Toolbar>
+          </StyledAppBar>
 
-                <Box sx={{ flexGrow: 1 }} />
+          <AnimatePresence>
+            {menuOpen && (
+              <>
+                <motion.div
+                  variants={backdropVariants}
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  onClick={toggleMenu}
+                  style={{
+                    position: "fixed",
+                    top: 64,
+                    left: 0,
+                    width: "100vw",
+                    height: "calc(100vh - 64px)",
+                    backgroundColor: "black",
+                    zIndex: 1100,
+                  }}
+                />
 
-                <Typography
-                  variant="caption"
-                  sx={{
-                    mt: 2,
-                    p: 2,
-                    color: alpha("#fff", 0.6),
-                    textAlign: "center",
+                <Box
+                  component={motion.div}
+                  variants={menuVariants}
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  style={{
+                    width: 280,
+                    height: "calc(100vh - 64px)",
+                    backgroundColor: alpha(theme.palette.primary.dark, 0.4),
+                    color: "white",
+                    position: "fixed",
+                    left: 0,
+                    top: 64,
+                    zIndex: 1200,
+                    boxShadow: 24,
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: 24,
+                    backdropFilter: "blur(5px)",
                   }}
                 >
-                  Version 1.0.0
-                </Typography>
-              </Box>
-            </>
-          )}
-        </AnimatePresence>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      p: 2,
+                      mb: 2,
+                      borderBottom: `1px solid ${alpha("#fff", 0.2)}`,
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box
+                      component="span"
+                      sx={{
+                        width: 8,
+                        height: 8,
+                        bgcolor: "secondary.main",
+                        borderRadius: "50%",
+                        mr: 1.5,
+                      }}
+                    />
+                    Navigation
+                  </Typography>
 
-        <MainContent>
-          {isAuthenticated ? (
-            <Carlist />
-          ) : showLogin ? (
-            <Login onLoginSuccess={handleLoginSuccess} />
-          ) : null}
-        </MainContent>
+                  <MenuButton
+                    startIcon={<span>🏠</span>}
+                    sx={{ color: "white" }} // Прямое указание цвета
+                  >
+                    Home
+                  </MenuButton>
+                  <MenuButton
+                    startIcon={<span>🚗</span>}
+                    sx={{ color: "white" }}
+                  >
+                    Cars
+                  </MenuButton>
+                  <MenuButton
+                    startIcon={<span>👤</span>}
+                    sx={{ color: "white" }}
+                  >
+                    Profile
+                  </MenuButton>
+                  <MenuButton
+                    startIcon={<span>⚙️</span>}
+                    sx={{ color: "white" }}
+                  >
+                    Settings
+                  </MenuButton>
 
-        <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+                  <Box sx={{ flexGrow: 1 }} />
 
-        <Box
-          component="footer"
-          sx={{
-            py: 3,
-            px: 2,
-            backgroundColor: alpha(theme.palette.primary.dark, 0.9),
-            color: "#fff",
-            textAlign: "center",
-            mt: "auto",
-            backdropFilter: "blur(5px)",
-          }}
-        >
-          <Typography variant="body2">
-            © {new Date().getFullYear()} CarShop Manager. All right reserved.
-          </Typography>
-          <Typography
-            variant="caption"
-            sx={{ display: "block", mt: 1, opacity: 0.7 }}
-          >
-            Application version: 1.0.0
-          </Typography>
-          <Typography
-            variant="caption"
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      mt: 2,
+                      p: 2,
+                      color: alpha("#fff", 0.5),
+                      textAlign: "center",
+                    }}
+                  >
+                    Version 1.0.0
+                  </Typography>
+                </Box>
+              </>
+            )}
+          </AnimatePresence>
+
+          <MainContent>
+            {isAuthenticated ? (
+              <Carlist />
+            ) : showLogin ? (
+              <Login onLoginSuccess={handleLoginSuccess} />
+            ) : null}
+          </MainContent>
+
+          <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+
+          <Box
+            component="footer"
             sx={{
-              display: "block",
-              mt: 1,
-              opacity: 0.7,
-              textDecoration: "underline",
-              textUnderlineOffset: "3px",
-              textDecorationColor: "rgba(255,255,255,0.3)",
+              py: 3,
+              px: 2,
+              backgroundColor: alpha(theme.palette.primary.dark, 0.9),
+              color: "#fff",
+              textAlign: "center",
+              mt: "auto",
+              backdropFilter: "blur(5px)",
             }}
           >
-            Author: Car_b1t
-          </Typography>
-        </Box>
-      </AppContainer>
-    </ThemeProvider>
-  </CartProvider>
-);
+            <Typography variant="body2">
+              © {new Date().getFullYear()} CarShop Manager. All right reserved.
+            </Typography>
+            <Typography
+              variant="caption"
+              sx={{ display: "block", mt: 1, opacity: 0.7 }}
+            >
+              Application version: 1.0.0
+            </Typography>
+            <Typography
+              variant="caption"
+              sx={{
+                display: "block",
+                mt: 1,
+                opacity: 0.7,
+                textDecoration: "underline",
+                textUnderlineOffset: "3px",
+                textDecorationColor: "rgba(255,255,255,0.3)",
+              }}
+            >
+              Author: Car_b1t
+            </Typography>
+          </Box>
+        </AppContainer>
+      </ThemeProvider>
+    </CartProvider>
+  );
 }
 
 export default App;
