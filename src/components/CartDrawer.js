@@ -1,4 +1,18 @@
-import { Drawer, List, ListItem, ListItemText, IconButton, Typography, Box, Button } from '@mui/material';
+import React from 'react'; 
+import { 
+  Drawer, 
+  List, 
+  ListItem, 
+  ListItemText, 
+  IconButton, 
+  Typography, 
+  Box, 
+  Button,
+  Divider,
+  Toolbar,
+  AppBar
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useCart } from './CartContext';
 
@@ -13,53 +27,78 @@ export const CartDrawer = ({ open, onClose }) => {
       onClose={onClose}
       PaperProps={{ sx: { width: 350 } }}
     >
-      <Box sx={{ p: 2 }}>
-        <Typography variant="h6">Корзина покупок</Typography>
-        
-        {cart.length === 0 ? (
-          <Typography sx={{ mt: 2 }}>Корзина пуста</Typography>
-        ) : (
-          <>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        {/* Шапка с кнопкой закрытия */}
+        <AppBar position="static" elevation={0}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={onClose}
+              aria-label="close"
+              sx={{ mr: 2 }}
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Chopping Cart
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
+        {/* Содержимое корзины */}
+        <Box sx={{ flexGrow: 1, overflow: 'auto', p: 2 }}>
+          {cart.length === 0 ? (
+            <Typography sx={{ mt: 2 }}>Cart empty</Typography>
+          ) : (
             <List>
               {cart.map(item => (
-                <ListItem 
-                  key={item.id}
-                  secondaryAction={
-                    <IconButton onClick={() => removeFromCart(item.id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  }
-                >
-                  <ListItemText
-                    primary={`${item.brand} ${item.model}`}
-                    secondary={`${item.quantity} × $${item.price}`}
-                  />
-                </ListItem>
+                <React.Fragment key={item.id}>
+                  <ListItem 
+                    secondaryAction={
+                      <IconButton 
+                        edge="end" 
+                        aria-label="delete"
+                        onClick={() => removeFromCart(item.id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    }
+                  >
+                    <ListItemText
+                      primary={`${item.brand} ${item.model}`}
+                      secondary={`${item.quantity} × $${item.price}`}
+                    />
+                  </ListItem>
+                  <Divider />
+                </React.Fragment>
               ))}
             </List>
-            
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="h6">
-                Итого: ${total.toFixed(2)}
-              </Typography>
-              <Button 
-                variant="contained" 
-                fullWidth 
-                sx={{ mt: 2 }}
-                onClick={clearCart}
-              >
-                Очистить корзину
-              </Button>
-              <Button 
-                variant="contained" 
-                color="primary" 
-                fullWidth 
-                sx={{ mt: 1 }}
-              >
-                Оформить заказ
-              </Button>
-            </Box>
-          </>
+          )}
+        </Box>
+
+        {/* Подвал с итогами */}
+        {cart.length > 0 && (
+          <Box sx={{ p: 2, borderTop: '1px solid rgba(0,0,0,0.12)' }}>
+            <Typography variant="h6" sx={{ mb: 2 }}>
+              Total: ${total.toFixed(2)}
+            </Typography>
+            <Button 
+              variant="contained" 
+              fullWidth 
+              sx={{ mb: 1 }}
+              onClick={clearCart}
+            >
+              Clear Cart
+            </Button>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              fullWidth
+            >
+              Place an order
+            </Button>
+          </Box>
         )}
       </Box>
     </Drawer>
