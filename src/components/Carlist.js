@@ -92,7 +92,7 @@ export default function Carlist() {
         </>
       ),
       headerClassName: "header-theme",
-      flex: 1,
+      flex: 0.5,
       minWidth: 150,
     },
     {
@@ -106,7 +106,7 @@ export default function Carlist() {
         </>
       ),
       headerClassName: "header-theme",
-      flex: 1,
+      flex: 0.5,
       minWidth: 150,
     },
     {
@@ -120,7 +120,7 @@ export default function Carlist() {
         </>
       ),
       headerClassName: "header-theme",
-      flex: 1,
+      flex: 0.5,
       minWidth: 150,
       renderCell: (params) => (
         <Box
@@ -168,7 +168,7 @@ export default function Carlist() {
       ),
       headerClassName: "header-theme",
       type: "number",
-      flex: 1,
+      flex: 0.5,
       minWidth: 100,
     },
     {
@@ -183,7 +183,7 @@ export default function Carlist() {
       ),
       headerClassName: "header-theme",
       type: "number",
-      flex: 1,
+      flex: 0.5,
       minWidth: 150,
       cellClassName: "price-cell",
     },
@@ -198,6 +198,7 @@ export default function Carlist() {
         </>
       ),
       headerClassName: "header-theme",
+      flex:0.5,
       sortable: false,
       width: 220,
       renderCell: (params) => (
