@@ -18,7 +18,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { motion } from "framer-motion";
 import { useCart } from "./CartContext";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const StyledHeader = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
@@ -38,10 +38,8 @@ const IconWrapper = styled(Box)(({ theme }) => ({
 export default function Carlist() {
   const [cars, setCars] = useState([]);
   const [open, setOpen] = useState(false);
-  const { addToCart} = useCart();
+  const { addToCart } = useCart();
   const [clickedCartId, setClickedCartId] = useState(null);
-
-  
 
   const updateCar = (car, link) => {
     const token = sessionStorage.getItem("jwt");
@@ -87,12 +85,10 @@ export default function Carlist() {
     {
       field: "brand",
       headerName: (
-        <>
-          <IconWrapper>
-            <DirectionsCarIcon fontSize="small" />
-          </IconWrapper>
-          Brand
-        </>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <DirectionsCarIcon fontSize="small" sx={{ mr: 1 }} />
+          <span>Brand ({cars.length})</span>
+        </Box>
       ),
       headerClassName: "header-theme",
       flex: 0.5,
@@ -249,8 +245,6 @@ export default function Carlist() {
                 },
               }}
             >
-
-              
               <DeleteIcon fontSize="small" />
               <Typography variant="caption" sx={{ ml: 0.5 }}>
                 Delete
