@@ -17,8 +17,8 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { motion } from "framer-motion";
-
-
+import { useCart } from "./CartContext";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const StyledHeader = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
@@ -38,6 +38,10 @@ const IconWrapper = styled(Box)(({ theme }) => ({
 export default function Carlist() {
   const [cars, setCars] = useState([]);
   const [open, setOpen] = useState(false);
+  const { addToCart} = useCart();
+  const [clickedCartId, setClickedCartId] = useState(null);
+
+  
 
   const updateCar = (car, link) => {
     const token = sessionStorage.getItem("jwt");
@@ -197,32 +201,64 @@ export default function Carlist() {
         </>
       ),
       headerClassName: "header-theme",
-      flex:0.5,
+      flex: 0.5,
       sortable: false,
-      width: 220,
-      renderCell: (params) => (
-        <Box sx={{ display: "flex", gap: 1 }}>
-          <EditCar
-            data={{ row: params.row, id: params.id }}
-            updateCar={updateCar}
-          />
-         
-          <IconButton
-            onClick={() => onDelClick(params.row._links.self.href)}
-            sx={{
-              color: "#ff4444",
-              "&:hover": {
-                backgroundColor: "rgba(255, 68, 68, 0.1)",
-              },
-            }}
-          >
-            <DeleteIcon fontSize="small" />
-            <Typography variant="caption" sx={{ ml: 0.5 }}>
-              Delete
-            </Typography>
-          </IconButton>
-        </Box>
-      ),
+      width: 250, // Увеличено для третьей кнопки
+      renderCell: (params) => {
+        const isClicked = clickedCartId === params.row._links.self.href;
+
+        return (
+          <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+            <EditCar
+              data={{ row: params.row, id: params.id }}
+              updateCar={updateCar}
+            />
+
+            <motion.div
+              animate={{
+                scale: isClicked ? [1, 1.2, 1] : 1,
+                rotate: isClicked ? [0, 10, -10, 0] : 0,
+              }}
+              transition={{ duration: 0.5 }}
+            >
+              <IconButton
+                onClick={() => {
+                  addToCart(params.row);
+                  setClickedCartId(params.row._links.self.href);
+                }}
+                sx={{
+                  color: "#1976d2",
+                  "&:hover": {
+                    backgroundColor: "rgba(25, 118, 210, 0.1)",
+                  },
+                }}
+              >
+                <ShoppingCartIcon fontSize="small" />
+                <Typography variant="caption" sx={{ ml: 0.5 }}>
+                  Add
+                </Typography>
+              </IconButton>
+            </motion.div>
+
+            <IconButton
+              onClick={() => onDelClick(params.row._links.self.href)}
+              sx={{
+                color: "#ff4444",
+                "&:hover": {
+                  backgroundColor: "rgba(255, 68, 68, 0.1)",
+                },
+              }}
+            >
+
+              
+              <DeleteIcon fontSize="small" />
+              <Typography variant="caption" sx={{ ml: 0.5 }}>
+                Delete
+              </Typography>
+            </IconButton>
+          </Box>
+        );
+      },
     },
   ];
 
@@ -328,7 +364,7 @@ export default function Carlist() {
           rowsPerPageOptions={[10, 20, 50]}
           getRowId={(row) => row._links.self.href}
           disableSelectionOnClick
-           disableColumnSelector// отключаем выбор колонок(был баг)
+          disableColumnSelector // отключаем выбор колонок(был баг)
         />
       </Box>
 

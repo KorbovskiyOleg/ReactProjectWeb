@@ -13,7 +13,9 @@ import Login from "./components/Login";
 import Carlist from "./components/Carlist";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { styled, alpha } from "@mui/material/styles";
-
+import { CartProvider } from "./components/CartContext";
+import { CartIcon } from "./components/CartIcon";
+import { CartDrawer } from "./components/CartDrawer";
 
 const backgroundImage = "/images/imagback.webp";
 // Улучшенная кастомная тема
@@ -114,6 +116,7 @@ function App() {
       audioRef.current.play().catch((e) => console.log("Play error:", e));
     }
   };
+  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     // Проверяем настройки пользователя
@@ -152,207 +155,217 @@ function App() {
     setMenuOpen(!menuOpen);
   };
 
-
   return (
-    <ThemeProvider theme={theme}>
-      <audio ref={audioRef} src="/sounds/background.mp3" preload="auto" />
+    <CartProvider>
+      <ThemeProvider theme={theme}>
+        <audio ref={audioRef} src="/sounds/background.mp3" preload="auto" />
 
-      {/* Кнопка/баннер для включения музыки */}
-      {!isMusicAllowed && (
-        <div
-          style={{
-            position: "fixed",
-            bottom: 20,
-            right: 20,
-            background: "rgba(0,0,0,0.7)",
-            color: "white",
-            padding: "10px 15px",
-            borderRadius: "8px",
-            zIndex: 1000,
-            cursor: "pointer",
-          }}
-          onClick={enableMusic}
-        >
-          ♫ Включить фоновую музыку
-        </div>
-      )}
+        {/* Кнопка/баннер для включения музыки */}
+        {!isMusicAllowed && (
+          <div
+            style={{
+              position: "fixed",
+              bottom: 20,
+              right: 20,
+              background: "rgba(0,0,0,0.7)",
+              color: "white",
+              padding: "10px 15px",
+              borderRadius: "8px",
+              zIndex: 1000,
+              cursor: "pointer",
+            }}
+            onClick={enableMusic}
+          >
+            ♫ Включить фоновую музыку
+          </div>
+        )}
 
-      <CssBaseline />
-      <AppContainer>
-        <StyledAppBar position="static" elevation={0}>
-          <Toolbar>
-            {isAuthenticated && (
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                onClick={toggleMenu}
-                sx={{ mr: 2 }}
+        <CssBaseline />
+        <AppContainer>
+          <StyledAppBar position="static" elevation={0}>
+            <Toolbar>
+              {isAuthenticated && (
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  onClick={toggleMenu}
+                  sx={{ mr: 2 }}
+                >
+                  {menuOpen ? <CloseIcon /> : <MenuIcon />}
+                </IconButton>
+              )}
+
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{
+                  flexGrow: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
               >
-                {menuOpen ? <CloseIcon /> : <MenuIcon />}
-              </IconButton>
-            )}
+                <DirectionsCarIcon
+                  sx={{
+                    mr: 1.5,
+                    fontSize: "1.8rem",
+                    background:
+                      "linear-gradient(45deg, #ffb74d 30%, #ff9100 90%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    transform: "rotate(-5deg)",
+                  }}
+                />
+                <Box
+                  component="span"
+                  sx={{ textShadow: "0 2px 4px rgba(0,0,0,0.2)" }}
+                >
+                  CarShop Manager
+                </Box>
+              </Typography>
 
-            <Typography
-              variant="h6"
-              component="div"
+              {isAuthenticated && (
+                <>
+                  <IconButton
+                    color="inherit"
+                    onClick={() => setCartOpen(true)}
+                    sx={{ mr: 2 }}
+                  >
+                    <CartIcon />
+                  </IconButton>
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    onClick={handleLogout}
+                    sx={{
+                      borderWidth: 2,
+                      fontWeight: 600,
+                      "&:hover": {
+                        backgroundColor: "rgba(255,255,255,0.1)",
+                        borderWidth: 2,
+                      },
+                    }}
+                  >
+                    Exit
+                  </Button>
+                </>
+              )}
+            </Toolbar>
+          </StyledAppBar>
+
+          {menuOpen && (
+            <Box
               sx={{
-                flexGrow: 1,
+                width: 280,
+                height: "calc(100vh - 64px)",
+                backgroundColor: alpha(theme.palette.primary.dark, 0.95),
+                color: "white",
+                position: "fixed",
+                left: 0,
+                top: 64,
+                zIndex: 1200,
+                boxShadow: 24,
+                transition: "transform 0.3s ease-out",
+                transform: menuOpen ? "translateX(0)" : "translateX(-100%)",
                 display: "flex",
-                alignItems: "center",
-                fontWeight: 700,
+                flexDirection: "column",
+                p: 3,
+                backdropFilter: "blur(5px)",
               }}
             >
-              <DirectionsCarIcon
+              <Typography
+                variant="h6"
                 sx={{
-                  mr: 1.5,
-                  fontSize: "1.8rem",
-                  background:
-                    "linear-gradient(45deg, #ffb74d 30%, #ff9100 90%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  transform: "rotate(-5deg)",
+                  p: 2,
+                  mb: 2,
+                  borderBottom: `1px solid ${alpha("#fff", 0.2)}`,
+                  display: "flex",
+                  alignItems: "center",
                 }}
-              />
-              <Box
-                component="span"
-                sx={{ textShadow: "0 2px 4px rgba(0,0,0,0.2)" }}
               >
-                CarShop Manager
-              </Box>
-            </Typography>
-
-            {isAuthenticated && (
-              
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  onClick={handleLogout}
+                <Box
+                  component="span"
                   sx={{
-                    borderWidth: 2,
-                    fontWeight: 600,
-                    "&:hover": {
-                      backgroundColor: "rgba(255,255,255,0.1)",
-                      borderWidth: 2,
-                    },
+                    width: 8,
+                    height: 8,
+                    bgcolor: "secondary.main",
+                    borderRadius: "50%",
+                    mr: 1.5,
                   }}
-                >
-                  Exit
-                </Button>
-            )}
-          </Toolbar>
-        </StyledAppBar>
+                />
+                Navigation
+              </Typography>
 
-        {menuOpen && (
+              <MenuButton startIcon={<span>🏠</span>}>Home</MenuButton>
+              <MenuButton startIcon={<span>🚗</span>}>Cars</MenuButton>
+              <MenuButton startIcon={<span>👤</span>}>Profile</MenuButton>
+              <MenuButton startIcon={<span>⚙️</span>}>Settings</MenuButton>
+
+              <Box sx={{ flexGrow: 1 }} />
+
+              <Typography
+                variant="caption"
+                sx={{
+                  mt: 2,
+                  p: 2,
+                  color: alpha("#fff", 0.6),
+                  textAlign: "center",
+                }}
+              >
+                Version 1.0.0
+              </Typography>
+            </Box>
+          )}
+
+          <MainContent>
+            {isAuthenticated ? (
+              <Carlist />
+            ) : showLogin ? (
+              <Login onLoginSuccess={handleLoginSuccess} />
+            ) : null}
+          </MainContent>
+
+          <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+
           <Box
+            component="footer"
             sx={{
-              width: 280,
-              height: "calc(100vh - 64px)",
-              backgroundColor: alpha(theme.palette.primary.dark, 0.95),
-              color: "white",
-              position: "fixed",
-              left: 0,
-              top: 64,
-              zIndex: 1200,
-              boxShadow: 24,
-              transition: "transform 0.3s ease-out",
-              transform: menuOpen ? "translateX(0)" : "translateX(-100%)",
-              display: "flex",
-              flexDirection: "column",
-              p: 3,
+              py: 3,
+              px: 2,
+              backgroundColor: alpha(theme.palette.primary.dark, 0.9),
+              color: "#fff",
+              textAlign: "center",
+              mt: "auto",
               backdropFilter: "blur(5px)",
             }}
           >
-            <Typography
-              variant="h6"
-              sx={{
-                p: 2,
-                mb: 2,
-                borderBottom: `1px solid ${alpha("#fff", 0.2)}`,
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <Box
-                component="span"
-                sx={{
-                  width: 8,
-                  height: 8,
-                  bgcolor: "secondary.main",
-                  borderRadius: "50%",
-                  mr: 1.5,
-                }}
-              />
-              Navigation
+            <Typography variant="body2">
+              © {new Date().getFullYear()} CarShop Manager. All right reserved.
             </Typography>
-
-            <MenuButton startIcon={<span>🏠</span>}>Home</MenuButton>
-            <MenuButton startIcon={<span>🚗</span>}>Cars</MenuButton>
-            <MenuButton startIcon={<span>👤</span>}>Profile</MenuButton>
-            <MenuButton startIcon={<span>⚙️</span>}>Settings</MenuButton>
-
-            <Box sx={{ flexGrow: 1 }} />
-
+            <Typography
+              variant="caption"
+              sx={{ display: "block", mt: 1, opacity: 0.7 }}
+            >
+              Application version: 1.0.0
+            </Typography>
             <Typography
               variant="caption"
               sx={{
-                mt: 2,
-                p: 2,
-                color: alpha("#fff", 0.6),
-                textAlign: "center",
+                display: "block",
+                mt: 1,
+                opacity: 0.7,
+                textDecoration: "underline",
+                textUnderlineOffset: "3px",
+                textDecorationColor: "rgba(255,255,255,0.3)",
               }}
             >
-              Version 1.0.0
+              Author: Car_b1t
             </Typography>
           </Box>
-        )}
-
-        <MainContent>
-          {isAuthenticated ? (
-            <Carlist />
-          ) : showLogin ? (
-            <Login onLoginSuccess={handleLoginSuccess} />
-          ) : // </Box>
-          null}
-        </MainContent>
-
-        <Box
-          component="footer"
-          sx={{
-            py: 3,
-            px: 2,
-            backgroundColor: alpha(theme.palette.primary.dark, 0.9),
-            color: "#fff",
-            textAlign: "center",
-            mt: "auto",
-            backdropFilter: "blur(5px)",
-          }}
-        >
-          <Typography variant="body2">
-            © {new Date().getFullYear()} CarShop Manager. All right reserved.
-          </Typography>
-          <Typography
-            variant="caption"
-            sx={{ display: "block", mt: 1, opacity: 0.7 }}
-          >
-            Application version: 1.0.0
-          </Typography>
-          <Typography
-            variant="caption"
-            sx={{
-              display: "block",
-              mt: 1,
-              opacity: 0.7,
-              textDecoration: "underline", // Добавляем подчеркивание
-              textUnderlineOffset: "3px", // Отступ подчеркивания от текста (опционально)
-              textDecorationColor: "rgba(255,255,255,0.3)", // Цвет подчеркивания (опционально)
-            }}
-          >
-            Author: Car_b1t
-          </Typography>
-        </Box>
-      </AppContainer>
-    </ThemeProvider>
+        </AppContainer>
+      </ThemeProvider>
+    </CartProvider>
   );
 }
 
