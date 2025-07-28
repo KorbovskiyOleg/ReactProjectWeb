@@ -8,7 +8,7 @@ import {
   Button,
   useTheme,
   Container,
-  Stack
+  Stack,
 } from "@mui/material";
 import {
   DirectionsCar as CarsIcon,
@@ -18,6 +18,7 @@ import {
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import WeatherWidget from "./WeatherWidget";
 
 // Анимация для карточек
 const cardVariants = {
@@ -67,46 +68,70 @@ const HomePage = () => {
     },
   ];
 
-return (
-    <Container maxWidth="xl" sx={{ display: 'flex', p: 4 }}>
+  return (
+    <Container maxWidth="xl" sx={{ display: "flex", p: 4 }}>
       {/* Левая часть - Приветствие и контент */}
-      <Box sx={{ 
-        flex: 1, 
-        pr: 4,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center'
-      }}>
+      <Box
+        sx={{
+          flex: 1,
+          pr: 4,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          position: "relative",
+          //minHeight: '60vh' // Добавляем для правильного позиционирования
+        }}
+      >
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Typography variant="h3" gutterBottom sx={{ 
-            mb: 3,
-            fontWeight: 700,
-            color: theme.palette.primary.dark
-          }}>
+          <Typography
+            variant="h3"
+            gutterBottom
+            sx={{
+              mb: 3,
+              fontWeight: 700,
+              color: theme.palette.primary.dark,
+            }}
+          >
             Welcome to CarShop Manager!
           </Typography>
-          
-          <Typography variant="subtitle1" sx={{ 
-            mb: 4,
-            fontSize: '1.1rem',
-            lineHeight: 1.9,
-            fontWeight: 'bold'
-          }}>
+
+          <Typography
+            variant="subtitle1"
+            sx={{
+              mb: 4,
+              fontSize: "1.1rem",
+              lineHeight: 1.9,
+              fontWeight: "bold",
+            }}
+          >
             Hello! My name is Oleg Korbovsky and this is my fierst application!!
             I hope you like everything!!!
           </Typography>
         </motion.div>
+        <Box
+          sx={{
+            position: "absolute",
+            left: 0,
+            bottom: -50, // Опускаем на 50px вниз от текущей позиции
+            width: "100%",
+            maxWidth: 350,
+          }}
+        >
+          <WeatherWidget/>
+        </Box>
       </Box>
 
       {/* Правая часть - Карточки */}
-      <Box sx={{ 
-        width: '45%',
-        position: 'relative'
-      }}>
+      <Box
+        sx={{
+          width: "45%",
+          position: "relative",
+        }}
+      >
         <Stack spacing={3}>
           {features.map((item, index) => (
             <motion.div
@@ -117,39 +142,39 @@ return (
               whileHover={{ scale: 1.03 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card 
-                sx={{ 
-                  cursor: 'pointer',
+              <Card
+                sx={{
+                  cursor: "pointer",
                   borderRadius: 3,
                   boxShadow: 3,
-                  transition: 'all 0.3s',
-                  '&:hover': {
-                    boxShadow: 6
-                  }
+                  transition: "all 0.3s",
+                  "&:hover": {
+                    boxShadow: 6,
+                  },
                 }}
                 onClick={item.action}
               >
-                <CardContent sx={{ 
-                  display: 'flex',
-                  alignItems: 'center',
-                  p: 3
-                }}>
-                  <Box sx={{ 
-                    color: item.color,
-                    mr: 3,
-                    fontSize: '2rem'
-                  }}>
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    p: 3,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      color: item.color,
+                      mr: 3,
+                      fontSize: "2rem",
+                    }}
+                  >
                     {item.icon}
                   </Box>
                   <Box>
                     <Typography variant="h6" component="div">
                       {item.title}
                     </Typography>
-                    <Button 
-                      variant="outlined" 
-                      size="small" 
-                      sx={{ mt: 1 }}
-                    >
+                    <Button variant="outlined" size="small" sx={{ mt: 1 }}>
                       Go to →
                     </Button>
                   </Box>
