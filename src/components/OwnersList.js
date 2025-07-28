@@ -19,7 +19,7 @@ const OwnersList = () => {
   return (
     <Box sx={{ height: 600, width: "100%" }}>
       <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
-        Владельцы автомобилей
+        Owners Cars
       </Typography>
       <DataGrid
         rows={owners}

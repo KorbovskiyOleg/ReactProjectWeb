@@ -19,6 +19,8 @@ import { CartIcon } from "./components/CartIcon";
 import { CartDrawer } from "./components/CartDrawer";
 import { AnimatePresence, motion } from "framer-motion";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import HomePage from "./components/HomePage";
+
 
 const backgroundImage = "/images/imagback.webp";
 
@@ -166,12 +168,12 @@ function App() {
 
   const handleLoginSuccess = () => {
     if (audioRef.current) {
-      audioRef.current.currentTime = 0;
+      audioRef.current.currentTime = 5;
       audioRef.current.play().catch((e) => console.log("Auto-play prevented:", e));
     }
     setAuth(true);
     setShowLogin(false);
-    navigate("/");
+    navigate("/");// перенаправление на страницу
   };
 
   const handleLogout = () => {
@@ -422,8 +424,9 @@ function App() {
           <MainContent>
             <Routes>
               <Route path="/" element={
-                isAuthenticated ? <Carlist /> : showLogin ? <Login onLoginSuccess={handleLoginSuccess} /> : null
+                isAuthenticated ? <HomePage /> : showLogin ? <Login onLoginSuccess={handleLoginSuccess} /> : null
               } />
+              <Route path="/home" element={isAuthenticated ? <HomePage /> : <Login onLoginSuccess={handleLoginSuccess} />} />
               <Route path="/cars" element={isAuthenticated ? <Carlist /> : <Login onLoginSuccess={handleLoginSuccess} />} />
               <Route path="/owners" element={isAuthenticated ? <OwnersList /> : <Login onLoginSuccess={handleLoginSuccess} />} />
               <Route path="/settings" element={isAuthenticated ? <div>Settings Page</div> : <Login onLoginSuccess={handleLoginSuccess} />} />
