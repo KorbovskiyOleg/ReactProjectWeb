@@ -11,16 +11,17 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import Login from "./components/Login";
 import Carlist from "./components/Carlist";
+import OwnersList from "./components/OwnersList";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { styled, alpha } from "@mui/material/styles";
 import { CartProvider } from "./components/CartContext";
 import { CartIcon } from "./components/CartIcon";
 import { CartDrawer } from "./components/CartDrawer";
 import { AnimatePresence, motion } from "framer-motion";
-//import { alpha } from '@mui/material/styles';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 const backgroundImage = "/images/imagback.webp";
-// Улучшенная кастомная тема
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -34,7 +35,7 @@ const theme = createTheme({
       dark: "#a30021",
     },
     background: {
-      default: "rgba(249, 249, 249, 0.4)", // Полупрозрачный фон для лучшей читаемости
+      default: "rgba(249, 249, 249, 0.4)",
       paper: "rgba(255, 255, 255, 0.7)",
     },
   },
@@ -65,7 +66,7 @@ const AppContainer = styled("div")({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.3)", // Затемнение фона для лучшей читаемости
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
     zIndex: -1,
   },
 });
@@ -77,7 +78,7 @@ const MainContent = styled("main")(({ theme }) => ({
     padding: theme.spacing(2),
   },
   backgroundColor: theme.palette.background.default,
-  backdropFilter: "blur(1px)", // Эффект размытия
+  backdropFilter: "blur(1px)",
   borderRadius: theme.shape.borderRadius,
   margin: theme.spacing(2),
   boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
@@ -137,7 +138,10 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const audioRef = useRef(null);
   const [isMusicAllowed, setIsMusicAllowed] = useState(false);
-  // Предложение включить музыку
+  const [cartOpen, setCartOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const enableMusic = () => {
     setIsMusicAllowed(true);
     localStorage.setItem("musicAllowed", "true");
@@ -145,10 +149,8 @@ function App() {
       audioRef.current.play().catch((e) => console.log("Play error:", e));
     }
   };
-  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
-    // Проверяем настройки пользователя
     if (localStorage.getItem("musicAllowed") === "true") {
       setIsMusicAllowed(true);
     }
@@ -156,21 +158,20 @@ function App() {
 
   useEffect(() => {
     if (isMusicAllowed && audioRef.current) {
-      audioRef.current.loop = true; // Зацикливание
-      audioRef.current.volume = 0.2; // Громкость 30%
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.2;
       audioRef.current.play().catch((e) => console.log("Auto-play blocked"));
     }
   }, [isMusicAllowed]);
 
   const handleLoginSuccess = () => {
     if (audioRef.current) {
-      audioRef.current.currentTime = 0; // Перематываем на начало
-      audioRef.current
-        .play()
-        .catch((e) => console.log("Auto-play prevented:", e));
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch((e) => console.log("Auto-play prevented:", e));
     }
     setAuth(true);
     setShowLogin(false);
+    navigate("/");
   };
 
   const handleLogout = () => {
@@ -178,10 +179,16 @@ function App() {
     setAuth(false);
     setShowLogin(true);
     setMenuOpen(false);
+    navigate("/");
   };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    setMenuOpen(false);
   };
 
   return (
@@ -189,7 +196,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <audio ref={audioRef} src="/sounds/background.mp3" preload="auto" />
 
-        {/* Кнопка включения музыки */}
         {!isMusicAllowed && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -356,25 +362,41 @@ function App() {
 
                   <MenuButton
                     startIcon={<span>🏠</span>}
-                    sx={{ color: "white" }} // Прямое указание цвета
+                    sx={{ 
+                      color: "white",
+                      backgroundColor: location.pathname === "/" ? alpha(theme.palette.primary.light, 0.3) : "transparent"
+                    }}
+                    onClick={() => handleNavigation("/")}
                   >
                     Home
                   </MenuButton>
                   <MenuButton
                     startIcon={<span>🚗</span>}
-                    sx={{ color: "white" }}
+                    sx={{ 
+                      color: "white",
+                      backgroundColor: location.pathname === "/cars" ? alpha(theme.palette.primary.light, 0.3) : "transparent"
+                    }}
+                    onClick={() => handleNavigation("/cars")}
                   >
                     Cars
                   </MenuButton>
                   <MenuButton
                     startIcon={<span>👤</span>}
-                    sx={{ color: "white" }}
+                    sx={{ 
+                      color: "white",
+                      backgroundColor: location.pathname === "/owners" ? alpha(theme.palette.primary.light, 0.3) : "transparent"
+                    }}
+                    onClick={() => handleNavigation("/owners")}
                   >
-                    Profile
+                    Owners
                   </MenuButton>
                   <MenuButton
                     startIcon={<span>⚙️</span>}
-                    sx={{ color: "white" }}
+                    sx={{ 
+                      color: "white",
+                      backgroundColor: location.pathname === "/settings" ? alpha(theme.palette.primary.light, 0.3) : "transparent"
+                    }}
+                    onClick={() => handleNavigation("/settings")}
                   >
                     Settings
                   </MenuButton>
@@ -398,11 +420,14 @@ function App() {
           </AnimatePresence>
 
           <MainContent>
-            {isAuthenticated ? (
-              <Carlist />
-            ) : showLogin ? (
-              <Login onLoginSuccess={handleLoginSuccess} />
-            ) : null}
+            <Routes>
+              <Route path="/" element={
+                isAuthenticated ? <Carlist /> : showLogin ? <Login onLoginSuccess={handleLoginSuccess} /> : null
+              } />
+              <Route path="/cars" element={isAuthenticated ? <Carlist /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+              <Route path="/owners" element={isAuthenticated ? <OwnersList /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+              <Route path="/settings" element={isAuthenticated ? <div>Settings Page</div> : <Login onLoginSuccess={handleLoginSuccess} />} />
+            </Routes>
           </MainContent>
 
           <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
@@ -448,4 +473,10 @@ function App() {
   );
 }
 
-export default App;
+export default function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
