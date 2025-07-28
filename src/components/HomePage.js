@@ -2,11 +2,13 @@ import React from "react";
 import {
   Box,
   Typography,
-  Grid,
+  //Grid,
   Card,
   CardContent,
   Button,
   useTheme,
+  Container,
+  Stack
 } from "@mui/material";
 import {
   DirectionsCar as CarsIcon,
@@ -65,87 +67,99 @@ const HomePage = () => {
     },
   ];
 
-  return (
-    <Box sx={{ p: 4 }}>
-      
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>
-          Welcome to CarShop Manager!
-        </Typography>
-      </motion.div>
+return (
+    <Container maxWidth="xl" sx={{ display: 'flex', p: 4 }}>
+      {/* Левая часть - Приветствие и контент */}
+      <Box sx={{ 
+        flex: 1, 
+        pr: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}>
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Typography variant="h3" gutterBottom sx={{ 
+            mb: 3,
+            fontWeight: 700,
+            color: theme.palette.primary.dark
+          }}>
+            Welcome to CarShop Manager!
+          </Typography>
+          
+          <Typography variant="subtitle1" sx={{ 
+            mb: 4,
+            fontSize: '1.1rem',
+            lineHeight: 1.9,
+            fontWeight: 'bold'
+          }}>
+            Hello! My name is Oleg Korbovsky and this is my fierst application!!
+            I hope you like everything!!!
+          </Typography>
+        </motion.div>
+      </Box>
 
-      {/* Быстрые действия */}
-      <Grid container spacing={4}>
-        {features.map((item, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+      {/* Правая часть - Карточки */}
+      <Box sx={{ 
+        width: '45%',
+        position: 'relative'
+      }}>
+        <Stack spacing={3}>
+          {features.map((item, index) => (
             <motion.div
+              key={index}
               initial="offscreen"
               animate="onscreen"
               variants={cardVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03 }}
+              transition={{ delay: index * 0.1 }}
             >
-            <Card
-              sx={{
-                height: "100%",
-                cursor: "pointer",
-                transition: "transform 0.3s",
-                "&:hover": {
-                  transform: "scale(1.05)",
-                  boxShadow: 6,
-                },
-              }}
-              onClick={item.action}
-            >
-              <CardContent sx={{ textAlign: "center", py: 4 }}>
-                <Box
-                  sx={{
+              <Card 
+                sx={{ 
+                  cursor: 'pointer',
+                  borderRadius: 3,
+                  boxShadow: 3,
+                  transition: 'all 0.3s',
+                  '&:hover': {
+                    boxShadow: 6
+                  }
+                }}
+                onClick={item.action}
+              >
+                <CardContent sx={{ 
+                  display: 'flex',
+                  alignItems: 'center',
+                  p: 3
+                }}>
+                  <Box sx={{ 
                     color: item.color,
-                    mb: 2,
-                  }}
-                >
-                  {item.icon}
-                </Box>
-                <Typography variant="h6" component="div">
-                  {item.title}
-                </Typography>
-                <Button variant="outlined" size="small" sx={{ mt: 2 }}>
-                  Go to
-                </Button>
-              </CardContent>
-            </Card>
+                    mr: 3,
+                    fontSize: '2rem'
+                  }}>
+                    {item.icon}
+                  </Box>
+                  <Box>
+                    <Typography variant="h6" component="div">
+                      {item.title}
+                    </Typography>
+                    <Button 
+                      variant="outlined" 
+                      size="small" 
+                      sx={{ mt: 1 }}
+                    >
+                      Go to →
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
             </motion.div>
-          </Grid>
-        ))}
-      </Grid>
-
-      {/* Последние действия/статистика */}
-
-        <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-      >
-      <Box sx={{ mt: 6 }}>
-        <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-          Last activity
-        </Typography>
-        <Box
-          sx={{
-            p: 3,
-            backgroundColor: theme.palette.background.paper,
-            borderRadius: 2,
-          }}
-        >
-          <Typography>Statistic and react activity...</Typography>
-        </Box>
+          ))}
+        </Stack>
       </Box>
-      </motion.div>
-    </Box>
+    </Container>
   );
 };
 
