@@ -227,7 +227,7 @@ export default function Carlist() {
         <motion.div variants={headerVariants}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <AttachMoneyIcon fontSize="small" sx={{ mr: 1 }} />
-            <span>Price ($)</span>
+            <span>Price</span>
           </Box>
         </motion.div>
       ),
