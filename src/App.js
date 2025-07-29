@@ -403,6 +403,16 @@ function App() {
                   >
                     Settings
                   </MenuButton>
+                  <MenuButton
+                    //startIcon={<span>⚙️</span>}
+                    sx={{ 
+                      color: "white",
+                      backgroundColor: location.pathname === "/about me" ? alpha(theme.palette.primary.light, 0.3) : "transparent"
+                    }}
+                    onClick={() => handleNavigation("/about me")}
+                  >
+                    ABOUT ME
+                  </MenuButton>
 
                   <Box sx={{ flexGrow: 1 }} />
 
@@ -432,6 +442,7 @@ function App() {
               <Route path="/owners" element={isAuthenticated ? <OwnersList /> : <Login onLoginSuccess={handleLoginSuccess} />} />
               <Route path="/settings" element={isAuthenticated ? <div>Settings Page</div> : <Login onLoginSuccess={handleLoginSuccess} />} />
               <Route path="/stats" element={isAuthenticated ? <StatsPage /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+              
             </Routes>
           </MainContent>
 
