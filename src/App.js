@@ -197,7 +197,7 @@ function App() {
   return (
     <CartProvider>
       <ThemeProvider theme={theme}>
-        <audio ref={audioRef} src="/sounds/background.mp3" preload="auto" />
+        <audio ref={audioRef} src="/sounds/back1.mp3" preload="auto" />
 
         {!isMusicAllowed && (
           <motion.div
