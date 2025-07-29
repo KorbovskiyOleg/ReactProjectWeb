@@ -112,17 +112,22 @@ const HomePage = () => {
             I hope you like everything!!!
           </Typography>
         </motion.div>
-        <Box
-          sx={{
+        <motion.div
+          initial={{ opacity: 0, y: 0 }}
+          animate={{ opacity: 1, y: 8 }}
+          transition={{ duration: 0.6, ease: "easeOut"}}
+          style={{
             position: "absolute",
-            left: 0,
-            bottom: -50, // Опускаем на 50px вниз от текущей позиции
+            left: 0, // Пример позиционирования
+            bottom: -50,
             width: "100%",
             maxWidth: 350,
           }}
         >
-          <WeatherWidget/>
-        </Box>
+          <Box>
+            <WeatherWidget />
+          </Box>
+        </motion.div>
       </Box>
 
       {/* Правая часть - Карточки */}

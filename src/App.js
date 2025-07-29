@@ -364,7 +364,7 @@ function App() {
                   </Typography>
 
                   <MenuButton
-                    startIcon={<span>🏠</span>}
+                    //startIcon={<span>🏠</span>}
                     sx={{ 
                       color: "white",
                       backgroundColor: location.pathname === "/" ? alpha(theme.palette.primary.light, 0.3) : "transparent"
@@ -374,7 +374,7 @@ function App() {
                     Home
                   </MenuButton>
                   <MenuButton
-                    startIcon={<span>🚗</span>}
+                    //startIcon={<span>🚗</span>}
                     sx={{ 
                       color: "white",
                       backgroundColor: location.pathname === "/cars" ? alpha(theme.palette.primary.light, 0.3) : "transparent"
@@ -384,7 +384,7 @@ function App() {
                     Cars
                   </MenuButton>
                   <MenuButton
-                    startIcon={<span>👤</span>}
+                    //startIcon={<span>👤</span>}
                     sx={{ 
                       color: "white",
                       backgroundColor: location.pathname === "/owners" ? alpha(theme.palette.primary.light, 0.3) : "transparent"
@@ -394,7 +394,7 @@ function App() {
                     Owners
                   </MenuButton>
                   <MenuButton
-                    startIcon={<span>⚙️</span>}
+                    //startIcon={<span>⚙️</span>}
                     sx={{ 
                       color: "white",
                       backgroundColor: location.pathname === "/settings" ? alpha(theme.palette.primary.light, 0.3) : "transparent"
