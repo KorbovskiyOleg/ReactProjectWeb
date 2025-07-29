@@ -18,13 +18,13 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useCart } from "./CartContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
+import ExportData from "./ExportData";
 
 const itemVariants = {
-  hidden: { 
+  hidden: {
     opacity: 0,
     y: 20,
-    x: (i) => (i % 3 === 0 ? -50 : i % 3 === 1 ? 50 : 0)
+    x: (i) => (i % 3 === 0 ? -50 : i % 3 === 1 ? 50 : 0),
   },
   visible: (i) => ({
     opacity: 1,
@@ -36,20 +36,18 @@ const itemVariants = {
       type: "spring",
       stiffness: 100,
       damping: 15,
-      ease: [0.16, 1, 0.3, 1]
-    }
+      ease: [0.16, 1, 0.3, 1],
+    },
   }),
-  
 };
 
 const headerVariants = {
   hidden: { opacity: 0, y: -50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 100 } 
+    transition: { type: "spring", stiffness: 100 },
   },
-  
 };
 
 const StyledHeader = styled(Typography)(({ theme }) => ({
@@ -58,8 +56,6 @@ const StyledHeader = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   fontSize: "1.8rem",
 }));
-
-
 
 export default function Carlist() {
   const [cars, setCars] = useState([]);
@@ -127,11 +123,16 @@ export default function Carlist() {
         <motion.div
           custom={params.rowIndex}
           variants={itemVariants}
-          style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
         >
           {params.value}
         </motion.div>
-      )
+      ),
     },
     {
       field: "model",
@@ -150,11 +151,16 @@ export default function Carlist() {
         <motion.div
           custom={params.rowIndex + 0.3}
           variants={itemVariants}
-          style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
         >
           {params.value}
         </motion.div>
-      )
+      ),
     },
     {
       field: "color",
@@ -173,7 +179,12 @@ export default function Carlist() {
         <motion.div
           custom={params.rowIndex + 0.6}
           variants={itemVariants}
-          style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
         >
           <Box
             sx={{
@@ -196,7 +207,7 @@ export default function Carlist() {
             {params.value}
           </Typography>
         </motion.div>
-      )
+      ),
     },
     {
       field: "make",
@@ -215,11 +226,16 @@ export default function Carlist() {
         <motion.div
           custom={params.rowIndex + 0.9}
           variants={itemVariants}
-          style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', }}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
         >
           {params.value}
         </motion.div>
-      )
+      ),
     },
     {
       field: "price",
@@ -239,11 +255,19 @@ export default function Carlist() {
         <motion.div
           custom={params.rowIndex + 1.2}
           variants={itemVariants}
-          style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
         >
-          {params.value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+          {params.value.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          })}
         </motion.div>
-      )
+      ),
     },
     {
       field: "actions",
@@ -266,7 +290,12 @@ export default function Carlist() {
           <motion.div
             custom={params.rowIndex + 1.5}
             variants={itemVariants}
-            style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
           >
             <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
               <EditCar
@@ -365,6 +394,14 @@ export default function Carlist() {
     }
   };
 
+  const exportData = cars.map((car) => ({
+    Марка: car.brand,
+    Модель: car.model,
+    Год: car.year,
+    Цвет: car.color,
+    Цена: car.price,
+    VIN: car.vin,
+  }));
 
   return (
     <Box sx={{ width: "100%", p: 3 }}>
@@ -396,15 +433,20 @@ export default function Carlist() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ delay: 0.4 }}
-            >
-              <Box sx={{ mb: 3 }}>
-                <AddCar addCar={addCar} />
-              </Box>
-            </motion.div>
+  initial={{ opacity: 0, scale: 0.9 }}
+  animate={{ opacity: 1, scale: 1 }}
+  exit={{ opacity: 0, scale: 0.9 }}
+  transition={{ delay: 0.4 }}
+>
+  <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+    <Box>
+      <AddCar addCar={addCar} />
+    </Box>
+    <Box sx={{ mt: 1 }}>
+      <ExportData data={exportData} fileName="cars_export" />
+    </Box>
+  </Box>
+</motion.div>
 
             <motion.div
               initial="hidden"
@@ -420,7 +462,6 @@ export default function Carlist() {
                     color: "#ffffff !important",
                     fontSize: "0.875rem",
                     fontWeight: "bold",
-                    
                   },
                   "& .MuiDataGrid-cell": {
                     borderBottom: "1px solid #f0f0f0",
@@ -428,7 +469,6 @@ export default function Carlist() {
                       fontWeight: "bold",
                       color: "#2e7d32",
                     },
-                    
                   },
                   "& .MuiDataGrid-root": {
                     border: "none",
@@ -445,7 +485,7 @@ export default function Carlist() {
               >
                 <DataGrid
                   rows={cars}
-                  columns={columns.map(col => ({
+                  columns={columns.map((col) => ({
                     ...col,
                     renderCell: (params) => (
                       <motion.div
@@ -454,11 +494,17 @@ export default function Carlist() {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center',transitionDelay: `${params.rowIndex * 0.1}s` }}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          transitionDelay: `${params.rowIndex * 0.1}s`,
+                        }}
                       >
                         {col.renderCell ? col.renderCell(params) : params.value}
                       </motion.div>
-                    )
+                    ),
                   }))}
                   pageSize={10}
                   rowsPerPageOptions={[10, 20, 50]}
@@ -468,22 +514,28 @@ export default function Carlist() {
                   loading={isLoading}
                   components={{
                     LoadingOverlay: () => (
-                      <Box sx={{ 
-                        display: 'flex', 
-                        justifyContent: 'center', 
-                        alignItems: 'center', 
-                        height: '100%',
-                        backgroundColor: 'rgba(255, 255, 255, 0.7)'
-                      }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "100%",
+                          backgroundColor: "rgba(255, 255, 255, 0.7)",
+                        }}
+                      >
                         <motion.div
                           animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                          style={{ fontSize: '3rem' }}
+                          transition={{
+                            duration: 1,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          style={{ fontSize: "3rem" }}
                         >
                           🚗
                         </motion.div>
                       </Box>
-                    )
+                    ),
                   }}
                 />
               </Box>
