@@ -21,6 +21,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import StatsPage from "./components/StatsPage";
+import SettingsPage from "./components/SettingsPage";
+//import MainPage from './components/MainPage'; 
 
 
 const backgroundImage = "/images/imagback.webp";
@@ -440,7 +442,7 @@ function App() {
               <Route path="/home" element={isAuthenticated ? <HomePage /> : <Login onLoginSuccess={handleLoginSuccess} />} />
               <Route path="/cars" element={isAuthenticated ? <Carlist /> : <Login onLoginSuccess={handleLoginSuccess} />} />
               <Route path="/owners" element={isAuthenticated ? <OwnersList /> : <Login onLoginSuccess={handleLoginSuccess} />} />
-              <Route path="/settings" element={isAuthenticated ? <div>Settings Page</div> : <Login onLoginSuccess={handleLoginSuccess} />} />
+              <Route path="/settings" element={isAuthenticated ? <SettingsPage/> : <Login onLoginSuccess={handleLoginSuccess} />} />
               <Route path="/stats" element={isAuthenticated ? <StatsPage /> : <Login onLoginSuccess={handleLoginSuccess} />} />
               
             </Routes>
