@@ -10,10 +10,19 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  Slider,
+  Stack,
   //TextField
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { CloudUpload, Palette, Language, Notifications } from '@mui/icons-material';
+import { 
+  
+  VolumeUp, // Иконка громкости
+  VolumeDown,
+  VolumeOff 
+} from '@mui/icons-material';
+
 
 const Settings = () => {
   // Состояния для настроек
@@ -22,6 +31,8 @@ const Settings = () => {
   const [notifications, setNotifications] = useState(true);
   const [odometerUnit, setOdometerUnit] = useState('km');
   const [backupEnabled, setBackupEnabled] = useState(false);
+  const [volume, setVolume] = useState(70);
+
 
   // Обработчики
   const handleExportBackup = () => {
@@ -69,6 +80,71 @@ const Settings = () => {
           </FormControl>
         </Box>
       </motion.div>
+
+      {/* Блок настроек звука */}
+<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+  <Box sx={{ 
+    mb: 4, 
+    p: 3, 
+    bgcolor: 'background.paper', 
+    borderRadius: 2, 
+    boxShadow: 1 
+  }}>
+    <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
+      <VolumeUp color="primary" sx={{ mr: 1 }} />
+      Настройки звука
+    </Typography>
+
+    <Box sx={{ width: '100%', px: 2 }}>
+      <Stack spacing={2} direction="row" alignItems="center">
+        {volume === 0 ? (
+          <VolumeOff color="action" />
+        ) : volume < 50 ? (
+          <VolumeDown color="action" />
+        ) : (
+          <VolumeUp color="action" />
+        )}
+        
+        <Slider
+          value={volume}
+          onChange={(e, newValue) => setVolume(newValue)}
+          aria-labelledby="volume-slider"
+          sx={{
+            color: 'primary.main',
+            '& .MuiSlider-thumb': {
+              width: 16,
+              height: 16,
+              transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
+              '&:hover, &.Mui-focusVisible': {
+                boxShadow: '0 0 0 8px rgba(25, 118, 210, 0.16)'
+              },
+              '&.Mui-active': {
+                width: 20,
+                height: 20
+              }
+            }
+          }}
+        />
+        
+        <Typography variant="body1" sx={{ minWidth: 40, textAlign: 'right' }}>
+          {volume}%
+        </Typography>
+      </Stack>
+    </Box>
+
+    <FormControlLabel
+      control={
+        <Switch 
+          checked={volume > 0}
+          onChange={(e) => setVolume(e.target.checked ? 50 : 0)}
+          color="primary"
+        />
+      }
+      label="Звуковые уведомления"
+      sx={{ mt: 2 }}
+    />
+  </Box>
+</motion.div>
 
       {/* Блок языка и единиц измерения */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
