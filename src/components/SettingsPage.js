@@ -1,75 +1,90 @@
-import React, { useState } from 'react';
-import { 
-  Box, 
-  Typography, 
-  Switch, 
-  FormControlLabel, 
-  //Divider, 
+import React, { useState } from "react";
+import {
+  Box,
+  Typography,
+  Switch,
+  FormControlLabel,
+  //Divider,
   Button,
-  Select, 
+  Select,
   MenuItem,
   InputLabel,
   FormControl,
   Slider,
   Stack,
   //TextField
-} from '@mui/material';
-import { motion } from 'framer-motion';
-import { CloudUpload, Palette, Language, Notifications } from '@mui/icons-material';
-import { 
-  
+} from "@mui/material";
+import { motion } from "framer-motion";
+import {
+  CloudUpload,
+  Palette,
+  Language,
+  Notifications,
+} from "@mui/icons-material";
+import {
   VolumeUp, // Иконка громкости
   VolumeDown,
-  VolumeOff 
-} from '@mui/icons-material';
-
+  VolumeOff,
+} from "@mui/icons-material";
+import { useAudio } from "../context/AudioContext";
 
 const Settings = () => {
   // Состояния для настроек
   const [darkMode, setDarkMode] = useState(false);
-  const [language, setLanguage] = useState('ru');
+  const [language, setLanguage] = useState("ru");
   const [notifications, setNotifications] = useState(true);
-  const [odometerUnit, setOdometerUnit] = useState('km');
+  const [odometerUnit, setOdometerUnit] = useState("km");
   const [backupEnabled, setBackupEnabled] = useState(false);
-  const [volume, setVolume] = useState(70);
-
+  const { volume, setVolume, isMusicAllowed, enableMusic } = useAudio();
 
   // Обработчики
   const handleExportBackup = () => {
-    console.log('Создание резервной копии...');
+    console.log("Создание резервной копии...");
     // Здесь будет логика экспорта
   };
 
   return (
-    <Box sx={{ p: 3, maxWidth: 800, mx: 'auto' }}>
+    <Box sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
       <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
         Настройки приложения
       </Typography>
 
       {/* Блок внешнего вида */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
-        <Box sx={{ mb: 4, p: 3, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.1 }}
+      >
+        <Box
+          sx={{
+            mb: 4,
+            p: 3,
+            bgcolor: "background.paper",
+            borderRadius: 2,
+            boxShadow: 1,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <Palette color="primary" sx={{ mr: 1 }} />
             <Typography variant="h6">Внешний вид</Typography>
           </Box>
-          
+
           <FormControlLabel
             control={
-              <Switch 
-                checked={darkMode} 
-                onChange={() => setDarkMode(!darkMode)} 
+              <Switch
+                checked={darkMode}
+                onChange={() => setDarkMode(!darkMode)}
                 color="primary"
               />
             }
             label="Тёмная тема"
             sx={{ mb: 1 }}
           />
-          
+
           <FormControl fullWidth sx={{ mt: 2 }}>
             <InputLabel>Цвет акцента</InputLabel>
             <Select
-              value={'blue'}
+              value={"blue"}
               label="Цвет акцента"
               onChange={(e) => console.log(e.target.value)}
             >
@@ -82,78 +97,127 @@ const Settings = () => {
       </motion.div>
 
       {/* Блок настроек звука */}
-<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
-  <Box sx={{ 
-    mb: 4, 
-    p: 3, 
-    bgcolor: 'background.paper', 
-    borderRadius: 2, 
-    boxShadow: 1 
-  }}>
-    <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
-      <VolumeUp color="primary" sx={{ mr: 1 }} />
-      Настройки звука
-    </Typography>
-
-    <Box sx={{ width: '100%', px: 2 }}>
-      <Stack spacing={2} direction="row" alignItems="center">
-        {volume === 0 ? (
-          <VolumeOff color="action" />
-        ) : volume < 50 ? (
-          <VolumeDown color="action" />
-        ) : (
-          <VolumeUp color="action" />
-        )}
-        
-        <Slider
-          value={volume}
-          onChange={(e, newValue) => setVolume(newValue)}
-          aria-labelledby="volume-slider"
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+      >
+        <Box
           sx={{
-            color: 'primary.main',
-            '& .MuiSlider-thumb': {
-              width: 16,
-              height: 16,
-              transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
-              '&:hover, &.Mui-focusVisible': {
-                boxShadow: '0 0 0 8px rgba(25, 118, 210, 0.16)'
-              },
-              '&.Mui-active': {
-                width: 20,
-                height: 20
-              }
-            }
+            mb: 4,
+            p: 3,
+            bgcolor: "background.paper",
+            borderRadius: 2,
+            boxShadow: 1,
           }}
-        />
-        
-        <Typography variant="body1" sx={{ minWidth: 40, textAlign: 'right' }}>
-          {volume}%
-        </Typography>
-      </Stack>
-    </Box>
+        >
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <VolumeUp color="primary" sx={{ mr: 1 }} />
+            Настройки звука
+          </Typography>
 
-    <FormControlLabel
-      control={
-        <Switch 
-          checked={volume > 0}
-          onChange={(e) => setVolume(e.target.checked ? 50 : 0)}
-          color="primary"
-        />
-      }
-      label="Звуковые уведомления"
-      sx={{ mt: 2 }}
-    />
-  </Box>
-</motion.div>
+          {!isMusicAllowed ? (
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                variant="contained"
+                onClick={enableMusic}
+                startIcon={<VolumeUp />}
+                fullWidth
+                sx={{ py: 1.5 }}
+              >
+                Включить фоновую музыку
+              </Button>
+            </motion.div>
+          ) : (
+            <>
+              <Box sx={{ width: "100%", px: 2 }}>
+                <Stack spacing={2} direction="row" alignItems="center">
+                  <motion.div
+                    key={`volume-icon-${volume}`}
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 500 }}
+                  >
+                    {volume === 0 ? (
+                      <VolumeOff color="action" />
+                    ) : volume < 0.5 ? (
+                      <VolumeDown color="action" />
+                    ) : (
+                      <VolumeUp color="action" />
+                    )}
+                  </motion.div>
 
+                  <Slider
+                    value={volume * 100}
+                    onChange={(e, newValue) => setVolume(newValue / 100)}
+                    min={0}
+                    max={100}
+                    aria-labelledby="volume-slider"
+                    sx={{
+                      color: "primary.main",
+                      "& .MuiSlider-thumb": {
+                        width: 16,
+                        height: 16,
+                        transition: "0.3s cubic-bezier(.47,1.64,.41,.8)",
+                        "&:hover, &.Mui-focusVisible": {
+                          boxShadow: "0 0 0 8px rgba(25, 118, 210, 0.16)",
+                        },
+                        "&.Mui-active": {
+                          width: 20,
+                          height: 20,
+                        },
+                      },
+                    }}
+                  />
+
+                  <Typography
+                    variant="body1"
+                    sx={{ minWidth: 40, textAlign: "right" }}
+                  >
+                    {Math.round(volume * 100)}%
+                  </Typography>
+                </Stack>
+              </Box>
+
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={volume > 0}
+                    onChange={(e) => setVolume(e.target.checked ? 0.2 : 0)}
+                    color="primary"
+                  />
+                }
+                label="Звук включен"
+                sx={{ mt: 2 }}
+              />
+            </>
+          )}
+        </Box>
+      </motion.div>
       {/* Блок языка и единиц измерения */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-        <Box sx={{ mb: 4, p: 3, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+      >
+        <Box
+          sx={{
+            mb: 4,
+            p: 3,
+            bgcolor: "background.paper",
+            borderRadius: 2,
+            boxShadow: 1,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <Language color="primary" sx={{ mr: 1 }} />
             <Typography variant="h6">Язык и единицы измерения</Typography>
           </Box>
-          
+
           <FormControl fullWidth sx={{ mb: 2 }}>
             <InputLabel>Язык</InputLabel>
             <Select
@@ -165,52 +229,66 @@ const Settings = () => {
               <MenuItem value="en">English</MenuItem>
             </Select>
           </FormControl>
-          
+
           <FormControlLabel
             control={
-              <Switch 
-                checked={odometerUnit === 'km'} 
-                onChange={() => setOdometerUnit(odometerUnit === 'km' ? 'mi' : 'km')} 
+              <Switch
+                checked={odometerUnit === "km"}
+                onChange={() =>
+                  setOdometerUnit(odometerUnit === "km" ? "mi" : "km")
+                }
                 color="primary"
               />
             }
-            label={`Пробег в ${odometerUnit === 'km' ? 'километрах' : 'милях'}`}
+            label={`Пробег в ${odometerUnit === "km" ? "километрах" : "милях"}`}
           />
         </Box>
       </motion.div>
 
       {/* Блок уведомлений и резервных копий */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-        <Box sx={{ mb: 4, p: 3, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+      >
+        <Box
+          sx={{
+            mb: 4,
+            p: 3,
+            bgcolor: "background.paper",
+            borderRadius: 2,
+            boxShadow: 1,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <Notifications color="primary" sx={{ mr: 1 }} />
             <Typography variant="h6">Уведомления и данные</Typography>
           </Box>
-          
+
           <FormControlLabel
             control={
-              <Switch 
-                checked={notifications} 
-                onChange={() => setNotifications(!notifications)} 
+              <Switch
+                checked={notifications}
+                onChange={() => setNotifications(!notifications)}
                 color="primary"
               />
             }
             label="Email-уведомления"
             sx={{ mb: 2 }}
           />
-          
+
           <FormControlLabel
             control={
-              <Switch 
-                checked={backupEnabled} 
-                onChange={() => setBackupEnabled(!backupEnabled)} 
+              <Switch
+                checked={backupEnabled}
+                onChange={() => setBackupEnabled(!backupEnabled)}
                 color="primary"
               />
             }
             label="Автоматическое резервное копирование"
             sx={{ mb: 3 }}
           />
-          
+
           <Button
             variant="outlined"
             startIcon={<CloudUpload />}
@@ -223,14 +301,14 @@ const Settings = () => {
       </motion.div>
 
       {/* Кнопка сохранения */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} 
-        animate={{ opacity: 1, y: 0 }} 
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
       >
-        <Button 
-          variant="contained" 
-          size="large" 
+        <Button
+          variant="contained"
+          size="large"
           fullWidth
           sx={{ mt: 2, py: 1.5 }}
         >

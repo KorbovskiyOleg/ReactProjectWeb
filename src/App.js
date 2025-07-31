@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -23,7 +23,8 @@ import HomePage from "./components/HomePage";
 import StatsPage from "./components/StatsPage";
 import SettingsPage from "./components/SettingsPage";
 //import MainPage from './components/MainPage'; 
-
+import { AudioProvider } from './context/AudioContext';
+import { useAudio } from './context/AudioContext'; 
 
 const backgroundImage = "/images/imagback.webp";
 
@@ -141,39 +142,40 @@ function App() {
   const [isAuthenticated, setAuth] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-  const audioRef = useRef(null);
-  const [isMusicAllowed, setIsMusicAllowed] = useState(false);
+  //const audioRef = useRef(null);
+  //const [isMusicAllowed, setIsMusicAllowed] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { isMusicAllowed, enableMusic } = useAudio();
 
-  const enableMusic = () => {
-    setIsMusicAllowed(true);
-    localStorage.setItem("musicAllowed", "true");
-    if (audioRef.current) {
-      audioRef.current.play().catch((e) => console.log("Play error:", e));
-    }
-  };
+  //const enableMusic = () => {
+  //  setIsMusicAllowed(true);
+  //  localStorage.setItem("musicAllowed", "true");
+  //  if (audioRef.current) {
+  //    audioRef.current.play().catch((e) => console.log("Play error:", e));
+   // }
+ // };
 
-  useEffect(() => {
-    if (localStorage.getItem("musicAllowed") === "true") {
-      setIsMusicAllowed(true);
-    }
-  }, []);
+  //useEffect(() => {
+   // if (localStorage.getItem("musicAllowed") === "true") {
+   //   setIsMusicAllowed(true);
+   // }
+  //}, []);
 
-  useEffect(() => {
-    if (isMusicAllowed && audioRef.current) {
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.2;
-      audioRef.current.play().catch((e) => console.log("Auto-play blocked"));
-    }
-  }, [isMusicAllowed]);
+ // useEffect(() => {
+  //  if (isMusicAllowed && audioRef.current) {
+  //    audioRef.current.loop = true;
+  //    audioRef.current.volume = 0.2;
+  //    audioRef.current.play().catch((e) => console.log("Auto-play blocked"));
+  //  }
+ // }, [isMusicAllowed]);
 
   const handleLoginSuccess = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = 5;
-      audioRef.current.play().catch((e) => console.log("Auto-play prevented:", e));
-    }
+   // if (audioRef.current) {
+   //   audioRef.current.currentTime = 5;
+   //   audioRef.current.play().catch((e) => console.log("Auto-play prevented:", e));
+   // }
     setAuth(true);
     setShowLogin(false);
     navigate("/");// перенаправление на страницу
@@ -199,7 +201,7 @@ function App() {
   return (
     <CartProvider>
       <ThemeProvider theme={theme}>
-        <audio ref={audioRef} src="/sounds/back1.mp3" preload="auto" />
+        
 
         {!isMusicAllowed && (
           <motion.div
@@ -494,7 +496,10 @@ function App() {
 export default function AppWrapper() {
   return (
     <Router>
+      <AudioProvider>
       <App />
+      </AudioProvider>
     </Router>
+    
   );
 }

@@ -4,31 +4,29 @@ const AudioContext = createContext();
 
 export const AudioProvider = ({ children }) => {
   const audioRef = useRef(null);
-  const [volume, setVolume] = useState(0.2); // Начальная громкость 20%
+  const [volume, setVolume] = useState(0.5); // Начальная громкость 50%
   const [isMusicAllowed, setIsMusicAllowed] = useState(false);
 
   useEffect(() => {
-    const savedVolume = localStorage.getItem('volume');
-    if (savedVolume) {
-      setVolume(parseFloat(savedVolume));
-    }
-    
-    const savedMusicAllowed = localStorage.getItem('musicAllowed');
-    if (savedMusicAllowed === 'true') {
-      setIsMusicAllowed(true);
+    const savedSettings = JSON.parse(localStorage.getItem('audioSettings'));
+    if (savedSettings) {
+      setVolume(savedSettings.volume);
+      setIsMusicAllowed(savedSettings.isMusicAllowed);
     }
   }, []);
 
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
-      localStorage.setItem('volume', volume.toString());
+      localStorage.setItem('audioSettings', JSON.stringify({
+        volume,
+        isMusicAllowed
+      }));
     }
-  }, [volume]);
+  }, [volume, isMusicAllowed]);
 
   const enableMusic = () => {
     setIsMusicAllowed(true);
-    localStorage.setItem('musicAllowed', 'true');
     if (audioRef.current) {
       audioRef.current.play().catch(e => console.log('Play error:', e));
     }
@@ -36,8 +34,14 @@ export const AudioProvider = ({ children }) => {
 
   return (
     <>
-      <audio ref={audioRef} src="/sounds/back1.mp3" preload="auto" loop />
-      <AudioContext.Provider value={{ volume, setVolume, isMusicAllowed, enableMusic }}>
+      <audio ref={audioRef} src="/sounds/back1.mp3" loop />
+      <AudioContext.Provider value={{ 
+        volume, 
+        setVolume,
+        isMusicAllowed,
+        enableMusic,
+        audioRef // Добавляем ref в контекст
+      }}>
         {children}
       </AudioContext.Provider>
     </>
