@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+/*import { useEffect, useRef, useState, useCallback } from "react";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { useAudio } from "../context/AudioContext";
 import { Palette as PaletteIcon } from "@mui/icons-material";
@@ -90,33 +90,53 @@ const AudioVisualizer = () => {
     }
 
     const drawVisualizer = (currentTime) => {
-      // Обновление данных с заданным интервалом
-      if (currentTime - lastDataUpdate.current > VISUALIZER_CONFIG.DATA_UPDATE_INTERVAL) {
-        analyserRef.current.getByteFrequencyData(dataArray.current);
-        lastDataUpdate.current = currentTime;
-      }
+  // Обновление данных с заданным интервалом
+  if (currentTime - lastDataUpdate.current > VISUALIZER_CONFIG.DATA_UPDATE_INTERVAL) {
+    analyserRef.current.getByteFrequencyData(dataArray.current);
+    lastDataUpdate.current = currentTime;
+  }
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Фон с легкой прозрачностью
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Отрисовка столбцов
-      for (let i = 0; i < VISUALIZER_CONFIG.BAR_COUNT; i++) {
-        const freqIndex = Math.floor(i * (32 / VISUALIZER_CONFIG.BAR_COUNT));
-        const value = dataArray.current[freqIndex] || 0;
-        const barHeight = (value / 255) * canvas.height * VISUALIZER_CONFIG.HEIGHT_SCALE;
-        
-        ctx.fillStyle = getColor(colorScheme, i, value);
-        ctx.fillRect(
-          i * (VISUALIZER_CONFIG.BAR_WIDTH + VISUALIZER_CONFIG.BAR_GAP),
-          canvas.height - barHeight,
-          VISUALIZER_CONFIG.BAR_WIDTH,
-          barHeight
-        );
-      }
-    };
+  // Очищаем canvas с прозрачностью
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // Отрисовка столбцов с улучшенной видимостью
+  for (let i = 0; i < VISUALIZER_CONFIG.BAR_COUNT; i++) {
+    const freqIndex = Math.floor(i * (32 / VISUALIZER_CONFIG.BAR_COUNT));
+    const value = dataArray.current[freqIndex] || 0;
+    const barHeight = (value / 255) * canvas.height * VISUALIZER_CONFIG.HEIGHT_SCALE;
+    
+    // Генерируем цвет с небольшим затемнением для лучшей видимости
+    const baseColor = getColor(colorScheme, i, value);
+    
+    // Добавляем легкую обводку для контраста
+    ctx.strokeStyle = `${baseColor.replace(')', ', 0.7)')}`;
+    ctx.lineWidth = 1;
+    
+    // Заливка столбца
+    ctx.fillStyle = baseColor;
+    
+    // Рисуем столбец
+    const xPos = i * (VISUALIZER_CONFIG.BAR_WIDTH + VISUALIZER_CONFIG.BAR_GAP);
+    const yPos = canvas.height - barHeight;
+    
+    ctx.beginPath();
+    ctx.roundRect(
+      xPos, 
+      yPos, 
+      VISUALIZER_CONFIG.BAR_WIDTH, 
+      barHeight, 
+      4
+    );
+    ctx.fill();
+    ctx.stroke();
+    
+    // Добавляем легкое свечение для лучшей видимости
+    ctx.shadowColor = baseColor;
+    ctx.shadowBlur = 5;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+};
 
     const animate = (time) => {
       if (time - lastFrameTime.current > 1000 / VISUALIZER_CONFIG.TARGET_FPS) {
@@ -150,14 +170,17 @@ const AudioVisualizer = () => {
   return (
     <Box
       sx={{
-        width: "100%",
-        mb: 3,
-        p: 2,
-        bgcolor: "rgba(0, 0, 0, 0.1)",
-        borderRadius: 3,
+        width: "80%", // Уже основного контейнера
+        maxWidth: "400px", // Максимальная ширина
+        mb: 2, // Меньший отступ снизу
+        p: 1.5, // Меньшие внутренние отступы
+        bgcolor: "transparent", // Прозрачный фон
+        borderRadius: 2, // Меньший радиус скругления
         border: "1px solid rgba(255, 255, 255, 0.1)",
         backdropFilter: "blur(5px)",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+        boxShadow: "none", // Убираем тень
+         marginRight: "auto", // Смещаем влево (отменяем mx: "auto")
+        marginLeft: 0        // Явно указываем 0 слева
       }}
     >
       <Box
@@ -181,6 +204,12 @@ const AudioVisualizer = () => {
               }}
               size="small"
               aria-label="Change color scheme"
+              sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.1)", // Полупрозрачная кнопка
+                '&:hover': {
+                  backgroundColor: "rgba(255, 255, 255, 0.2)"
+                }
+              }}
             >
               <PaletteIcon />
               <Typography
@@ -197,13 +226,14 @@ const AudioVisualizer = () => {
       <canvas
         ref={canvasRef}
         width={300}
-        height={150}
+        height={100}
         style={{
           width: "100%",
-          height: 150,
-          borderRadius: 8,
+          height: 120,
+          borderRadius: 6,
           display: "block",
           willChange: "transform",
+          background: "transparent" // Прозрачный фон canvas
         }}
         aria-label="Audio visualizer"
       />
@@ -211,44 +241,36 @@ const AudioVisualizer = () => {
   );
 };
 
-export default AudioVisualizer;
+export default AudioVisualizer;*/
 
 
 //оставлю это здесь - анимация визуализатора с более чувствительной отрисовкой! но жрет много ресурсов CPU 
 
-/*import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { useAudio } from "../context/AudioContext";
 import { Palette as PaletteIcon } from "@mui/icons-material";
 
-// Вынесем цветовые схемы в константу вне компонента, так как они не изменяются
 const COLOR_SCHEMES = [
-  "spectrum", // Радуга
-  "fire", // Огненная
-  "ocean", // Океан
-  "forest", // Лесная
-  "neon", // Неон
-  "pastel", // Пастель
-  "monochrome", // Монохром
+  "spectrum",
+  "fire",
+  "ocean", 
+  "forest",
+  "neon",
+  "pastel",
+  "monochrome",
 ];
 
-// Вынесем функцию getColor в отдельную функцию с параметром colorScheme
 const getColorForScheme = (colorScheme, i, value) => {
   const normalized = value / 255;
 
   switch (colorScheme) {
     case "fire":
-      return `rgb(${Math.floor(normalized * 255)}, ${Math.floor(
-        normalized * 80
-      )}, 0)`;
+      return `rgb(${Math.floor(normalized * 255)}, ${Math.floor(normalized * 80)}, 0)`;
     case "ocean":
-      return `rgb(0, ${Math.floor(100 + normalized * 155)}, ${Math.floor(
-        150 + normalized * 105
-      )})`;
+      return `rgb(0, ${Math.floor(100 + normalized * 155)}, ${Math.floor(150 + normalized * 105)})`;
     case "forest":
-      return `rgb(0, ${Math.floor(100 + normalized * 155)}, ${Math.floor(
-        50 + normalized * 80
-      )})`;
+      return `rgb(0, ${Math.floor(100 + normalized * 155)}, ${Math.floor(50 + normalized * 80)})`;
     case "neon":
       return `hsl(${((i * 360) / 32) % 360}, 100%, ${50 + normalized * 40}%)`;
     case "pastel":
@@ -256,7 +278,7 @@ const getColorForScheme = (colorScheme, i, value) => {
     case "monochrome":
       const intensity = Math.floor(normalized * 255);
       return `rgb(${intensity}, ${intensity}, ${intensity})`;
-    default: // spectrum
+    default:
       return `hsl(${((i * 360) / 32) % 360}, 100%, ${50 + normalized * 30}%)`;
   }
 };
@@ -270,12 +292,10 @@ const AudioVisualizer = () => {
     return localStorage.getItem("audioVisualizerColorScheme") || "spectrum";
   });
 
-  // Сохраняем выбор цвета при изменении
   useEffect(() => {
     localStorage.setItem("audioVisualizerColorScheme", colorScheme);
   }, [colorScheme]);
 
-  // Отрисовка визуализации
   useEffect(() => {
     if (!analyserRef.current || !canvasRef.current || !isMusicAllowed) return;
 
@@ -288,18 +308,17 @@ const AudioVisualizer = () => {
       analyserRef.current.getByteFrequencyData(dataArray);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const barWidth = 10;
-      const gap = 2;
+      const barWidth = 8; // Уменьшена ширина столбцов
+      const gap = 2;      // Уменьшен промежуток
       let x = 0;
 
       ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      for (let i = 0; i < 32; i++) {
+      for (let i = 0; i < 24; i++) { // Уменьшено количество столбцов до 24
         const barHeight = (dataArray[i] / 255) * canvas.height * 0.85;
         const color = getColorForScheme(colorScheme, i, dataArray[i]);
 
-        // Проверяем, что color является валидным CSS-цветом
         if (!isValidColor(color)) {
           console.error(`Invalid color: ${color}`);
           continue;
@@ -312,7 +331,6 @@ const AudioVisualizer = () => {
           canvas.height
         );
 
-        // Добавляем проверку для второго цвета
         const endColor = color.endsWith(")")
           ? `${color.replace(")", ", 0.4)")}`
           : `${color}66`;
@@ -327,22 +345,20 @@ const AudioVisualizer = () => {
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
-        ctx.roundRect(x, canvas.height - barHeight, barWidth, barHeight, 6);
+        ctx.roundRect(x, canvas.height - barHeight, barWidth, barHeight, 4); // Меньший радиус скругления
         ctx.fill();
 
         ctx.shadowColor = color;
-        ctx.shadowBlur = 12;
+        ctx.shadowBlur = 8; // Уменьшено размытие тени
         ctx.fill();
         ctx.shadowBlur = 0;
 
         ctx.fillStyle = "#ffffff40";
-        ctx.fillRect(x + 1, canvas.height - barHeight, barWidth - 2, 2);
-
+        ctx.fillRect(x + 0.5, canvas.height - barHeight, barWidth - 1, 1); // Более тонкая подсветка
         x += barWidth + gap;
       }
     };
 
-    // Добавьте эту функцию для проверки цветов
     function isValidColor(color) {
       const s = new Option().style;
       s.color = color;
@@ -359,21 +375,24 @@ const AudioVisualizer = () => {
     return () => {
       cancelAnimationFrame(animationId.current);
     };
-  }, [analyserRef, isMusicAllowed, colorScheme]); // Зависим только от colorScheme
+  }, [analyserRef, isMusicAllowed, colorScheme]);
 
   if (!isMusicAllowed) return null;
 
   return (
     <Box
       sx={{
-        width: "100%",
-        mb: 3,
-        p: 2,
+        width: "65%", // Уменьшена ширина контейнера
+        maxWidth: "350px", // Максимальная ширина
+        mb: 2,
+        p: 1.5, // Уменьшены отступы
         bgcolor: "rgba(0, 0, 0, 0.1)",
-        borderRadius: 3,
+        borderRadius: 2, // Меньший радиус скругления
         border: "1px solid rgba(255, 255, 255, 0.1)",
         backdropFilter: "blur(5px)",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+        boxShadow: "0 2px 10px rgba(0,0,0,0.1)", // Более тонкая тень
+        marginRight: "auto", // Выравнивание по левому краю
+       // marginLeft: "16px",  Небольшой отступ от края
       }}
     >
       <Box
@@ -384,7 +403,7 @@ const AudioVisualizer = () => {
           mb: 1,
         }}
       >
-        <Typography variant="subtitle2" sx={{ color: "text.secondary" }}>
+        <Typography variant="subtitle2" sx={{ color: "text.secondary", fontSize: "0.75rem" }}>
           AUDIO VISUALIZER
         </Typography>
         <Box>
@@ -396,11 +415,16 @@ const AudioVisualizer = () => {
                 setColorScheme(COLOR_SCHEMES[nextIndex]);
               }}
               size="small"
+              sx={{ padding: "6px" }} // Уменьшен размер кнопки
             >
-              <PaletteIcon />
+              <PaletteIcon sx={{ fontSize: "1rem" }} />
               <Typography
                 variant="caption"
-                sx={{ ml: 1, textTransform: "capitalize" }}
+                sx={{ 
+                  ml: 0.5, 
+                  textTransform: "capitalize",
+                  fontSize: "0.7rem"
+                }}
               >
                 {colorScheme}
               </Typography>
@@ -411,12 +435,12 @@ const AudioVisualizer = () => {
 
       <canvas
         ref={canvasRef}
-        width={300}
-        height={150}
+        width={240} // Уменьшенный размер canvas
+        height={120}
         style={{
           width: "100%",
-          height: 150,
-          borderRadius: 8,
+          height: 120,
+          borderRadius: 6,
           display: "block",
         }}
       />
@@ -424,4 +448,4 @@ const AudioVisualizer = () => {
   );
 };
 
-export default AudioVisualizer;*/
+export default AudioVisualizer;
