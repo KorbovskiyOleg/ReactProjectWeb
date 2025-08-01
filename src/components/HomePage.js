@@ -175,16 +175,27 @@ const HomePage = () => {
             display: 'flex', 
             gap: 2, 
             mt: 2,
-            alignItems: 'stretch'
+            alignItems: 'stretch',
+            height: '380px'
           }}>
-            {/* Погода */}
+            {/* Погода - теперь без вложенной карточки */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
               style={{ flex: 1 }}
             >
-              <WeatherWidget />
+              <WeatherWidget 
+                sx={{
+                  height: '100%',
+                  borderRadius: 3,
+                  boxShadow: theme.shadows[3],
+                  backdropFilter: 'blur(8px)',
+                  bgcolor: 'rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  p: 2
+                }}
+              />
             </motion.div>
 
             {/* Календарь */}
