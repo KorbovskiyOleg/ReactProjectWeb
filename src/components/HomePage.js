@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import {
   Box,
   Typography,
@@ -72,11 +72,11 @@ const HomePage = () => {
 
   return (
     <>
-      {/* Визуализатор звука */}
+      {/* Визуализатор звука }
       
 
       <Container maxWidth="xl" sx={{ display: "flex", p: 4 }}>
-        {/* Левая часть - Приветствие и контент */}
+        {/* Левая часть - Приветствие и контент }
 
         <Box
         sx={{
@@ -116,7 +116,7 @@ const HomePage = () => {
             I hope you like everything!!!
           </Typography>
           
-          {/* Добавленный визуализатор */}
+          {/* Добавленный визуализатор }
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -126,7 +126,7 @@ const HomePage = () => {
           </motion.div>
         </motion.div>
 
-        {/* Погодный виджет теперь под визуализатором */}
+        {/* Погодный виджет теперь под визуализатором }
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ const HomePage = () => {
         </motion.div>
       </Box>
 
-        {/* Правая часть - Карточки */}
+        {/* Правая часть - Карточки }
         <Box
           sx={{
             width: "45%",
@@ -195,6 +195,285 @@ const HomePage = () => {
               </motion.div>
             ))}
           </Stack>
+        </Box>
+      </Container>
+    </>
+  );
+};
+
+export default HomePage;*/
+import React from "react";
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Button,
+  useTheme,
+  Container,
+  Stack,
+} from "@mui/material";
+import {
+  DirectionsCar as CarsIcon,
+  People as OwnersIcon,
+  Settings as SettingsIcon,
+  BarChart as StatsIcon,
+  CurrencyExchange as CurrencyIcon,
+} from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import WeatherWidget from "./WeatherWidget";
+import AudioVisualizer from "./AudioVisualizer";
+
+// Анимация для карточек
+const cardVariants = {
+  offscreen: {
+    y: 50,
+    opacity: 0,
+  },
+  onscreen: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      bounce: 0.4,
+      duration: 0.8,
+    },
+  },
+};
+
+// Компонент для отображения курса валют
+const CurrencyRates = () => {
+  return (
+    <Card
+      sx={{
+        mb: 2,
+        borderRadius: 2,
+        boxShadow: "none",
+        background: "transparent",
+        border: "1px solid rgba(255, 255, 255, 0.2)",
+        backdropFilter: "blur(8px)",
+      }}
+    >
+      <CardContent sx={{ p: 2 }}>
+        <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+          <CurrencyIcon sx={{ color: "white", mr: 1 }} />
+          <Typography variant="h6" component="div" sx={{ color: "black" }}>
+            Курс валют
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            color: "black",
+          }}
+        >
+          <Typography variant="body1">USD: 73.50 ₽</Typography>
+          <Typography variant="body1">EUR: 80.20 ₽</Typography>
+          <Typography variant="body1">CNY: 10.50 ₽</Typography>
+        </Box>
+      </CardContent>
+    </Card>
+  );
+};
+
+const HomePage = () => {
+  const theme = useTheme();
+  const navigate = useNavigate();
+
+  const features = [
+    {
+      title: "Car management",
+      icon: <CarsIcon fontSize="large" />,
+      action: () => navigate("/cars"),
+      color: theme.palette.primary.main,
+    },
+    {
+      title: "Owners",
+      icon: <OwnersIcon fontSize="large" />,
+      action: () => navigate("/owners"),
+      color: theme.palette.secondary.main,
+    },
+    {
+      title: "Statistic",
+      icon: <StatsIcon fontSize="large" />,
+      action: () => navigate("/stats"),
+      color: "#4caf50",
+    },
+    {
+      title: "Settings",
+      icon: <SettingsIcon fontSize="large" />,
+      action: () => navigate("/settings"),
+      color: "#ff9800",
+    },
+  ];
+
+  return (
+    <>
+      <Container
+        maxWidth="xl"
+        sx={{
+          display: "flex",
+          p: 4,
+          position: "relative",
+          minHeight: "80vh",
+          gap: 4,
+        }}
+      >
+        {/* Левая колонка - Основной контент */}
+        <Box
+          sx={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* Заголовок и описание */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Typography
+              variant="h3"
+              gutterBottom
+              sx={{
+                mb: 3,
+                fontWeight: 700,
+                color: theme.palette.primary.dark,
+              }}
+            >
+              Welcome to CarShop Manager!
+            </Typography>
+
+            <Typography
+              variant="subtitle1"
+              sx={{
+                mb: 4,
+                fontSize: "1.1rem",
+                lineHeight: 1.9,
+                maxWidth: "90%",
+              }}
+            >
+              Hello! My name is Oleg Korbovsky and this is my first
+              application!! I hope you like everything!!!
+            </Typography>
+          </motion.div>
+
+          {/* Блок с курсом валют и погодой */}
+          <Box>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <CurrencyRates />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              sx={{ mt: 2 }}
+            >
+              <WeatherWidget />
+            </motion.div>
+          </Box>
+        </Box>
+
+        {/* Правая колонка - Навигационные карточки и визуализатор */}
+        <Box
+          sx={{
+            width: "50%",
+            display: "flex",
+            flexDirection: "column",
+            gap: 3, // Добавляем отступ между карточками и визуализатором
+          }}
+        >
+          {/* Блок с карточками */}
+          <Stack spacing={3} sx={{ flex: 1 }}>
+            {features.map((item, index) => (
+              <motion.div
+                key={index}
+                initial="offscreen"
+                animate="onscreen"
+                variants={cardVariants}
+                whileHover={{ scale: 1.03 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Card
+                  sx={{
+                    cursor: "pointer",
+                    borderRadius: 3,
+                    boxShadow: 3,
+                    transition: "all 0.3s",
+                    "&:hover": {
+                      boxShadow: 6,
+                    },
+                  }}
+                  onClick={item.action}
+                >
+                  <CardContent
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      p: 3,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        color: item.color,
+                        mr: 3,
+                        fontSize: "2rem",
+                      }}
+                    >
+                      {item.icon}
+                    </Box>
+                    <Box>
+                      <Typography variant="h6" component="div">
+                        {item.title}
+                      </Typography>
+                      <Button variant="outlined" size="small" sx={{ mt: 1 }}>
+                        Go to →
+                      </Button>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </Stack>
+
+          {/* Аудио-визуализатор */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end", // Выравниваем содержимое вправо
+              width: "100%",
+              paddingRight: 0, // Убираем отступ справа если нужно
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              style={{
+                width: "60%", // Можно регулировать ширину визуализатора
+                maxWidth: "400px", // Ограничиваем максимальную ширину
+              }}
+            >
+              <AudioVisualizer
+                sx={{
+                  width: "100%",
+                  canvas: {
+                    width: "100%!important",
+                    height: "150px!important",
+                  },
+                }}
+              />
+            </motion.div>
+          </Box>
         </Box>
       </Container>
     </>
