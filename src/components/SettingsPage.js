@@ -144,7 +144,7 @@ const Settings = () => {
                   >
                     {volume === 0 ? (
                       <VolumeOff color="action" />
-                    ) : volume < 0.5 ? (
+                    ) : volume < 0.2 ? (
                       <VolumeDown color="action" />
                     ) : (
                       <VolumeUp color="action" />
@@ -187,7 +187,7 @@ const Settings = () => {
                 control={
                   <Switch
                     checked={volume > 0}
-                    onChange={(e) => setVolume(e.target.checked ? 0.2 : 0)}
+                    onChange={(e) => setVolume(e.target.checked ? 0.1 : 0)}
                     color="primary"
                   />
                 }
