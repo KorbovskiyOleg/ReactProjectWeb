@@ -187,64 +187,97 @@ const WeatherWidget = () => {
   );
 
   return (
-    <Card sx={{ 
-      minWidth: 280,
-      background: 'rgba(255, 255, 255, 0.2)',
-      backdropFilter: 'blur(10px)',
-      borderRadius: 3,
-      position: 'relative'
+  <Card sx={{ 
+    minWidth: 280,
+    background: 'rgba(255, 255, 255, 0.2)',
+    backdropFilter: 'blur(10px)',
+    borderRadius: 3,
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%', // Растягиваем на всю доступную высоту
+    minHeight: 320 // Минимальная высота (можно регулировать)
+  }}>
+    <Tooltip title="Обновить">
+      <IconButton
+        sx={{ position: 'absolute', right: 8, top: 8 }}
+        onClick={handleRefresh}
+      >
+        <Refresh fontSize="small" />
+      </IconButton>
+    </Tooltip>
+    
+    <CardContent sx={{ 
+      flexGrow: 1, // Растягиваем содержимое
+      display: 'flex',
+      flexDirection: 'column',
+      pb: 3 // Увеличиваем отступ снизу
     }}>
-      <Tooltip title="Обновить">
-        <IconButton
-          sx={{ position: 'absolute', right: 8, top: 8 }}
-          onClick={handleRefresh}
-        >
-          <Refresh fontSize="small" />
-        </IconButton>
-      </Tooltip>
+      {/* Блок локации */}
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        mb: 2,
+        minHeight: 40
+      }}>
+        <LocationOn color="primary" sx={{ mr: 1 }} />
+        <Typography variant="h6" component="div">
+          {city}
+        </Typography>
+      </Box>
       
-      <CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-          <LocationOn color="primary" sx={{ mr: 1 }} />
-          <Typography variant="h6" component="div">
-            {city}
-          </Typography>
-        </Box>
-        
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+      {/* Основная информация */}
+      <Box sx={{ 
+        flexGrow: 1,
+        display: 'flex', 
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+      }}>
+        {/* Температура */}
+        <Box sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          mb: 3,
+          minHeight: 80
+        }}>
           {weather && getWeatherIcon(weather.icon)}
           <Typography variant="h3" sx={{ ml: 2, fontWeight: 300 }}>
             {weather?.temp}°C
           </Typography>
         </Box>
         
-        <Typography color="text.secondary" sx={{ mb: 1 }}>
-          Ощущается как: {weather?.feelsLike}°C
-        </Typography>
-        
-        <Box sx={{ 
-          display: 'flex',
-          justifyContent: 'space-between',
-          mt: 2
-        }}>
-          <Box>
-            <Typography variant="body2">Ветер</Typography>
-            <Typography>{weather?.wind} м/с</Typography>
-          </Box>
-          <Box>
-            <Typography variant="body2">Влажность</Typography>
-            <Typography>{weather?.humidity}%</Typography>
-          </Box>
-          <Box>
-            <Typography variant="body2">Погода</Typography>
-            <Typography textTransform="capitalize">
-              {weather?.description}
-            </Typography>
+        {/* Доп. параметры */}
+        <Box>
+          <Typography color="text.secondary" sx={{ mb: 2 }}>
+            Ощущается как: {weather?.feelsLike}°C
+          </Typography>
+          
+          <Box sx={{ 
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: 2,
+            mt: 'auto' // Прижимаем к низу
+          }}>
+            <Box>
+              <Typography variant="body2">Ветер</Typography>
+              <Typography>{weather?.wind} м/с</Typography>
+            </Box>
+            <Box>
+              <Typography variant="body2">Влажность</Typography>
+              <Typography>{weather?.humidity}%</Typography>
+            </Box>
+            <Box>
+              <Typography variant="body2">Погода</Typography>
+              <Typography textTransform="capitalize">
+                {weather?.description}
+              </Typography>
+            </Box>
           </Box>
         </Box>
-      </CardContent>
-    </Card>
-  );
+      </Box>
+    </CardContent>
+  </Card>
+);
 };
 
 export default WeatherWidget;

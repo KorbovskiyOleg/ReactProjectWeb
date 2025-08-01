@@ -176,7 +176,8 @@ const HomePage = () => {
             gap: 2, 
             mt: 2,
             alignItems: 'stretch',
-            height: '380px'
+            height: '320px',
+            minHeight: '320px' // Добавляем минимальную высоту
           }}>
             {/* Погода - теперь без вложенной карточки */}
             <motion.div
