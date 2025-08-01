@@ -2,7 +2,6 @@ import React from "react";
 import {
   Box,
   Typography,
-  //Grid,
   Card,
   CardContent,
   Button,
@@ -19,6 +18,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import WeatherWidget from "./WeatherWidget";
+import AudioVisualizer from "./AudioVisualizer";
+import { useAudio } from "../context/AudioContext";
 
 // Анимация для карточек
 const cardVariants = {
@@ -40,10 +41,11 @@ const cardVariants = {
 const HomePage = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const { isMusicAllowed } = useAudio();
 
   const features = [
     {
-      title: "Car manegement",
+      title: "Car management",
       icon: <CarsIcon fontSize="large" />,
       action: () => navigate("/cars"),
       color: theme.palette.primary.main,
@@ -69,127 +71,131 @@ const HomePage = () => {
   ];
 
   return (
-    <Container maxWidth="xl" sx={{ display: "flex", p: 4 }}>
-      {/* Левая часть - Приветствие и контент */}
-      <Box
-        sx={{
-          flex: 1,
-          pr: 4,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          position: "relative",
-          //minHeight: '60vh' // Добавляем для правильного позиционирования
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Typography
-            variant="h3"
-            gutterBottom
-            sx={{
-              mb: 3,
-              fontWeight: 700,
-              color: theme.palette.primary.dark,
-            }}
-          >
-            Welcome to CarShop Manager!
-          </Typography>
+    <>
+      {/* Визуализатор звука */}
+      {isMusicAllowed && <AudioVisualizer />}
 
-          <Typography
-            variant="subtitle1"
-            sx={{
-              mb: 4,
-              fontSize: "1.1rem",
-              lineHeight: 1.9,
-              fontWeight: "bold",
-            }}
-          >
-            Hello! My name is Oleg Korbovsky and this is my fierst application!!
-            I hope you like everything!!!
-          </Typography>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: 8 }}
-          transition={{ duration: 0.6, ease: "easeOut"}}
-          style={{
-            position: "absolute",
-            left: 0, // Пример позиционирования
-            bottom: -50,
-            width: "100%",
-            maxWidth: 350,
+      <Container maxWidth="xl" sx={{ display: "flex", p: 4 }}>
+        {/* Левая часть - Приветствие и контент */}
+        <Box
+          sx={{
+            flex: 1,
+            pr: 4,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            position: "relative",
           }}
         >
-          <Box>
-            <WeatherWidget />
-          </Box>
-        </motion.div>
-      </Box>
-
-      {/* Правая часть - Карточки */}
-      <Box
-        sx={{
-          width: "45%",
-          position: "relative",
-        }}
-      >
-        <Stack spacing={3}>
-          {features.map((item, index) => (
-            <motion.div
-              key={index}
-              initial="offscreen"
-              animate="onscreen"
-              variants={cardVariants}
-              whileHover={{ scale: 1.03 }}
-              transition={{ delay: index * 0.1 }}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Typography
+              variant="h3"
+              gutterBottom
+              sx={{
+                mb: 3,
+                fontWeight: 700,
+                color: theme.palette.primary.dark,
+              }}
             >
-              <Card
-                sx={{
-                  cursor: "pointer",
-                  borderRadius: 3,
-                  boxShadow: 3,
-                  transition: "all 0.3s",
-                  "&:hover": {
-                    boxShadow: 6,
-                  },
-                }}
-                onClick={item.action}
+              Welcome to CarShop Manager!
+            </Typography>
+
+            <Typography
+              variant="subtitle1"
+              sx={{
+                mb: 4,
+                fontSize: "1.1rem",
+                lineHeight: 1.9,
+                fontWeight: "bold",
+              }}
+            >
+              Hello! My name is Oleg Korbovsky and this is my first application!!
+              I hope you like everything!!!
+            </Typography>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 0 }}
+            animate={{ opacity: 1, y: 8 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            style={{
+              position: "absolute",
+              left: 0,
+              bottom: -50,
+              width: "100%",
+              maxWidth: 350,
+            }}
+          >
+            <Box>
+              <WeatherWidget />
+            </Box>
+          </motion.div>
+        </Box>
+
+        {/* Правая часть - Карточки */}
+        <Box
+          sx={{
+            width: "45%",
+            position: "relative",
+          }}
+        >
+          <Stack spacing={3}>
+            {features.map((item, index) => (
+              <motion.div
+                key={index}
+                initial="offscreen"
+                animate="onscreen"
+                variants={cardVariants}
+                whileHover={{ scale: 1.03 }}
+                transition={{ delay: index * 0.1 }}
               >
-                <CardContent
+                <Card
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    p: 3,
+                    cursor: "pointer",
+                    borderRadius: 3,
+                    boxShadow: 3,
+                    transition: "all 0.3s",
+                    "&:hover": {
+                      boxShadow: 6,
+                    },
                   }}
+                  onClick={item.action}
                 >
-                  <Box
+                  <CardContent
                     sx={{
-                      color: item.color,
-                      mr: 3,
-                      fontSize: "2rem",
+                      display: "flex",
+                      alignItems: "center",
+                      p: 3,
                     }}
                   >
-                    {item.icon}
-                  </Box>
-                  <Box>
-                    <Typography variant="h6" component="div">
-                      {item.title}
-                    </Typography>
-                    <Button variant="outlined" size="small" sx={{ mt: 1 }}>
-                      Go to →
-                    </Button>
-                  </Box>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </Stack>
-      </Box>
-    </Container>
+                    <Box
+                      sx={{
+                        color: item.color,
+                        mr: 3,
+                        fontSize: "2rem",
+                      }}
+                    >
+                      {item.icon}
+                    </Box>
+                    <Box>
+                      <Typography variant="h6" component="div">
+                        {item.title}
+                      </Typography>
+                      <Button variant="outlined" size="small" sx={{ mt: 1 }}>
+                        Go to →
+                      </Button>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </Stack>
+        </Box>
+      </Container>
+    </>
   );
 };
 
