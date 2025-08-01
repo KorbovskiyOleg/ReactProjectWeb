@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import WeatherWidget from "./WeatherWidget";
 import AudioVisualizer from "./AudioVisualizer";
+import CalendarWidget from "./CalendarWidget";
 
 // Анимация для карточек
 const cardVariants = {
@@ -106,174 +107,194 @@ const HomePage = () => {
   ];
 
   return (
-    <>
-      <Container
-        maxWidth="xl"
+  <>
+    <Container
+      maxWidth="xl"
+      sx={{
+        display: "flex",
+        p: 4,
+        position: "relative",
+        minHeight: "80vh",
+        gap: 4,
+      }}
+    >
+      {/* Левая колонка - Основной контент */}
+      <Box
         sx={{
+          flex: 1,
           display: "flex",
-          p: 4,
-          position: "relative",
-          minHeight: "80vh",
-          gap: 4,
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
       >
-        {/* Левая колонка - Основной контент */}
-        <Box
-          sx={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
+        {/* Заголовок и описание */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          {/* Заголовок и описание */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+          <Typography
+            variant="h3"
+            gutterBottom
+            sx={{
+              mb: 3,
+              fontWeight: 700,
+              color: theme.palette.primary.dark,
+            }}
           >
-            <Typography
-              variant="h3"
-              gutterBottom
-              sx={{
-                mb: 3,
-                fontWeight: 700,
-                color: theme.palette.primary.dark,
-              }}
-            >
-              Welcome to CarShop Manager!
-            </Typography>
+            Welcome to CarShop Manager!
+          </Typography>
 
-            <Typography
-              variant="subtitle1"
-              sx={{
-                mb: 4,
-                fontSize: "1.1rem",
-                lineHeight: 1.9,
-                maxWidth: "90%",
-              }}
-            >
-              Hello! My name is Oleg Korbovsky and this is my first
-              application!! I hope you like everything!!!
-            </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              mb: 4,
+              fontSize: "1.1rem",
+              lineHeight: 1.9,
+              maxWidth: "90%",
+            }}
+          >
+            Hello! My name is Oleg Korbovsky and this is my first
+            application!! I hope you like everything!!!
+          </Typography>
+        </motion.div>
+
+        {/* Блок с курсом валют, погодой и календарем */}
+        <Box>
+          {/* Курс валют */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <CurrencyRates />
           </motion.div>
 
-          {/* Блок с курсом валют и погодой */}
-          <Box>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <CurrencyRates />
-            </motion.div>
-
+          {/* Погода и календарь в одной строке */}
+          <Box sx={{ 
+            display: 'flex', 
+            gap: 2, 
+            mt: 2,
+            alignItems: 'stretch'
+          }}>
+            {/* Погода */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              sx={{ mt: 2 }}
+              style={{ flex: 1 }}
             >
               <WeatherWidget />
             </motion.div>
-          </Box>
-        </Box>
 
-        {/* Правая колонка - Навигационные карточки и визуализатор */}
-        <Box
-          sx={{
-            width: "50%",
-            display: "flex",
-            flexDirection: "column",
-            gap: 3, // Добавляем отступ между карточками и визуализатором
-          }}
-        >
-          {/* Блок с карточками */}
-          <Stack spacing={3} sx={{ flex: 1 }}>
-            {features.map((item, index) => (
-              <motion.div
-                key={index}
-                initial="offscreen"
-                animate="onscreen"
-                variants={cardVariants}
-                whileHover={{ scale: 1.03 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card
-                  sx={{
-                    cursor: "pointer",
-                    borderRadius: 3,
-                    boxShadow: 3,
-                    transition: "all 0.3s",
-                    "&:hover": {
-                      boxShadow: 6,
-                    },
-                  }}
-                  onClick={item.action}
-                >
-                  <CardContent
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      p: 3,
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        color: item.color,
-                        mr: 3,
-                        fontSize: "2rem",
-                      }}
-                    >
-                      {item.icon}
-                    </Box>
-                    <Box>
-                      <Typography variant="h6" component="div">
-                        {item.title}
-                      </Typography>
-                      <Button variant="outlined" size="small" sx={{ mt: 1 }}>
-                        Go to →
-                      </Button>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </Stack>
-
-          {/* Аудио-визуализатор */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end", // Выравниваем содержимое вправо
-              width: "100%",
-              paddingRight: 0, // Убираем отступ справа если нужно
-            }}
-          >
+            {/* Календарь */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              style={{
-                width: "60%", // Можно регулировать ширину визуализатора
-                maxWidth: "400px", // Ограничиваем максимальную ширину
-              }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              style={{ flex: 1 }}
             >
-              <AudioVisualizer
-                sx={{
-                  width: "100%",
-                  canvas: {
-                    width: "100%!important",
-                    height: "150px!important",
-                  },
-                }}
-              />
+              <CalendarWidget />
             </motion.div>
           </Box>
         </Box>
-      </Container>
-    </>
-  );
+      </Box>
+
+      {/* Правая колонка - Навигационные карточки и визуализатор */}
+      <Box
+        sx={{
+          width: "50%",
+          display: "flex",
+          flexDirection: "column",
+          gap: 3,
+        }}
+      >
+        {/* Блок с карточками */}
+        <Stack spacing={3} sx={{ flex: 1 }}>
+          {features.map((item, index) => (
+            <motion.div
+              key={index}
+              initial="offscreen"
+              animate="onscreen"
+              variants={cardVariants}
+              whileHover={{ scale: 1.03 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Card
+                sx={{
+                  cursor: "pointer",
+                  borderRadius: 3,
+                  boxShadow: 3,
+                  transition: "all 0.3s",
+                  "&:hover": {
+                    boxShadow: 6,
+                  },
+                }}
+                onClick={item.action}
+              >
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    p: 3,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      color: item.color,
+                      mr: 3,
+                      fontSize: "2rem",
+                    }}
+                  >
+                    {item.icon}
+                  </Box>
+                  <Box>
+                    <Typography variant="h6" component="div">
+                      {item.title}
+                    </Typography>
+                    <Button variant="outlined" size="small" sx={{ mt: 1 }}>
+                      Go to →
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </Stack>
+
+        {/* Аудио-визуализатор */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            width: "100%",
+            paddingRight: 0,
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            style={{
+              width: "60%",
+              maxWidth: "400px",
+            }}
+          >
+            <AudioVisualizer
+              sx={{
+                width: "100%",
+                canvas: {
+                  width: "100%!important",
+                  height: "150px!important",
+                },
+              }}
+            />
+          </motion.div>
+        </Box>
+      </Box>
+    </Container>
+  </>
+);
 };
 
 export default HomePage;
