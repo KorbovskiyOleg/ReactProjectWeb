@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Card, 
-  CardContent, 
+ // CardContent, 
   TextField, 
   IconButton, 
   Box, 
@@ -11,7 +11,7 @@ import {
 import { 
   Add as AddIcon, 
   Delete as DeleteIcon,
-  Edit as EditIcon
+  //Edit as EditIcon
 } from '@mui/icons-material';
 
 const NotesWidget = () => {
