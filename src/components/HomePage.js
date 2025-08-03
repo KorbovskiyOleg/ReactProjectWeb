@@ -22,6 +22,7 @@ import WeatherWidget from "./WeatherWidget";
 import AudioVisualizer from "./AudioVisualizer";
 import CalendarWidget from "./CalendarWidget";
 import NotesWidget from "./NotesWidget";
+import RealTimeClock from "./RealTimeClock";
 
 // Анимация для карточек
 const cardVariants = {
@@ -160,6 +161,8 @@ const HomePage = () => {
             </Typography>
           </motion.div>
 
+          <RealTimeClock />
+
           {/* Блок с курсом валют, погодой и календарем */}
           <Box>
             {/* Курс валют */}
@@ -224,6 +227,9 @@ const HomePage = () => {
             gap: 3,
           }}
         >
+          {/* Добавляем компонент часов */}
+  
+
           {/* Блок с карточками */}
           <Stack spacing={3} sx={{ flex: 1 }}>
             {features.map((item, index) => (
