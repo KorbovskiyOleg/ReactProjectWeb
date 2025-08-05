@@ -433,20 +433,27 @@ export default function Carlist() {
             </motion.div>
 
             <motion.div
-  initial={{ opacity: 0, scale: 0.9 }}
-  animate={{ opacity: 1, scale: 1 }}
-  exit={{ opacity: 0, scale: 0.9 }}
-  transition={{ delay: 0.4 }}
->
-  <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-    <Box>
-      <AddCar addCar={addCar} />
-    </Box>
-    <Box sx={{ mt: 1 }}>
-      <ExportData data={exportData} fileName="cars_export" />
-    </Box>
-  </Box>
-</motion.div>
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ delay: 0.4 }}
+            >
+              <Box
+                sx={{
+                  mb: 3,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
+              >
+                <Box>
+                  <AddCar addCar={addCar} />
+                </Box>
+                <Box sx={{ mt: 1 }}>
+                  <ExportData data={exportData} fileName="cars_export" />
+                </Box>
+              </Box>
+            </motion.div>
 
             <motion.div
               initial="hidden"
@@ -511,32 +518,7 @@ export default function Carlist() {
                   getRowId={(row) => row._links.self.href}
                   disableSelectionOnClick
                   disableColumnSelector
-                  loading={isLoading}
-                  components={{
-                    LoadingOverlay: () => (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          height: "100%",
-                          backgroundColor: "rgba(255, 255, 255, 0.7)",
-                        }}
-                      >
-                        <motion.div
-                          animate={{ rotate: 360 }}
-                          transition={{
-                            duration: 1,
-                            repeat: Infinity,
-                            ease: "linear",
-                          }}
-                          style={{ fontSize: "3rem" }}
-                        >
-                          🚗
-                        </motion.div>
-                      </Box>
-                    ),
-                  }}
+                  
                 />
               </Box>
             </motion.div>
