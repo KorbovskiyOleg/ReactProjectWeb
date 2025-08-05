@@ -5,8 +5,8 @@ import AddOwner from "./AddOwner";
 //import EditCar from "./EditCar";
 import { SERVER_URL } from "../constants";
 import { Snackbar } from "@mui/material";
-//import IconButton from "@mui/material/IconButton";
-//import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -15,8 +15,7 @@ import Box from "@mui/material/Box";
 //import PaletteIcon from "@mui/icons-material/Palette";
 //import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 //import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-//import SettingsIcon from "@mui/icons-material/Settings";
-//import { useCart } from "./CartContext";
+import SettingsIcon from "@mui/icons-material/Settings";
 //import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 //import ExportData from "./ExportData";
 
@@ -174,7 +173,79 @@ export default function OwnersList() {
         </motion.div>
       ),
     },
+
+    {
+      field: "actions",
+      headerName: (
+        <motion.div variants={headerVariants}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <SettingsIcon fontSize="small" sx={{ mr: 1 }} />
+            <span>Actions</span>
+          </Box>
+        </motion.div>
+      ),
+      headerClassName: "header-theme",
+      flex: 0.5,
+      sortable: false,
+      width: 250,
+      renderCell: (params) => {
+      
+
+        return (
+          <motion.div
+            custom={params.rowIndex + 1.5}
+            variants={itemVariants}
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+              
+
+              
+
+              <IconButton
+                onClick={() => onDelClick(params.row._links.self.href)}
+                sx={{
+                  color: "#ff4444",
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 68, 68, 0.1)",
+                  },
+                }}
+              >
+                <DeleteIcon fontSize="small" />
+                <Typography variant="caption" sx={{ ml: 0.5 }}>
+                  Delete
+                </Typography>
+              </IconButton>
+            </Box>
+          </motion.div>
+        );
+      },
+    },
   ];
+
+  const onDelClick = (url) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      const token = sessionStorage.getItem("jwt");
+      fetch(url, {
+        method: "DELETE",
+        headers: { Authorization: token },
+      })
+        .then((response) => {
+          if (response.ok) {
+            fetchOwners();
+            setOpen(true);
+          } else {
+            alert("Something went wrong!");
+          }
+        })
+        .catch((err) => console.error(err));
+    }
+  };
 
   return (
     <Box sx={{ width: "100%", p: 3 }}>
