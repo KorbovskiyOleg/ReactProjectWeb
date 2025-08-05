@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { motion, AnimatePresence } from "framer-motion";
-//import AddCar from "./AddCar";
+import AddOwner from "./AddOwner";
 //import EditCar from "./EditCar";
 import { SERVER_URL } from "../constants";
 import { Snackbar } from "@mui/material";
@@ -57,12 +57,32 @@ const StyledHeader = styled(Typography)(({ theme }) => ({
   fontSize: "1.8rem",
 }));
 
-
 export default function OwnersList() {
   const [owners, setOwners] = useState([]);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isVisible] = useState(true);
+
+
+  const addOwner = (owner) => {
+    const token = sessionStorage.getItem("jwt");
+    fetch(SERVER_URL + "api/owners", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(owner),
+    })
+      .then((response) => {
+        if (response.ok) {
+          fetchOwners();
+        } else {
+          alert("Something went wrong!");
+        }
+      })
+      .catch((err) => console.error(err));
+  };
 
   useEffect(() => {
     fetchOwners();
@@ -71,15 +91,17 @@ export default function OwnersList() {
   const fetchOwners = () => {
     setIsLoading(true);
     const token = sessionStorage.getItem("jwt");
-    
+
     fetch(SERVER_URL + "api/owners", {
-      headers: { 
-        "Authorization": `Bearer ${token}`  // ← Исправлено
-      }
+      headers: {
+        Authorization: `Bearer ${token}`, // ← Исправлено
+      },
     })
       .then((response) => {
         if (!response.ok) {
-          return response.text().then(text => { throw new Error(text) }); // Читаем текст ошибки
+          return response.text().then((text) => {
+            throw new Error(text);
+          }); // Читаем текст ошибки
         }
         return response.json();
       })
@@ -94,7 +116,7 @@ export default function OwnersList() {
   };
 
   if (isLoading) {
-    return <div>Загрузка данных...</div>;  // ← Добавлено
+    return <div>Загрузка данных...</div>; // ← Добавлено
   }
 
   const columns = [
@@ -103,7 +125,7 @@ export default function OwnersList() {
       headerName: (
         <motion.div variants={headerVariants}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <span>Имя ({owners.length})</span>
+            <span>Name ({owners.length})</span>
           </Box>
         </motion.div>
       ),
@@ -130,7 +152,7 @@ export default function OwnersList() {
       headerName: (
         <motion.div variants={headerVariants}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <span>Фамилия</span>
+            <span>Surname</span>
           </Box>
         </motion.div>
       ),
@@ -153,23 +175,6 @@ export default function OwnersList() {
       ),
     },
   ];
-
-
-
-  /*return (
-    <div>
-      <table>
-        <tbody>
-          {owners?.map((owner, index) => (  // ← Опциональная цепочка
-            <tr key={index}>
-              <td>{owner.firstName}</td>
-              <td>{owner.lastName}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );*/
 
   return (
     <Box sx={{ width: "100%", p: 3 }}>
@@ -200,7 +205,26 @@ export default function OwnersList() {
               </StyledHeader>
             </motion.div>
 
-            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ delay: 0.4 }}
+            >
+              <Box
+                sx={{
+                  mb: 3,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
+              >
+                <Box>
+                  <AddOwner addOwner={addOwner} />
+                </Box>
+                
+              </Box>
+            </motion.div>
 
             <motion.div
               initial="hidden"
@@ -265,7 +289,6 @@ export default function OwnersList() {
                   getRowId={(row) => row._links.self.href}
                   disableSelectionOnClick
                   disableColumnSelector
-                  
                 />
               </Box>
             </motion.div>
@@ -283,5 +306,3 @@ export default function OwnersList() {
     </Box>
   );
 }
-
-
