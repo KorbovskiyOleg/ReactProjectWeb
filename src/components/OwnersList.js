@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { motion, AnimatePresence } from "framer-motion";
 import AddOwner from "./AddOwner";
-//import EditCar from "./EditCar";
+import EditOwner from "./EditOwner";
 import { SERVER_URL } from "../constants";
 import { Snackbar } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -10,14 +10,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-//import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-//import ModelIcon from "@mui/icons-material/PrecisionManufacturing";
-//import PaletteIcon from "@mui/icons-material/Palette";
-//import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-//import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+
 import SettingsIcon from "@mui/icons-material/Settings";
-//import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-//import ExportData from "./ExportData";
+
 
 const itemVariants = {
   hidden: {
@@ -61,6 +56,26 @@ export default function OwnersList() {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isVisible] = useState(true);
+
+  const updateOwner = (owner, link) => {
+    const token = sessionStorage.getItem("jwt");
+    fetch(link, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(owner),
+    })
+      .then((response) => {
+        if (response.ok) {
+          fetchOwners();
+        } else {
+          alert("Something went wrong!");
+        }
+      })
+      .catch((err) => console.error(err));
+  };
 
 
   const addOwner = (owner) => {
@@ -203,7 +218,10 @@ export default function OwnersList() {
             }}
           >
             <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-              
+              <EditOwner
+                data={{ row: params.row, id: params.id }}
+                updatedOwner={updateOwner}
+              />
 
               
 
