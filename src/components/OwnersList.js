@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 import SettingsIcon from "@mui/icons-material/Settings";
+import ExportData from "./ExportData";
 
 
 const itemVariants = {
@@ -265,6 +266,12 @@ export default function OwnersList() {
     }
   };
 
+  const exportData = owners.map((owner) => ({
+    Имя: owner.firstName,
+    Фамилия: owner.lastName,
+    
+  }));
+
   return (
     <Box sx={{ width: "100%", p: 3 }}>
       <AnimatePresence>
@@ -310,6 +317,9 @@ export default function OwnersList() {
               >
                 <Box>
                   <AddOwner addOwner={addOwner} />
+                </Box>
+                <Box sx={{ mt: 1 }}>
+                  <ExportData data={exportData} fileName="owners_export" />
                 </Box>
                 
               </Box>
