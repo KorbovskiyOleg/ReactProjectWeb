@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
+//import { emphasize } from "@mui/material";
 //import { fireEvent } from "@testing-library/dom";
 
 function EditOwner(props) {
@@ -17,6 +18,8 @@ function EditOwner(props) {
   const [owner, setOwner] = useState({
     firstName: "",
     lastName: "",
+    phone:"",
+    email: "",
     
   });
   const [errors, setErrors] = useState({});
@@ -36,6 +39,16 @@ function EditOwner(props) {
         newErrors.lastName = "Surname is required";
         isValid = false;
       }
+
+      if (!owner.phone?.trim()) {
+        newErrors.phone = "Phone is required";
+        isValid = false;
+      }
+
+      if (!owner.email?.trim()) {
+        newErrors.email = "Email is required";
+        isValid = false;
+      }
       
 
       setErrors(newErrors);
@@ -50,6 +63,8 @@ function EditOwner(props) {
     setOwner({
       firstName: props.data.row.firstName,
       lastName: props.data.row.lastName,
+      phone: props.data.row.phone,
+      email: props.data.row.email,
       
     });
     setErrors({});
@@ -72,7 +87,8 @@ function EditOwner(props) {
     const updatedOwner = {
       firstName: owner.firstName.trim(),
       lastName: owner.lastName.trim(),
-      
+      phone: owner.phone.trim(),
+      email: owner.email.trim(),
     };
 
     props.updatedOwner(updatedOwner, props.data.id);
@@ -127,6 +143,28 @@ function EditOwner(props) {
               onChange={handleChange}
               error={!!errors.lastName}
               helperText={errors.lastName}
+              required
+            />
+
+            <TextField
+              label="Phone"
+              name="phone"
+              variant="standard"
+              value={owner.phone}
+              onChange={handleChange}
+              error={!!errors.phone}
+              helperText={errors.phone}
+              required
+            />
+
+            <TextField
+              label="Email"
+              name="email"
+              variant="standard"
+              value={owner.email}
+              onChange={handleChange}
+              error={!!errors.email}
+              helperText={errors.email}
               required
             />
             

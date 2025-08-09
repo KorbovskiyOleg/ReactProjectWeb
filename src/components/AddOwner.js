@@ -15,6 +15,8 @@ function AddOwner(props) {
   const [owner, setOwner] = useState({
     lastName: "",
     firstName: "",
+    phone: "",
+    email:"",
     
   });
   const [errors, setErrors] = useState({});
@@ -33,6 +35,14 @@ function AddOwner(props) {
         newErrors.firstName = "Surname is required";
         isValid = false;
       }
+      if (!owner.phone.trim()) {
+        newErrors.phone = "Phone is required";
+        isValid = false;
+      }
+      if (!owner.email.trim()) {
+        newErrors.email = "Email is required";
+        isValid = false;
+      }
       
 
       setErrors(newErrors);
@@ -46,6 +56,8 @@ function AddOwner(props) {
     setOwner({
       lastName: "",
       firstName: "",
+      phone:"",
+      email:"",
     });
     setErrors({});
     setOpen(true);
@@ -65,7 +77,8 @@ function AddOwner(props) {
     const newOwner = {
       firstName: owner.firstName.trim(),
       lastName: owner.lastName.trim(),
-      
+      phone:owner.phone.trim(),
+      email:owner.email.trim(),
     };
 
     props.addOwner(newOwner);
@@ -120,6 +133,28 @@ function AddOwner(props) {
               onChange={handleChange}
               error={!!errors.lastName}
               helperText={errors.lastName}
+              required
+            />
+
+            <TextField
+              label="Phone"
+              name="phone"
+              variant="standard"
+              value={owner.phone}
+              onChange={handleChange}
+              error={!!errors.phone}
+              helperText={errors.phone}
+              required
+            />
+
+            <TextField
+              label="Email"
+              name="email"
+              variant="standard"
+              value={owner.email}
+              onChange={handleChange}
+              error={!!errors.email}
+              helperText={errors.email}
               required
             />
             
