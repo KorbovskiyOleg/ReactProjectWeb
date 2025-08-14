@@ -439,13 +439,15 @@ function App() {
           <MainContent>
             <Routes>
               <Route path="/" element={
-                isAuthenticated ? <HomePage /> : showLogin ? <Login onLoginSuccess={handleLoginSuccess} /> : null
-              } />
-              <Route path="/home" element={isAuthenticated ? <HomePage /> : <Login onLoginSuccess={handleLoginSuccess} />} />
-              <Route path="/cars" element={isAuthenticated ? <Carlist /> : <Login onLoginSuccess={handleLoginSuccess} />} />
-              <Route path="/owners" element={isAuthenticated ? <OwnersList /> : <Login onLoginSuccess={handleLoginSuccess} />} />
-              <Route path="/settings" element={isAuthenticated ? <SettingsPage/> : <Login onLoginSuccess={handleLoginSuccess} />} />
-              <Route path="/stats" element={isAuthenticated ? <StatsPage /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+    isAuthenticated ? <HomePage /> : showLogin ? <Login onLoginSuccess={handleLoginSuccess} /> : null
+  } />
+  <Route path="/home" element={isAuthenticated ? <HomePage /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+  <Route path="/cars" element={isAuthenticated ? <Carlist /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+  <Route path="/owners" element={isAuthenticated ? <OwnersList /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+  {/* Добавьте этот новый маршрут для страницы конкретного владельца */}
+  
+  <Route path="/settings" element={isAuthenticated ? <SettingsPage/> : <Login onLoginSuccess={handleLoginSuccess} />} />
+  <Route path="/stats" element={isAuthenticated ? <StatsPage /> : <Login onLoginSuccess={handleLoginSuccess} />} />
               
             </Routes>
           </MainContent>

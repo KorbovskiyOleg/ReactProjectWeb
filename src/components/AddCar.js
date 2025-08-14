@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 // проверка комита
 function AddCar(props) {
@@ -19,6 +20,10 @@ function AddCar(props) {
     make: "",
     fuel: "",
     price: "",
+    owner: {
+      firstName:"",
+      lastName:""
+    }
   });
   const [errors, setErrors] = useState({});
   const [formValid, setFormValid] = useState(false);
@@ -49,6 +54,16 @@ function AddCar(props) {
         isValid = false;
       }
 
+      // Валидация полей владельца
+      if (!car.owner.firstName.trim()) {
+        newErrors.ownerFirstName = "Owner first name is required";
+        isValid = false;
+      }
+      if (!car.owner.lastName.trim()) {
+        newErrors.ownerLastName = "Owner last name is required";
+        isValid = false;
+      }
+
       setErrors(newErrors);
       setFormValid(isValid);
     };
@@ -64,6 +79,10 @@ function AddCar(props) {
       make: "",
       fuel: "",
       price: "",
+      owner: {
+        firstName: "",
+        lastName: ""
+      }
     });
     setErrors({});
     setOpen(true);
@@ -74,7 +93,20 @@ function AddCar(props) {
   };
 
   const handleChange = (event) => {
-    setCar({ ...car, [event.target.name]: event.target.value });
+    const { name, value } = event.target;
+    
+    if (name.startsWith("owner.")) {
+      const ownerField = name.split(".")[1];
+      setCar({
+        ...car,
+        owner: {
+          ...car.owner,
+          [ownerField]: value
+        }
+      });
+    } else {
+      setCar({ ...car, [name]: value });
+    }
   };
 
   const handleSave = () => {
@@ -87,6 +119,8 @@ function AddCar(props) {
       make: car.make.trim(),
       fuel: car.fuel.trim(),
       price: parseFloat(car.price),
+      ownerFirstName: car.owner.firstName.trim(),
+      ownerLastName: car.owner.lastName.trim()
     };
 
     props.addCar(newCar);
@@ -174,6 +208,36 @@ function AddCar(props) {
               required
               type="number"
             />
+            {/* Поля владельца */}
+            <Box sx={{ mt: 2, pt: 2, borderTop: '1px solid #eee' }}>
+              <Typography variant="subtitle1" gutterBottom>
+                Owner Information
+              </Typography>
+              <TextField
+                label="Name"
+                name="owner.firstName"
+                variant="standard"
+                value={car.owner.firstName}
+                onChange={handleChange}
+                error={!!errors.ownerFirstName}
+                helperText={errors.ownerFirstName}
+                required
+                fullWidth
+              />
+              <TextField
+                label="Surame"
+                name="owner.lastName"
+                variant="standard"
+                value={car.owner.lastName}
+                onChange={handleChange}
+                error={!!errors.ownerLastName}
+                helperText={errors.ownerLastName}
+                required
+                fullWidth
+                sx={{ mt: 2 }}
+              />
+            </Box>
+
           </Stack>
         </DialogContent>
         <DialogActions>

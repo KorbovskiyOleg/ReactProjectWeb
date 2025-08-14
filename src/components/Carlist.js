@@ -19,7 +19,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useCart } from "./CartContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ExportData from "./ExportData";
-import { Link } from "react-router-dom";
 
 const itemVariants = {
   hidden: {
@@ -270,54 +269,6 @@ export default function Carlist() {
         </motion.div>
       ),
     },
-
-    {
-      field: "owner",
-      headerName: (
-        <motion.div variants={headerVariants}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            
-            <span>Owner</span>
-          </Box>
-        </motion.div>
-      ),
-      headerClassName: "header-theme",
-      flex: 0.5,
-      minWidth: 150,
-      renderCell: (params) => (
-    
-        <motion.div
-          to={`/owners/${params.row.owner.ownerId}`}
-          custom={params.rowIndex + 0.3}
-          variants={itemVariants}
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Link
-          to={`/owners/${params.row.owner.ownerId}`}
-        style={{
-          color: '#1976d2',
-          textDecoration: 'underline',
-          cursor: 'pointer',
-          width: '100%' // Добавляем чтобы ссылка занимала всю ячейку
-        }}
-      >
-        {params.row.owner.firstName} {params.row.owner.lastName}
-      </Link>
-        </motion.div>
-      
-      ),
-    },
-
-
-
-
-
-
     {
       field: "actions",
       headerName: (
@@ -407,15 +358,20 @@ export default function Carlist() {
     setIsLoading(true);
     const token = sessionStorage.getItem("jwt");
     fetch(SERVER_URL + "api/cars", {
-      headers: { Authorization: token },
+      headers: { Authorization: `Bearer ${token}` },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            throw new Error(text);
+          }); // Читаем текст ошибки
+        }
+        return response.json();
+      })
+
       .then((data) => {
-        const formattedCars = data._embedded.cars.map((car) => ({
-          ...car,
-          price: car.price ? Number(car.price) : 0,
-        }));
-        setCars(formattedCars);
+        
+        setCars(data._embedded.cars || []);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -567,7 +523,32 @@ export default function Carlist() {
                   getRowId={(row) => row._links.self.href}
                   disableSelectionOnClick
                   disableColumnSelector
-                  
+                  loading={isLoading}
+                  components={{
+                    LoadingOverlay: () => (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "100%",
+                          backgroundColor: "rgba(255, 255, 255, 0.7)",
+                        }}
+                      >
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{
+                            duration: 1,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          style={{ fontSize: "3rem" }}
+                        >
+                          🚗
+                        </motion.div>
+                      </Box>
+                    ),
+                  }}
                 />
               </Box>
             </motion.div>
