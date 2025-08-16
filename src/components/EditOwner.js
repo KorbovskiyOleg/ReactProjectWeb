@@ -18,9 +18,9 @@ function EditOwner(props) {
   const [owner, setOwner] = useState({
     firstName: "",
     lastName: "",
-    phone:"",
+    phone: "",
     email: "",
-    
+    address: "",
   });
   const [errors, setErrors] = useState({});
   const [formValid, setFormValid] = useState(false);
@@ -49,7 +49,10 @@ function EditOwner(props) {
         newErrors.email = "Email is required";
         isValid = false;
       }
-      
+      if (!owner.address?.trim()) {
+        newErrors.address = "Address is required";
+        isValid = false;
+      }
 
       setErrors(newErrors);
       setFormValid(isValid);
@@ -65,7 +68,7 @@ function EditOwner(props) {
       lastName: props.data.row.lastName,
       phone: props.data.row.phone,
       email: props.data.row.email,
-      
+      address: props.data.row.address,
     });
     setErrors({});
     setOpen(true);
@@ -89,6 +92,7 @@ function EditOwner(props) {
       lastName: owner.lastName.trim(),
       phone: owner.phone.trim(),
       email: owner.email.trim(),
+      address: owner.address.trim(),
     };
 
     props.updatedOwner(updatedOwner, props.data.id);
@@ -167,7 +171,17 @@ function EditOwner(props) {
               helperText={errors.email}
               required
             />
-            
+
+            <TextField
+              label="Address"
+              name="address"
+              variant="standard"
+              value={owner.address}
+              onChange={handleChange}
+              error={!!errors.address}
+              helperText={errors.address}
+              required
+            />
           </Stack>
         </DialogContent>
         <DialogActions>

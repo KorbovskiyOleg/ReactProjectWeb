@@ -249,7 +249,7 @@ export default function OwnersList() {
     },
 
     {
-      field: "Address",
+      field: "address",
       headerName: (
         <motion.div variants={headerVariants}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
