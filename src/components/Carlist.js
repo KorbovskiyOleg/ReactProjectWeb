@@ -299,7 +299,7 @@ export default function Carlist() {
         }}
       >
         
-          <span>No owner</span>
+        
       
       </motion.div>
     );

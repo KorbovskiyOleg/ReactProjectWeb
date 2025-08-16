@@ -191,6 +191,95 @@ export default function OwnersList() {
     },
 
     {
+      field: "phone",
+      headerName: (
+        <motion.div variants={headerVariants}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            
+            <span>Phone</span>
+          </Box>
+        </motion.div>
+      ),
+      headerClassName: "header-theme",
+      flex: 0.5,
+      minWidth: 100,
+      renderCell: (params) => (
+        <motion.div
+          custom={params.rowIndex + 0.9}
+          variants={itemVariants}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {params.value}
+        </motion.div>
+      ),
+    },
+
+    {
+      field: "email",
+      headerName: (
+        <motion.div variants={headerVariants}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            
+            <span>email</span>
+          </Box>
+        </motion.div>
+      ),
+      headerClassName: "header-theme",
+      flex: 0.5,
+      minWidth: 100,
+      renderCell: (params) => (
+        <motion.div
+          custom={params.rowIndex + 0.9}
+          variants={itemVariants}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {params.value}
+        </motion.div>
+      ),
+    },
+
+    {
+      field: "Address",
+      headerName: (
+        <motion.div variants={headerVariants}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            
+            <span>Address</span>
+          </Box>
+        </motion.div>
+      ),
+      headerClassName: "header-theme",
+      flex: 0.5,
+      minWidth: 100,
+      renderCell: (params) => (
+        <motion.div
+          custom={params.rowIndex + 0.9}
+          variants={itemVariants}
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {params.value}
+        </motion.div>
+      ),
+    },
+
+
+
+    {
       field: "actions",
       headerName: (
         <motion.div variants={headerVariants}>
