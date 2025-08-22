@@ -116,7 +116,7 @@ export const CartDrawer = ({ open, onClose }) => {
                 <List>
                   {cart.map((item, index) => (
                     <motion.div
-                      key={item._links.self.href}
+                      key={item.id}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
@@ -130,7 +130,7 @@ export const CartDrawer = ({ open, onClose }) => {
                           <IconButton
                             onClick={() =>
                               updateQuantity(
-                                item._links.self.href,
+                                item.id,
                                 item.quantity - 1
                               )
                             }
@@ -141,7 +141,7 @@ export const CartDrawer = ({ open, onClose }) => {
                             value={item.quantity}
                             onChange={(e) =>
                               updateQuantity(
-                                item._links.self.href,
+                                item.id,
                                 parseInt(e.target.value) || 1
                               )
                             }
@@ -165,7 +165,7 @@ export const CartDrawer = ({ open, onClose }) => {
                           <IconButton
                             onClick={() =>
                               updateQuantity(
-                                item._links.self.href,
+                                item.id,
                                 item.quantity + 1
                               )
                             }
@@ -173,7 +173,7 @@ export const CartDrawer = ({ open, onClose }) => {
                             +
                           </IconButton>
                           <IconButton
-                            onClick={() => removeFromCart(item._links.self.href)}
+                            onClick={() => removeFromCart(item.id)}
                             color="error"
                           >
                             <DeleteIcon />

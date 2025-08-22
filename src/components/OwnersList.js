@@ -58,13 +58,13 @@ export default function OwnersList() {
   const [isLoading, setIsLoading] = useState(true);
   const [isVisible] = useState(true);
 
-  const updateOwner = (owner, link) => {
+  const updateOwner = (owner, ownerId) => {
     const token = sessionStorage.getItem("jwt");
-    fetch(link, {
+    fetch(`${SERVER_URL}api/owners/${ownerId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization:`Bearer ${token}`,
       },
       body: JSON.stringify(owner),
     })
@@ -121,7 +121,7 @@ export default function OwnersList() {
         return response.json();
       })
       .then((data) => {
-        setOwners(data._embedded.owners || []); // Защита от undefined
+        setOwners(data || []); // Защита от undefined
         setIsLoading(false);
       })
       .catch((err) => {
@@ -309,14 +309,14 @@ export default function OwnersList() {
           >
             <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
               <EditOwner
-                data={{ row: params.row, id: params.id }}
+                data={{ row: params.row, id: params.row.ownerId }}
                 updatedOwner={updateOwner}
               />
 
               
 
               <IconButton
-                onClick={() => onDelClick(params.row._links.self.href)}
+                onClick={() => onDelClick(params.row.ownerId)}
                 sx={{
                   color: "#ff4444",
                   "&:hover": {
@@ -336,10 +336,10 @@ export default function OwnersList() {
     },
   ];
 
-  const onDelClick = (url) => {
+  const onDelClick = (ownerId) => {
     if (window.confirm("Are you sure you want to delete?")) {
       const token = sessionStorage.getItem("jwt");
-      fetch(url, {
+      fetch(`${SERVER_URL}api/owners/${ownerId}`, {
         method: "DELETE",
         headers: { Authorization: token },
       })
@@ -474,7 +474,7 @@ export default function OwnersList() {
                   }))}
                   pageSize={10}
                   rowsPerPageOptions={[10, 20, 50]}
-                  getRowId={(row) => row._links.self.href}
+                  getRowId={(row) => row.ownerId}
                   disableSelectionOnClick
                   disableColumnSelector
                 />

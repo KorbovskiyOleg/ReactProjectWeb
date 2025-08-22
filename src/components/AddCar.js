@@ -119,10 +119,11 @@ function AddCar(props) {
       make: car.make.trim(),
       fuel: car.fuel.trim(),
       price: parseFloat(car.price),
-      ownerFirstName: car.owner.firstName.trim(),
-      ownerLastName: car.owner.lastName.trim()
+      firstName: car.owner.firstName.trim(),
+      lastName: car.owner.lastName.trim()
     };
 
+  
     props.addCar(newCar);
     handleClose();
   };

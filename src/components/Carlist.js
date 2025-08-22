@@ -68,13 +68,13 @@ export default function Carlist() {
   const [clickedCartId, setClickedCartId] = useState(null);
   const [isVisible] = useState(true); // Добавляем состояние для анимации
 
-  const updateCar = (car, link) => {
+  const updateCar = (car, carId) => {
     const token = sessionStorage.getItem("jwt");
-    fetch(link, {
+    fetch(`${SERVER_URL}api/cars/${carId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(car),
     })
@@ -94,7 +94,7 @@ export default function Carlist() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(car),
     })
@@ -107,6 +107,8 @@ export default function Carlist() {
       })
       .catch((err) => console.error(err));
   };
+
+  
 
   const columns = [
     {
@@ -320,7 +322,7 @@ export default function Carlist() {
       sortable: false,
       width: 250,
       renderCell: (params) => {
-        const isClicked = clickedCartId === params.row._links.self.href;
+        const isClicked = clickedCartId === params.row.id;
 
         return (
           <motion.div
@@ -335,7 +337,7 @@ export default function Carlist() {
           >
             <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
               <EditCar
-                data={{ row: params.row, id: params.id }}
+                data={{ row: params.row, id: params.row.id }}
                 updateCar={updateCar}
               />
 
@@ -349,7 +351,7 @@ export default function Carlist() {
                 <IconButton
                   onClick={() => {
                     addToCart(params.row);
-                    setClickedCartId(params.row._links.self.href);
+                    setClickedCartId(params.row.id);
                   }}
                   sx={{
                     color: "#1976d2",
@@ -366,7 +368,7 @@ export default function Carlist() {
               </motion.div>
 
               <IconButton
-                onClick={() => onDelClick(params.row._links.self.href)}
+                onClick={() => onDelClick(params.row.id)}
                 sx={{
                   color: "#ff4444",
                   "&:hover": {
@@ -388,7 +390,8 @@ export default function Carlist() {
 
   useEffect(() => {
     fetchCars();
-  }, []);
+    }, []);
+
 
   const fetchCars = () => {
     setIsLoading(true);
@@ -408,21 +411,22 @@ export default function Carlist() {
       .then((data) => {
         
         
-        setCars(data._embedded.cars || []);
+        setCars(data || []);
         setIsLoading(false);
       })
       .catch((err) => {
         console.error(err);
         setIsLoading(false);
       });
-  };
+    };
 
-  const onDelClick = (url) => {
+
+  const onDelClick = (carId) => {
     if (window.confirm("Are you sure you want to delete?")) {
       const token = sessionStorage.getItem("jwt");
-      fetch(url, {
+      fetch(`${SERVER_URL}api/cars/${carId}`, {
         method: "DELETE",
-        headers: { Authorization: token },
+        headers: { Authorization: `Bearer ${token}` },
       })
         .then((response) => {
           if (response.ok) {
@@ -557,7 +561,7 @@ export default function Carlist() {
                   }))}
                   pageSize={10}
                   rowsPerPageOptions={[10, 20, 50]}
-                  getRowId={(row) => row._links.self.href}
+                  getRowId={(row) => row.id}
                   disableSelectionOnClick
                   disableColumnSelector
                   loading={isLoading}

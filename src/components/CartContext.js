@@ -7,13 +7,13 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (car) => {
     setCart(prev => {
-      // Используем _links.self.href как уникальный ID
-      const carId = car._links.self.href;
-      const existingItem = prev.find(item => item._links.self.href === carId);
+      // Используем car.id как уникальный ID
+      const carId = car.id;
+      const existingItem = prev.find(item => item.id === carId);
       
       if (existingItem) {
         return prev.map(item => 
-          item._links.self.href === carId
+          item.id === carId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
@@ -25,7 +25,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (carId) => {
-    setCart(prev => prev.filter(item => item._links.self.href !== carId));
+    setCart(prev => prev.filter(item => item.id !== carId));
   };
 
   const updateQuantity = (carId, newQuantity) => {
@@ -36,7 +36,7 @@ export const CartProvider = ({ children }) => {
 
     setCart(prev =>
       prev.map(item =>
-        item._links.self.href === carId
+        item.id === carId
           ? { ...item, quantity: newQuantity }
           : item
       )
