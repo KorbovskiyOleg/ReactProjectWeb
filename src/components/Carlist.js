@@ -21,8 +21,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ExportData from "./ExportData";
 //import { Link } from "react-router-dom";
 
-
-
 const itemVariants = {
   hidden: {
     opacity: 0,
@@ -107,8 +105,6 @@ export default function Carlist() {
       })
       .catch((err) => console.error(err));
   };
-
-  
 
   const columns = [
     {
@@ -276,37 +272,35 @@ export default function Carlist() {
     },
 
     {
-  field: "owner",
-  headerName: (
-    <motion.div variants={headerVariants}>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <span>Owner</span>
-      </Box>
-    </motion.div>
-  ),
-  headerClassName: "header-theme",
-  flex: 0.5,
-  minWidth: 150,
-  renderCell: (params) => {
-    //const owner = params.row.owner || {};
-    return (
-      <motion.div
-        custom={params.rowIndex + 0.3}
-        variants={itemVariants}
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        
-        
-      
-      </motion.div>
-    );
-  },
-},
+      field: "owner",
+      headerName: (
+        <motion.div variants={headerVariants}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <span>Owner</span>
+          </Box>
+        </motion.div>
+      ),
+      headerClassName: "header-theme",
+      flex: 0.5,
+      minWidth: 150,
+      renderCell: (params) => {
+        return (
+          // ← ДОБАВЬТЕ return!
+          <motion.div
+            custom={params.rowIndex + 0.3}
+            variants={itemVariants}
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {params.row.ownerFirstName} {params.row.ownerLastName}
+          </motion.div>
+        );
+      },
+    },
     {
       field: "actions",
       headerName: (
@@ -390,8 +384,7 @@ export default function Carlist() {
 
   useEffect(() => {
     fetchCars();
-    }, []);
-
+  }, []);
 
   const fetchCars = () => {
     setIsLoading(true);
@@ -409,8 +402,6 @@ export default function Carlist() {
       })
 
       .then((data) => {
-        
-        
         setCars(data || []);
         setIsLoading(false);
       })
@@ -418,8 +409,7 @@ export default function Carlist() {
         console.error(err);
         setIsLoading(false);
       });
-    };
-
+  };
 
   const onDelClick = (carId) => {
     if (window.confirm("Are you sure you want to delete?")) {
