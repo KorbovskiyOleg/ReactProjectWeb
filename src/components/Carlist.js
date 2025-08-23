@@ -19,7 +19,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useCart } from "./CartContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ExportData from "./ExportData";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const itemVariants = {
   hidden: {
@@ -296,7 +296,21 @@ export default function Carlist() {
               alignItems: "center",
             }}
           >
-            {params.row.ownerFirstName} {params.row.ownerLastName}
+            <Link
+              to={`/owners/${params.row.ownerId}`} // ← Ссылка на страницу владельца
+              style={{
+                textDecoration: "none",
+                color: "#1976d2",
+                fontWeight: 500,
+                cursor: "pointer",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+              onClick={(e) => e.stopPropagation()} // ← Чтобы не выделялась строка
+            >
+              {params.row.ownerFirstName} {params.row.ownerLastName}
+            </Link>
           </motion.div>
         );
       },
