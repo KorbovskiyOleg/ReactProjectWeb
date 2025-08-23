@@ -13,6 +13,7 @@ export default function OwnerDetails() {
     const fetchOwnerDetails = () => {
       const token = sessionStorage.getItem("jwt");
 
+
       // Загружаем данные владельца
       fetch(`${SERVER_URL}api/owners/${ownerId}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -76,7 +77,7 @@ export default function OwnerDetails() {
             {cars.map((car) => (
               <Chip
                 key={car.id}
-                label={`${car.brand} ${car.model} (${car.color})`}
+                label={`${car.brand} ${car.model} (${car.color}) (${car.price})`}
                 variant="outlined"
                 sx={{ m: 0.5 }}
               />

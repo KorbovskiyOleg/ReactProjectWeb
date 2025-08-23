@@ -174,10 +174,6 @@ function App() {
  // }, [isMusicAllowed]);
 
   const handleLoginSuccess = () => {
-   // if (audioRef.current) {
-   //   audioRef.current.currentTime = 5;
-   //   audioRef.current.play().catch((e) => console.log("Auto-play prevented:", e));
-   // }
     setAuth(true);
     setShowLogin(false);
     navigate("/");// перенаправление на страницу
