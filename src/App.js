@@ -25,6 +25,8 @@ import SettingsPage from "./components/SettingsPage";
 //import MainPage from './components/MainPage'; 
 import { AudioProvider } from './context/AudioContext';
 import { useAudio } from './context/AudioContext'; 
+import OwnerDetails from "./components/OwnerDetails";
+
 
 const backgroundImage = "/images/imagback.webp";
 
@@ -448,6 +450,7 @@ function App() {
   
   <Route path="/settings" element={isAuthenticated ? <SettingsPage/> : <Login onLoginSuccess={handleLoginSuccess} />} />
   <Route path="/stats" element={isAuthenticated ? <StatsPage /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+  <Route path="/owners/:ownerId" element={<OwnerDetails />} />
               
             </Routes>
           </MainContent>
