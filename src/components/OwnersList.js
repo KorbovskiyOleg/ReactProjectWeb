@@ -85,7 +85,7 @@ export default function OwnersList() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(owner),
     })
@@ -341,7 +341,7 @@ export default function OwnersList() {
       const token = sessionStorage.getItem("jwt");
       fetch(`${SERVER_URL}api/owners/${ownerId}`, {
         method: "DELETE",
-        headers: { Authorization: token },
+        headers: { Authorization: `Bearer ${token}` },
       })
         .then((response) => {
           if (response.ok) {
