@@ -13,6 +13,42 @@ import Box from "@mui/material/Box";
 
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExportData from "./ExportData";
+//имя фамилия 
+import { 
+  //Person, 
+  //PersonOutline, 
+  Badge, 
+  //Face,
+  AccountCircle 
+} from '@mui/icons-material';
+
+// номер телефона
+import { 
+  Phone, 
+  //PhoneAndroid, 
+  //Call, 
+  //ContactPhone,
+  //Smartphone 
+} from '@mui/icons-material';
+
+//email
+import { 
+  Email, 
+  //MailOutline, 
+  //AlternateEmail,
+  //MarkEmailRead,
+  //ContactMail 
+} from '@mui/icons-material';
+
+// адрес
+import { 
+  Home, 
+  //LocationOn, 
+  //House, 
+  //Place,
+  //Map,
+  //LocationCity 
+} from '@mui/icons-material';
 
 
 const itemVariants = {
@@ -140,6 +176,7 @@ export default function OwnersList() {
       headerName: (
         <motion.div variants={headerVariants}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
+            <AccountCircle fontSize="small" sx={{ mr: 1 }} />
             <span>Name ({owners.length})</span>
           </Box>
         </motion.div>
@@ -167,6 +204,7 @@ export default function OwnersList() {
       headerName: (
         <motion.div variants={headerVariants}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Badge fontSize="small" sx={{ mr: 1 }} />
             <span>Surname</span>
           </Box>
         </motion.div>
@@ -195,6 +233,7 @@ export default function OwnersList() {
       headerName: (
         <motion.div variants={headerVariants}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Phone fontSize="small" sx={{ mr: 1 }} />
             
             <span>Phone</span>
           </Box>
@@ -224,6 +263,7 @@ export default function OwnersList() {
       headerName: (
         <motion.div variants={headerVariants}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Email fontSize="small" sx={{ mr: 1 }} />
             
             <span>email</span>
           </Box>
@@ -253,7 +293,7 @@ export default function OwnersList() {
       headerName: (
         <motion.div variants={headerVariants}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            
+            <Home fontSize="small" sx={{ mr: 1 }} />
             <span>Address</span>
           </Box>
         </motion.div>
