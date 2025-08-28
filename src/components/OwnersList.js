@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { motion, AnimatePresence } from "framer-motion";
-import AddOwner from "./AddOwner";
+//import AddOwner from "./AddOwner";
 import EditOwner from "./EditOwner";
 import { SERVER_URL } from "../constants";
 import { Snackbar } from "@mui/material";
@@ -79,7 +79,7 @@ export default function OwnersList() {
   };
 
 
-  const addOwner = (owner) => {
+  /*const addOwner = (owner) => {
     const token = sessionStorage.getItem("jwt");
     fetch(SERVER_URL + "api/owners", {
       method: "POST",
@@ -97,7 +97,7 @@ export default function OwnersList() {
         }
       })
       .catch((err) => console.error(err));
-  };
+  };*/
 
   useEffect(() => {
     fetchOwners();
@@ -404,9 +404,9 @@ export default function OwnersList() {
                   alignItems: "flex-start",
                 }}
               >
-                <Box>
+                {/*<Box>
                   <AddOwner addOwner={addOwner} />
-                </Box>
+                </Box>*/}
                 <Box sx={{ mt: 1 }}>
                   <ExportData data={exportData} fileName="owners_export" />
                 </Box>
