@@ -144,34 +144,10 @@ function App() {
   const [isAuthenticated, setAuth] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-  //const audioRef = useRef(null);
-  //const [isMusicAllowed, setIsMusicAllowed] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { isMusicAllowed, enableMusic } = useAudio();
-
-  //const enableMusic = () => {
-  //  setIsMusicAllowed(true);
-  //  localStorage.setItem("musicAllowed", "true");
-  //  if (audioRef.current) {
-  //    audioRef.current.play().catch((e) => console.log("Play error:", e));
-   // }
- // };
-
-  //useEffect(() => {
-   // if (localStorage.getItem("musicAllowed") === "true") {
-   //   setIsMusicAllowed(true);
-   // }
-  //}, []);
-
- // useEffect(() => {
-  //  if (isMusicAllowed && audioRef.current) {
-  //    audioRef.current.loop = true;
-  //    audioRef.current.volume = 0.2;
-  //    audioRef.current.play().catch((e) => console.log("Auto-play blocked"));
-  //  }
- // }, [isMusicAllowed]);
 
   const handleLoginSuccess = () => {
     setAuth(true);

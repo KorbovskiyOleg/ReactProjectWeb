@@ -1,6 +1,6 @@
 //оставлю это здесь - анимация визуализатора с более чувствительной отрисовкой! но жрет много ресурсов CPU
 
-import { useEffect, useRef, useState } from "react";
+/*import { useEffect, useRef, useState } from "react";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { useAudio } from "../context/AudioContext";
 import { Palette as PaletteIcon } from "@mui/icons-material";
@@ -212,4 +212,4 @@ const AudioVisualizer = () => {
   );
 };
 
-export default AudioVisualizer;
+export default AudioVisualizer;*/

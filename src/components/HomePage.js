@@ -19,7 +19,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import WeatherWidget from "./WeatherWidget";
-import AudioVisualizer from "./AudioVisualizer";
+//import AudioVisualizer from "./AudioVisualizer";
 import CalendarWidget from "./CalendarWidget";
 import NotesWidget from "./NotesWidget";
 import RealTimeClock from "./RealTimeClock";
@@ -301,7 +301,7 @@ const HomePage = () => {
       <NotesWidget />
     </motion.div>
 
-    {/* Аудио-визуализатор */}
+    {/* Аудио-визуализатор 
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -317,7 +317,7 @@ const HomePage = () => {
           },
         }}
       />
-    </motion.div>
+    </motion.div>*/}
   </Box>
 </Box>
 
