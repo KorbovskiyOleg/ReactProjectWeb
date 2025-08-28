@@ -15,6 +15,7 @@ import ModelIcon from "@mui/icons-material/PrecisionManufacturing";
 import PaletteIcon from "@mui/icons-material/Palette";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { Person } from '@mui/icons-material';
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useCart } from "./CartContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -276,6 +277,7 @@ export default function Carlist() {
       headerName: (
         <motion.div variants={headerVariants}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Person fontSize="small" sx={{ mr: 1 }} />
             <span>Owner</span>
           </Box>
         </motion.div>

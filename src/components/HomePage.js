@@ -228,7 +228,6 @@ const HomePage = () => {
           }}
         >
           {/* Добавляем компонент часов */}
-  
 
           {/* Блок с карточками */}
           <Stack spacing={3} sx={{ flex: 1 }}>
@@ -284,24 +283,26 @@ const HomePage = () => {
           </Stack>
 
           {/* Блокнот */}
-          <Box sx={{
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    gap: 3,
-    width: "100%",
-  }}>
-    {/* Блокнот */}
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.8 }}
-      style={{ width: "50%" }}
-    >
-      <NotesWidget />
-    </motion.div>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              gap: 3,
+              width: "100%",
+            }}
+          >
+            {/* Блокнот */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              style={{ width: "50%" }}
+            >
+              <NotesWidget />
+            </motion.div>
 
-    {/* Аудио-визуализатор 
+            {/* Аудио-визуализатор 
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -318,10 +319,8 @@ const HomePage = () => {
         }}
       />
     </motion.div>*/}
-  </Box>
-</Box>
-
-        
+          </Box>
+        </Box>
       </Container>
     </>
   );

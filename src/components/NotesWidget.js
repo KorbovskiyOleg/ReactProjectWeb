@@ -40,7 +40,7 @@ const NotesWidget = () => {
       p: 2
     }}>
       <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-        Блокнот
+        Notebook
       </Typography>
       
       {/* Поле для новой заметки */}
