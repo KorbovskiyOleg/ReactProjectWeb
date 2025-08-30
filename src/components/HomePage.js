@@ -114,10 +114,13 @@ const HomePage = () => {
         maxWidth="xl"
         sx={{
           display: "flex",
-          p: 4,
+          flexDirection: { xs: "column", md: "row" }, // ← Адаптивное направление
+          p: { xs: 2, md: 4 }, // ← Адаптивные отступы
           position: "relative",
           minHeight: "80vh",
           gap: 4,
+          overflow: "hidden", 
+          width: "100%", 
         }}
       >
         {/* Левая колонка - Основной контент */}
@@ -221,10 +224,11 @@ const HomePage = () => {
         {/* Правая колонка - Навигационные карточки и визуализатор */}
         <Box
           sx={{
-            width: "50%",
+            width: { xs: "100%", md: "50%" }, // ← Адаптивная ширина
             display: "flex",
             flexDirection: "column",
             gap: 3,
+            flexShrink: 0, // ← Добавь
           }}
         >
           {/* Добавляем компонент часов */}
