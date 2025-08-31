@@ -42,41 +42,6 @@ const cardVariants = {
   },
 };
 
-// Компонент для отображения курса валют
-/*const CurrencyRates = () => {
-  return (
-    <Card
-      sx={{
-        mb: 2,
-        borderRadius: 2,
-        boxShadow: "none",
-        background: "transparent",
-        border: "1px solid rgba(255, 255, 255, 0.2)",
-        backdropFilter: "blur(8px)",
-      }}
-    >
-      <CardContent sx={{ p: 2 }}>
-        <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-          <CurrencyIcon sx={{ color: "white", mr: 1 }} />
-          <Typography variant="h6" component="div" sx={{ color: "black" }}>
-            Курс валют
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            color: "black",
-          }}
-        >
-          <Typography variant="body1">USD: 73.50 ₽</Typography>
-          <Typography variant="body1">EUR: 80.20 ₽</Typography>
-          <Typography variant="body1">CNY: 10.50 ₽</Typography>
-        </Box>
-      </CardContent>
-    </Card>
-  );
-};*/
 
 const HomePage = () => {
   const theme = useTheme();
