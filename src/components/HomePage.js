@@ -14,7 +14,6 @@ import {
   People as OwnersIcon,
   Settings as SettingsIcon,
   BarChart as StatsIcon,
-  CurrencyExchange as CurrencyIcon,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -23,6 +22,8 @@ import WeatherWidget from "./WeatherWidget";
 import CalendarWidget from "./CalendarWidget";
 import NotesWidget from "./NotesWidget";
 import RealTimeClock from "./RealTimeClock";
+import CurrencyWidget from './CurrencyWidget';
+
 
 // Анимация для карточек
 const cardVariants = {
@@ -42,7 +43,7 @@ const cardVariants = {
 };
 
 // Компонент для отображения курса валют
-const CurrencyRates = () => {
+/*const CurrencyRates = () => {
   return (
     <Card
       sx={{
@@ -75,7 +76,7 @@ const CurrencyRates = () => {
       </CardContent>
     </Card>
   );
-};
+};*/
 
 const HomePage = () => {
   const theme = useTheme();
@@ -174,7 +175,7 @@ const HomePage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <CurrencyRates />
+              <CurrencyWidget />
             </motion.div>
 
             {/* Погода и календарь в одной строке */}
