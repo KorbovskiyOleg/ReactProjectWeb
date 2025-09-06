@@ -26,6 +26,10 @@ import SettingsPage from "./components/SettingsPage";
 import { AudioProvider } from './context/AudioContext';
 import { useAudio } from './context/AudioContext'; 
 import OwnerDetails from "./components/OwnerDetails";
+import NotesWidget from './components/NotesWidget';
+import NewNotePage from './components/NewNotePage'; // Добавляем импорт
+//import EditNotePage from './components/EditNotePage'; // Добавляем импорт
+import NoteIcon from '@mui/icons-material/Note'; // Иконка для блокнота
 
 
 const backgroundImage = "/images/imagback.webp";
@@ -371,6 +375,18 @@ function App() {
                   >
                     Owners
                   </MenuButton>
+                  
+                  <MenuButton
+                    sx={{ 
+                      color: "white",
+                      backgroundColor: location.pathname === "/notes" ? alpha(theme.palette.primary.light, 0.3) : "transparent"
+                    }}
+                    onClick={() => handleNavigation("/notes")}
+                    startIcon={<NoteIcon />}
+                  >
+                    Блокнот
+                  </MenuButton>
+
                   <MenuButton
                     //startIcon={<span>⚙️</span>}
                     sx={{ 
@@ -423,6 +439,10 @@ function App() {
   <Route path="/settings" element={isAuthenticated ? <SettingsPage/> : <Login onLoginSuccess={handleLoginSuccess} />} />
   <Route path="/stats" element={isAuthenticated ? <StatsPage /> : <Login onLoginSuccess={handleLoginSuccess} />} />
   <Route path="/owners/:ownerId" element={<OwnerDetails />} />
+
+  {/* Маршруты для блокнота */}
+              <Route path="/notes" element={isAuthenticated ? <NotesWidget /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+              <Route path="/new-note" element={isAuthenticated ? <NewNotePage /> : <Login onLoginSuccess={handleLoginSuccess} />} />
               
             </Routes>
           </MainContent>
