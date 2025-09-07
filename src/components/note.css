@@ -1,0 +1,51 @@
+/* Стили для редактора */
+.green-editor .w-md-editor-text {
+  color: #2e7d32 !important;
+}
+
+.green-editor .w-md-editor-text pre {
+  color: #2e7d32 !important;
+}
+
+.green-editor .w-md-editor-text textarea {
+  color: #2e7d32 !important;
+  font-family: inherit !important;
+}
+
+/* Стили для отображения сохраненных заметок */
+.green-markdown {
+  color: #2e7d32 !important;
+}
+
+.green-markdown h1,
+.green-markdown h2,
+.green-markdown h3,
+.green-markdown h4,
+.green-markdown h5,
+.green-markdown h6 {
+  color: #1b5e20 !important; /* Более темный зеленый для заголовков */
+}
+
+.green-markdown p {
+  color: #2e7d32 !important;
+}
+
+.green-markdown code {
+  color: #388e3c !important;
+  background-color: rgba(46, 125, 50, 0.1) !important;
+}
+
+.green-markdown pre {
+  color: #388e3c !important;
+  background-color: rgba(46, 125, 50, 0.1) !important;
+}
+
+.green-markdown ul,
+.green-markdown ol {
+  color: #2e7d32 !important;
+}
+
+.green-markdown blockquote {
+  color: #4caf50 !important;
+  border-left-color: #4caf50 !important;
+}

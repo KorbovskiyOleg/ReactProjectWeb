@@ -44,6 +44,7 @@ const NotesWidget = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
+      // вот здесь изменил было const notesData = await response.json();
       const data = await response.json();
       const notesData = data._embedded?.notes || [];
       
@@ -234,6 +235,7 @@ const NotesWidget = () => {
                       ? (note.contentNote || note.text || '').substring(0, 100) + '...' 
                       : (note.contentNote || note.text || '')
                   } 
+                  className='green-markdown'
                   style={{ 
                     fontSize: '14px',
                     background: 'transparent'

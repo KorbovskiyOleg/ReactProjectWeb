@@ -15,6 +15,7 @@ import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import MDEditor from "@uiw/react-md-editor";
 import { SERVER_URL } from "../constants";
+import "./note.css"; // ✅ Импорт стилей
 
 const NewNotePage = () => {
   const theme = useTheme();
@@ -158,6 +159,7 @@ const NewNotePage = () => {
             height={400}
             preview="edit"
             disabled={loading}
+            className="green-editor"
             style={{
               borderRadius: "12px",
               border: `1px solid ${theme.palette.divider}`,
