@@ -114,27 +114,6 @@ export default function OwnersList() {
       .catch((err) => console.error(err));
   };
 
-
-  /*const addOwner = (owner) => {
-    const token = sessionStorage.getItem("jwt");
-    fetch(SERVER_URL + "api/owners", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(owner),
-    })
-      .then((response) => {
-        if (response.ok) {
-          fetchOwners();
-        } else {
-          alert("Something went wrong!");
-        }
-      })
-      .catch((err) => console.error(err));
-  };*/
-
   useEffect(() => {
     fetchOwners();
   }, []);
