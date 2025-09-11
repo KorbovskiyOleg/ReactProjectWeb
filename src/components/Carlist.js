@@ -1,56 +1,15 @@
+// src/CarList.js
 import React, { useState, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
 import { motion, AnimatePresence } from "framer-motion";
 import AddCar from "./AddCar";
-import EditCar from "./EditCar";
-import { SERVER_URL } from "../constants";
 import { Snackbar } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import ModelIcon from "@mui/icons-material/PrecisionManufacturing";
-import PaletteIcon from "@mui/icons-material/Palette";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { Person } from '@mui/icons-material';
-import SettingsIcon from "@mui/icons-material/Settings";
 import { useCart } from "./CartContext";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ExportData from "./ExportData";
-import { Link } from "react-router-dom";
-
-const itemVariants = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-    x: (i) => (i % 3 === 0 ? -50 : i % 3 === 1 ? 50 : 0),
-  },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    x: 0,
-    transition: {
-      delay: i * 0.15,
-      duration: 0.8,
-      type: "spring",
-      stiffness: 100,
-      damping: 15,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  }),
-};
-
-const headerVariants = {
-  hidden: { opacity: 0, y: -50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 100 },
-  },
-};
+import { carServices, exportCarData } from "../data/dataCar";
+import CarDataGrid from "./CarDataGrid";
 
 const StyledHeader = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
@@ -65,395 +24,29 @@ export default function Carlist() {
   const [isLoading, setIsLoading] = useState(true);
   const { addToCart } = useCart();
   const [clickedCartId, setClickedCartId] = useState(null);
-  const [isVisible] = useState(true); // Добавляем состояние для анимации
-
-  const updateCar = (car, carId) => {
-    const token = sessionStorage.getItem("jwt");
-    fetch(`${SERVER_URL}api/cars/${carId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(car),
-    })
-      .then((response) => {
-        if (response.ok) {
-          fetchCars();
-        } else {
-          alert("Something went wrong!");
-        }
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const addCar = (car) => {
-    const token = sessionStorage.getItem("jwt");
-    fetch(SERVER_URL + "api/cars", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(car),
-    })
-      .then((response) => {
-        if (response.ok) {
-          fetchCars();
-        } else {
-          alert("Something went wrong!");
-        }
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const columns = [
-    {
-      field: "brand",
-      headerName: (
-        <motion.div variants={headerVariants}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <DirectionsCarIcon fontSize="small" sx={{ mr: 1 }} />
-            <span>Brand ({cars.length})</span>
-          </Box>
-        </motion.div>
-      ),
-      headerClassName: "header-theme",
-      flex: 0.5,
-      minWidth: 150,
-      renderCell: (params) => (
-        <motion.div
-          custom={params.rowIndex}
-          variants={itemVariants}
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          {params.value}
-        </motion.div>
-      ),
-    },
-    {
-      field: "model",
-      headerName: (
-        <motion.div variants={headerVariants}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <ModelIcon fontSize="small" sx={{ mr: 1 }} />
-            <span>Model</span>
-          </Box>
-        </motion.div>
-      ),
-      headerClassName: "header-theme",
-      flex: 0.5,
-      minWidth: 150,
-      renderCell: (params) => (
-        <motion.div
-          custom={params.rowIndex + 0.3}
-          variants={itemVariants}
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          {params.value}
-        </motion.div>
-      ),
-    },
-    {
-      field: "color",
-      headerName: (
-        <motion.div variants={headerVariants}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <PaletteIcon fontSize="small" sx={{ mr: 1 }} />
-            <span>Color</span>
-          </Box>
-        </motion.div>
-      ),
-      headerClassName: "header-theme",
-      flex: 0.5,
-      minWidth: 150,
-      renderCell: (params) => (
-        <motion.div
-          custom={params.rowIndex + 0.6}
-          variants={itemVariants}
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Box
-            sx={{
-              backgroundColor: params.value.toLowerCase(),
-              width: 20,
-              height: 20,
-              borderRadius: "50%",
-              marginRight: 1,
-              border: "1px solid #ddd",
-            }}
-          />
-          <Typography
-            variant="body2"
-            sx={{
-              ml: 1,
-              color: "#333",
-              fontWeight: 500,
-            }}
-          >
-            {params.value}
-          </Typography>
-        </motion.div>
-      ),
-    },
-    {
-      field: "make",
-      headerName: (
-        <motion.div variants={headerVariants}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <CalendarTodayIcon fontSize="small" sx={{ mr: 1 }} />
-            <span>Year</span>
-          </Box>
-        </motion.div>
-      ),
-      headerClassName: "header-theme",
-      flex: 0.5,
-      minWidth: 100,
-      renderCell: (params) => (
-        <motion.div
-          custom={params.rowIndex + 0.9}
-          variants={itemVariants}
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          {params.value}
-        </motion.div>
-      ),
-    },
-    {
-      field: "price",
-      headerName: (
-        <motion.div variants={headerVariants}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <AttachMoneyIcon fontSize="small" sx={{ mr: 1 }} />
-            <span>Price</span>
-          </Box>
-        </motion.div>
-      ),
-      headerClassName: "header-theme",
-      flex: 0.5,
-      minWidth: 150,
-      cellClassName: "price-cell",
-      renderCell: (params) => (
-        <motion.div
-          custom={params.rowIndex + 1.2}
-          variants={itemVariants}
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          {params.value.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-          })}
-        </motion.div>
-      ),
-    },
-
-    {
-      field: "owner",
-      headerName: (
-        <motion.div variants={headerVariants}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Person fontSize="small" sx={{ mr: 1 }} />
-            <span>Owner</span>
-          </Box>
-        </motion.div>
-      ),
-      headerClassName: "header-theme",
-      flex: 0.5,
-      minWidth: 150,
-      renderCell: (params) => {
-        return (
-          // ← ДОБАВЬТЕ return!
-          <motion.div
-            custom={params.rowIndex + 0.3}
-            variants={itemVariants}
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Link
-              to={`/owners/${params.row.ownerId}`} // ← Ссылка на страницу владельца
-              style={{
-                textDecoration: "none",
-                color: "#1976d2",
-                fontWeight: 500,
-                cursor: "pointer",
-                "&:hover": {
-                  textDecoration: "underline",
-                },
-              }}
-              onClick={(e) => e.stopPropagation()} // ← Чтобы не выделялась строка
-            >
-              {params.row.ownerFirstName} {params.row.ownerLastName}
-            </Link>
-          </motion.div>
-        );
-      },
-    },
-    {
-      field: "actions",
-      headerName: (
-        <motion.div variants={headerVariants}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <SettingsIcon fontSize="small" sx={{ mr: 1 }} />
-            <span>Actions</span>
-          </Box>
-        </motion.div>
-      ),
-      headerClassName: "header-theme",
-      flex: 0.5,
-      sortable: false,
-      width: 250,
-      renderCell: (params) => {
-        const isClicked = clickedCartId === params.row.id;
-
-        return (
-          <motion.div
-            custom={params.rowIndex + 1.5}
-            variants={itemVariants}
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-              <EditCar
-                data={{ row: params.row, id: params.row.id }}
-                updateCar={updateCar}
-              />
-
-              <motion.div
-                animate={{
-                  scale: isClicked ? [1, 1.2, 1] : 1,
-                  rotate: isClicked ? [0, 10, -10, 0] : 0,
-                }}
-                transition={{ duration: 0.5 }}
-              >
-                <IconButton
-                  onClick={() => {
-                    addToCart(params.row);
-                    setClickedCartId(params.row.id);
-                  }}
-                  sx={{
-                    color: "#1976d2",
-                    "&:hover": {
-                      backgroundColor: "rgba(25, 118, 210, 0.1)",
-                    },
-                  }}
-                >
-                  <ShoppingCartIcon fontSize="small" />
-                  <Typography variant="caption" sx={{ ml: 0.5 }}>
-                    Add
-                  </Typography>
-                </IconButton>
-              </motion.div>
-
-              <IconButton
-                onClick={() => onDelClick(params.row.id)}
-                sx={{
-                  color: "#ff4444",
-                  "&:hover": {
-                    backgroundColor: "rgba(255, 68, 68, 0.1)",
-                  },
-                }}
-              >
-                <DeleteIcon fontSize="small" />
-                <Typography variant="caption" sx={{ ml: 0.5 }}>
-                  Delete
-                </Typography>
-              </IconButton>
-            </Box>
-          </motion.div>
-        );
-      },
-    },
-  ];
+  const [isVisible] = useState(true);
 
   useEffect(() => {
     fetchCars();
   }, []);
 
   const fetchCars = () => {
-    setIsLoading(true);
-    const token = sessionStorage.getItem("jwt");
-    fetch(SERVER_URL + "api/cars", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(text);
-          }); // Читаем текст ошибки
-        }
-        return response.json();
-      })
-
-      .then((data) => {
-        setCars(data || []);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setIsLoading(false);
-      });
+    carServices.fetchCars(setCars, setIsLoading);
   };
 
   const onDelClick = (carId) => {
-    if (window.confirm("Are you sure you want to delete?")) {
-      const token = sessionStorage.getItem("jwt");
-      fetch(`${SERVER_URL}api/cars/${carId}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((response) => {
-          if (response.ok) {
-            fetchCars();
-            setOpen(true);
-          } else {
-            alert("Something went wrong!");
-          }
-        })
-        .catch((err) => console.error(err));
-    }
+    carServices.deleteCar(carId, fetchCars, setOpen);
   };
 
-  const exportData = cars.map((car) => ({
-    Марка: car.brand,
-    Модель: car.model,
-    Год: car.year,
-    Цвет: car.color,
-    Цена: car.price,
-    VIN: car.vin,
-  }));
+  const updateCar = (car, carId) => {
+    carServices.updateCar(car, carId, fetchCars);
+  };
+
+  const addCar = (car) => {
+    carServices.addCar(car, fetchCars);
+  };
+
+  const exportData = exportCarData(cars);
 
   return (
     <Box sx={{ width: "100%", p: 3 }}>
@@ -512,92 +105,15 @@ export default function Carlist() {
               animate={!isLoading ? "visible" : "hidden"}
               exit="exit"
             >
-              <Box
-                sx={{
-                  height: 600,
-                  width: "100%",
-                  "& .header-theme": {
-                    backgroundColor: "#1976d2 !important",
-                    color: "#ffffff !important",
-                    fontSize: "0.875rem",
-                    fontWeight: "bold",
-                  },
-                  "& .MuiDataGrid-cell": {
-                    borderBottom: "1px solid #f0f0f0",
-                    "&.price-cell": {
-                      fontWeight: "bold",
-                      color: "#2e7d32",
-                    },
-                  },
-                  "& .MuiDataGrid-root": {
-                    border: "none",
-                    borderRadius: 2,
-                  },
-                  "& .MuiDataGrid-columnHeaders": {
-                    backgroundColor: "#1976d2 !important",
-                    color: "#fff",
-                  },
-                  "& .MuiDataGrid-cell:focus": {
-                    outline: "none",
-                  },
-                }}
-              >
-                <DataGrid
-                  rows={cars}
-                  columns={columns.map((col) => ({
-                    ...col,
-                    renderCell: (params) => (
-                      <motion.div
-                        custom={params.rowIndex}
-                        variants={itemVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          display: "flex",
-                          alignItems: "center",
-                          transitionDelay: `${params.rowIndex * 0.1}s`,
-                        }}
-                      >
-                        {col.renderCell ? col.renderCell(params) : params.value}
-                      </motion.div>
-                    ),
-                  }))}
-                  pageSize={10}
-                  rowsPerPageOptions={[10, 20, 50]}
-                  getRowId={(row) => row.id}
-                  disableSelectionOnClick
-                  disableColumnSelector
-                  loading={isLoading}
-                  components={{
-                    LoadingOverlay: () => (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          height: "100%",
-                          backgroundColor: "rgba(255, 255, 255, 0.7)",
-                        }}
-                      >
-                        <motion.div
-                          animate={{ rotate: 360 }}
-                          transition={{
-                            duration: 1,
-                            repeat: Infinity,
-                            ease: "linear",
-                          }}
-                          style={{ fontSize: "3rem" }}
-                        >
-                          🚗
-                        </motion.div>
-                      </Box>
-                    ),
-                  }}
-                />
-              </Box>
+              <CarDataGrid
+                cars={cars}
+                isLoading={isLoading}
+                clickedCartId={clickedCartId}
+                addToCart={addToCart}
+                onDelClick={onDelClick}
+                updateCar={updateCar}
+                setClickedCartId={setClickedCartId}
+              />
             </motion.div>
           </>
         )}
