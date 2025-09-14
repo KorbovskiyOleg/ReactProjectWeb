@@ -233,7 +233,7 @@ const NotesWidget = () => {
       }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
           <Typography variant="h6" sx={{ fontWeight: 600 }}>
-            📓 Блокнот ({safeNotes.length})
+            Notebook ({safeNotes.length})
           </Typography>
           <Button 
             variant="contained" 
@@ -241,7 +241,7 @@ const NotesWidget = () => {
             onClick={handleAddNote}
             size="small"
           >
-            Новая
+            new
           </Button>
         </Box>
         
@@ -253,7 +253,7 @@ const NotesWidget = () => {
               color: 'text.secondary'
             }}>
               <Typography variant="body2" sx={{ mb: 1 }}>
-                Заметок пока нет
+                Empty
               </Typography>
               <Button 
                 variant="outlined" 
@@ -261,7 +261,7 @@ const NotesWidget = () => {
                 onClick={handleAddNote}
                 size="small"
               >
-                Создать первую
+                Create
               </Button>
             </Box>
           ) : (
@@ -341,7 +341,7 @@ const NotesWidget = () => {
 
       {/* Диалог редактирования */}
       <Dialog open={Boolean(editingNote)} onClose={handleCloseEdit} maxWidth="md" fullWidth>
-        <DialogTitle>Редактировать заметку</DialogTitle>
+        <DialogTitle>Edit note</DialogTitle>
         <DialogContent>
           <TextField
             fullWidth
@@ -352,7 +352,7 @@ const NotesWidget = () => {
             disabled={editLoading}
           />
           <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
-            Содержание:
+            Summury
           </Typography>
           <MDEditor
             value={editContent}
@@ -365,7 +365,7 @@ const NotesWidget = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseEdit} disabled={editLoading}>
-            Отмена
+            Cancel
           </Button>
           <Button 
             onClick={handleSaveEdit} 

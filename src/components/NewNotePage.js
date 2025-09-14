@@ -113,7 +113,7 @@ const NewNotePage = () => {
           sx={{ mb: 3 }}
           disabled={loading}
         >
-          Назад к заметкам
+          Go note
         </Button>
 
         {/* Заголовок */}
@@ -129,7 +129,7 @@ const NewNotePage = () => {
             mb: 3,
           }}
         >
-          📝 Новый документ
+          📝 Create new note
         </Typography>
 
         {/* Поле для названия */}
@@ -153,7 +153,7 @@ const NewNotePage = () => {
         {/* Редактор Markdown */}
         <Box sx={{ mb: 3 }}>
           <Typography variant="h6" gutterBottom>
-            Содержание:
+            Summury
           </Typography>
           <MDEditor
             value={noteText}
@@ -177,7 +177,7 @@ const NewNotePage = () => {
             size="large"
             disabled={loading}
           >
-            Отмена
+            Cancel
           </Button>
 
           <Button
@@ -203,7 +203,7 @@ const NewNotePage = () => {
                     marginLeft: "-12px"
                   }} 
                 />
-                <span style={{ opacity: 0 }}>Сохранить</span>
+                <span style={{ opacity: 0 }}>Save</span>
               </>
             ) : (
               "Сохранить заметку"

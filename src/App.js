@@ -29,7 +29,7 @@ import OwnerDetails from "./components/OwnerDetails";
 import NotesWidget from './components/NotesWidget';
 import NewNotePage from './components/NewNotePage'; // Добавляем импорт
 //import EditNotePage from './components/EditNotePage'; // Добавляем импорт
-import NoteIcon from '@mui/icons-material/Note'; // Иконка для блокнота
+//import NoteIcon from '@mui/icons-material/Note'; // Иконка для блокнота
 
 
 const backgroundImage = "/images/imagback.webp";
@@ -382,9 +382,9 @@ function App() {
                       backgroundColor: location.pathname === "/notes" ? alpha(theme.palette.primary.light, 0.3) : "transparent"
                     }}
                     onClick={() => handleNavigation("/notes")}
-                    startIcon={<NoteIcon />}
+                    
                   >
-                    Блокнот
+                    Notebook
                   </MenuButton>
 
                   <MenuButton
