@@ -67,6 +67,38 @@ export default function Carlist() {
   const [clickedCartId, setClickedCartId] = useState(null);
   const [isVisible] = useState(true); // Добавляем состояние для анимации
 
+  useEffect(() => {
+    fetchCars();
+  }, []);
+
+  const fetchCars = () => {
+    setIsLoading(true);
+    const token = sessionStorage.getItem("jwt");
+    fetch(SERVER_URL + "api/cars", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            throw new Error(text);
+          }); // Читаем текст ошибки
+        }
+        return response.json();
+      })
+
+      .then((data) => {
+        setCars(data || []);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+  };
+
+  
+
+
   const updateCar = (car, carId) => {
     const token = sessionStorage.getItem("jwt");
     fetch(`${SERVER_URL}api/cars/${carId}`, {
@@ -105,6 +137,25 @@ export default function Carlist() {
         }
       })
       .catch((err) => console.error(err));
+  };
+
+  const onDelClick = (carId) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      const token = sessionStorage.getItem("jwt");
+      fetch(`${SERVER_URL}api/cars/${carId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((response) => {
+          if (response.ok) {
+            fetchCars();
+            setOpen(true);
+          } else {
+            alert("Something went wrong!");
+          }
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
   const columns = [
@@ -398,53 +449,7 @@ export default function Carlist() {
     },
   ];
 
-  useEffect(() => {
-    fetchCars();
-  }, []);
-
-  const fetchCars = () => {
-    setIsLoading(true);
-    const token = sessionStorage.getItem("jwt");
-    fetch(SERVER_URL + "api/cars", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(text);
-          }); // Читаем текст ошибки
-        }
-        return response.json();
-      })
-
-      .then((data) => {
-        setCars(data || []);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setIsLoading(false);
-      });
-  };
-
-  const onDelClick = (carId) => {
-    if (window.confirm("Are you sure you want to delete?")) {
-      const token = sessionStorage.getItem("jwt");
-      fetch(`${SERVER_URL}api/cars/${carId}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((response) => {
-          if (response.ok) {
-            fetchCars();
-            setOpen(true);
-          } else {
-            alert("Something went wrong!");
-          }
-        })
-        .catch((err) => console.error(err));
-    }
-  };
+  
 
   const exportData = cars.map((car) => ({
     Марка: car.brand,

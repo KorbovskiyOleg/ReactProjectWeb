@@ -64,6 +64,8 @@ const NewNotePage = () => {
 
       // Убрали неиспользуемую переменную savedNote
     await response.json(); // Просто ждем завершения запроса
+
+
       
       showSnackbar("Заметка успешно создана!");
       
@@ -104,7 +106,7 @@ const NewNotePage = () => {
           border: "1px solid rgba(255, 255, 255, 0.2)",
         }}
       >
-        {/* Кнопка назад */}
+        {/* Кнопка назад*/} 
         <Button
           startIcon={<ArrowBackIcon />}
           onClick={handleBack}

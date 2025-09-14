@@ -44,9 +44,8 @@ const NotesWidget = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // вот здесь изменил было const notesData = await response.json();
-      const data = await response.json();
-      const notesData = data._embedded?.notes || [];
+      // ✅ ИСПРАВЛЕНИЕ: получаем простой массив, а не _embedded
+      const notesData = await response.json();
       
       // ✅ Гарантируем, что notesData будет массивом
       setNotes(Array.isArray(notesData) ? notesData : []);
@@ -196,7 +195,7 @@ const NotesWidget = () => {
         ) : (
           safeNotes.map(note => (
             <Box 
-              key={note.noteId || note.id}
+              key={note.noteId}
               sx={{
                 p: 2,
                 mb: 1,
@@ -214,7 +213,7 @@ const NotesWidget = () => {
               }}
             >
               <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
-                {note.nameNote || note.title || 'Без названия'}
+                {note.nameNote || 'Без названия'}
               </Typography>
               
               {/* Markdown отображение */}
@@ -230,10 +229,10 @@ const NotesWidget = () => {
               }}>
                 <MDEditor.Markdown 
                   source={
-                    (note.contentNote || note.text || '')
+                    (note.contentNote || '')
                       .length > 100 
-                      ? (note.contentNote || note.text || '').substring(0, 100) + '...' 
-                      : (note.contentNote || note.text || '')
+                      ? (note.contentNote || '').substring(0, 100) + '...' 
+                      : (note.contentNote || '')
                   } 
                   className='green-markdown'
                   style={{ 
@@ -249,14 +248,14 @@ const NotesWidget = () => {
                 gap: 0.5
               }}>
                 <IconButton 
-                  onClick={() => handleEditNote(note.noteId || note.id)}
+                  onClick={() => handleEditNote(note.noteId)}
                   size="small"
                   color="primary"
                 >
                   <EditIcon fontSize="small" />
                 </IconButton>
                 <IconButton 
-                  onClick={() => deleteNote(note.noteId || note.id)}
+                  onClick={() => deleteNote(note.noteId)}
                   size="small"
                   color="error"
                 >
