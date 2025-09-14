@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Card, 
-  IconButton, 
-  Box, 
+import React, { useState, useEffect } from "react";
+import {
+  Card,
+  IconButton,
+  Box,
   Typography,
   useTheme,
   Button,
@@ -13,18 +13,18 @@ import {
   DialogActions,
   TextField,
   Collapse,
-  Checkbox
-} from '@mui/material';
-import { 
-  Add as AddIcon, 
+  Checkbox,
+} from "@mui/material";
+import {
+  Add as AddIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
   ExpandMore as ExpandMoreIcon,
-  List as ListIcon
-} from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import MDEditor from '@uiw/react-md-editor';
-import { SERVER_URL } from '../constants';
+  List as ListIcon,
+} from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import MDEditor from "@uiw/react-md-editor";
+import { SERVER_URL } from "../constants";
 import "./note.css"; // ✅ Импорт стилей
 
 const NotesWidget = ({ showOnlyFirst = false }) => {
@@ -34,8 +34,8 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editingNote, setEditingNote] = useState(null);
-  const [editTitle, setEditTitle] = useState('');
-  const [editContent, setEditContent] = useState('');
+  const [editTitle, setEditTitle] = useState("");
+  const [editContent, setEditContent] = useState("");
   const [editLoading, setEditLoading] = useState(false);
   const [expandedNotes, setExpandedNotes] = useState({});
   const [completedItems, setCompletedItems] = useState({});
@@ -45,7 +45,7 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
   useEffect(() => {
     fetchNotes();
     // Загружаем completedItems из localStorage
-    const savedCompletedItems = localStorage.getItem('completedItems');
+    const savedCompletedItems = localStorage.getItem("completedItems");
     if (savedCompletedItems) {
       setCompletedItems(JSON.parse(savedCompletedItems));
     }
@@ -53,14 +53,14 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
 
   // Сохраняем completedItems в localStorage при изменении
   useEffect(() => {
-    localStorage.setItem('completedItems', JSON.stringify(completedItems));
+    localStorage.setItem("completedItems", JSON.stringify(completedItems));
   }, [completedItems]);
 
   const fetchNotes = async () => {
     try {
       setLoading(true);
       const token = sessionStorage.getItem("jwt");
-      
+
       const response = await fetch(`${SERVER_URL}api/notes`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -73,17 +73,16 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
 
       const notesData = await response.json();
       setNotes(Array.isArray(notesData) ? notesData : []);
-      
     } catch (error) {
-      console.error('Error fetching notes:', error);
+      console.error("Error fetching notes:", error);
       setError(error.message);
-      const savedNotes = localStorage.getItem('notes');
+      const savedNotes = localStorage.getItem("notes");
       if (savedNotes) {
         try {
           const parsedNotes = JSON.parse(savedNotes);
           setNotes(Array.isArray(parsedNotes) ? parsedNotes : []);
         } catch (parseError) {
-          console.error('Error parsing localStorage notes:', parseError);
+          console.error("Error parsing localStorage notes:", parseError);
           setNotes([]);
         }
       } else {
@@ -112,18 +111,15 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
       }
 
       const updatedNoteData = await response.json();
-      
+
       // Обновляем состояние локально
-      setNotes(prevNotes => 
-        prevNotes.map(note => 
-          note.noteId === id ? updatedNoteData : note
-        )
+      setNotes((prevNotes) =>
+        prevNotes.map((note) => (note.noteId === id ? updatedNoteData : note))
       );
-      
+
       return updatedNoteData;
-      
     } catch (error) {
-      console.error('Error updating note:', error);
+      console.error("Error updating note:", error);
       throw error;
     }
   };
@@ -142,22 +138,19 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      setNotes(prevNotes => 
-        prevNotes.filter(note => note.noteId !== id)
-      );
-      
+      setNotes((prevNotes) => prevNotes.filter((note) => note.noteId !== id));
     } catch (error) {
-      console.error('Error deleting note:', error);
-      alert('Ошибка при удалении заметки');
+      console.error("Error deleting note:", error);
+      alert("Ошибка при удалении заметки");
     }
   };
 
   const handleAddNote = () => {
-    navigate('/new-note');
+    navigate("/new-note");
   };
 
   const handleViewAllNotes = () => {
-    navigate('/notes');
+    navigate("/notes");
   };
 
   const handleEditClick = (note) => {
@@ -168,7 +161,7 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
 
   const handleSaveEdit = async () => {
     if (!editTitle.trim() || !editContent.trim()) {
-      alert('Название и содержание заметки не могут быть пустыми');
+      alert("Название и содержание заметки не могут быть пустыми");
       return;
     }
 
@@ -176,16 +169,15 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
     try {
       const updatedNote = {
         nameNote: editTitle.trim(),
-        contentNote: editContent
+        contentNote: editContent,
       };
 
       await updateNote(editingNote.noteId, updatedNote);
       setEditingNote(null);
-      setEditTitle('');
-      setEditContent('');
-      
+      setEditTitle("");
+      setEditContent("");
     } catch (error) {
-      alert('Ошибка при обновлении заметки');
+      alert("Ошибка при обновлении заметки");
     } finally {
       setEditLoading(false);
     }
@@ -193,74 +185,76 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
 
   const handleCloseEdit = () => {
     setEditingNote(null);
-    setEditTitle('');
-    setEditContent('');
+    setEditTitle("");
+    setEditContent("");
   };
 
   const toggleExpandNote = (noteId) => {
-    setExpandedNotes(prev => ({
+    setExpandedNotes((prev) => ({
       ...prev,
-      [noteId]: !prev[noteId]
+      [noteId]: !prev[noteId],
     }));
   };
 
   const toggleChecklistNote = (noteId) => {
-    setCollapsedChecklistNotes(prev => ({
+    setCollapsedChecklistNotes((prev) => ({
       ...prev,
-      [noteId]: !prev[noteId]
+      [noteId]: !prev[noteId],
     }));
   };
 
   // Функция для обработки клика по пункту
   const handleItemClick = (noteId, lineIndex) => {
     const itemKey = `${noteId}-${lineIndex}`;
-    setCompletedItems(prev => ({
+    setCompletedItems((prev) => ({
       ...prev,
-      [itemKey]: !prev[itemKey]
+      [itemKey]: !prev[itemKey],
     }));
   };
 
   // Функция для парсинга markdown и преобразования в список пунктов
   const parseChecklistItems = (content) => {
     if (!content) return [];
-    
+
     // Ищем строки с checkbox'ами [ ] или [x]
     const checkboxRegex = /^-\s+\[( |x)\]\s+(.+)$/gm;
     const items = [];
     let match;
-    
+
     while ((match = checkboxRegex.exec(content)) !== null) {
       items.push({
         text: match[2],
-        checked: match[1] === 'x',
-        original: match[0]
+        checked: match[1] === "x",
+        original: match[0],
       });
     }
-    
+
     return items;
   };
 
   // Функция для рендеринга пунктов с чекбоксами
   const renderChecklistItems = (note) => {
     const items = parseChecklistItems(note.contentNote);
-    
+
     if (items.length === 0) {
       // Если нет checkbox'ов, показываем обычный текст
       return (
-        <Box sx={{ 
-          mb: 1,
-          '& *': {
-            margin: 0,
-            padding: 0,
-            lineHeight: 1.4
-          }
-        }}>
-          <MDEditor.Markdown 
-            source={note.contentNote || ''}
-            className='green-markdown'
-            style={{ 
-              fontSize: '14px',
-              background: 'transparent'
+        <Box
+          sx={{
+            mb: 1,
+            "& *": {
+              margin: 0,
+              padding: 0,
+              lineHeight: 1.4,
+            },
+          }}
+        >
+          <MDEditor.Markdown
+            source={note.contentNote || ""}
+            className="green-markdown"
+            style={{
+              fontSize: "14px",
+              background: "transparent",
             }}
           />
         </Box>
@@ -273,23 +267,21 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
           const itemKey = `${note.noteId}-${index}`;
           const isCompleted = completedItems[itemKey] || item.checked;
 
-         
-          
           return (
             <Box
               key={index}
               sx={{
-                display: 'flex',
-                alignItems: 'flex-start',
+                display: "flex",
+                alignItems: "flex-start",
                 gap: 1,
                 mb: 0.5,
-                cursor: 'pointer',
+                cursor: "pointer",
                 opacity: isCompleted ? 0.6 : 1,
-                textDecoration: isCompleted ? 'line-through' : 'none',
-                '&:hover': {
+                textDecoration: isCompleted ? "line-through" : "none",
+                "&:hover": {
                   backgroundColor: theme.palette.action.hover,
-                  borderRadius: 1
-                }
+                  borderRadius: 1,
+                },
               }}
               onClick={(e) => {
                 e.stopPropagation();
@@ -304,19 +296,19 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
                   handleItemClick(note.noteId, index);
                 }}
                 onClick={(e) => e.stopPropagation()}
-                sx={{ 
+                sx={{
                   p: 0.5,
-                  '& .MuiSvgIcon-root': { fontSize: 18 }
+                  "& .MuiSvgIcon-root": { fontSize: 18 },
                 }}
               />
               <Typography
                 variant="body2"
                 sx={{
                   flex: 1,
-                  fontSize: '14px',
+                  fontSize: "14px",
                   lineHeight: 1.4,
-                  userSelect: 'none',
-                  color: isCompleted ? '#de1717ff' : '#420bc1ff',
+                  userSelect: "none",
+                  color: isCompleted ? "#de1717ff" : "#420bc1ff",
                 }}
               >
                 {item.text}
@@ -331,7 +323,7 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
   // Функция для подсчета строк в контенте
   const countLines = (content) => {
     if (!content) return 0;
-    return content.split('\n').length;
+    return content.split("\n").length;
   };
 
   const safeNotes = Array.isArray(notes) ? notes : [];
@@ -339,17 +331,19 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
 
   if (loading) {
     return (
-      <Card sx={{
-        height: '100%',
-        borderRadius: 3,
-        bgcolor: 'rgba(255, 255, 255, 0.1)',
-        backdropFilter: 'blur(8px)',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
-        p: 2,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
+      <Card
+        sx={{
+          height: "100%",
+          borderRadius: 3,
+          bgcolor: "rgba(255, 255, 255, 0.1)",
+          backdropFilter: "blur(8px)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          p: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <CircularProgress />
       </Card>
     );
@@ -357,17 +351,19 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
 
   if (error) {
     return (
-      <Card sx={{
-        height: '100%',
-        borderRadius: 3,
-        bgcolor: 'rgba(255, 255, 255, 0.1)',
-        backdropFilter: 'blur(8px)',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
-        p: 2
-      }}>
+      <Card
+        sx={{
+          height: "100%",
+          borderRadius: 3,
+          bgcolor: "rgba(255, 255, 255, 0.1)",
+          backdropFilter: "blur(8px)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          p: 2,
+        }}
+      >
         <Typography color="error">Ошибка загрузки: {error}</Typography>
-        <Button 
-          variant="outlined" 
+        <Button
+          variant="outlined"
           onClick={fetchNotes}
           size="small"
           sx={{ mt: 2 }}
@@ -380,30 +376,38 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
 
   return (
     <>
-      <Card sx={{
-        height: '100%',
-        borderRadius: 3,
-        bgcolor: 'rgba(255, 255, 255, 0.1)',
-        backdropFilter: 'blur(8px)',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
-        p: 2
-      }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+      <Card
+        sx={{
+          height: "100%",
+          borderRadius: 3,
+          bgcolor: "rgba(255, 255, 255, 0.1)",
+          backdropFilter: "blur(8px)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          p: 2,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 2,
+          }}
+        >
           <Typography variant="h6" sx={{ fontWeight: 600 }}>
             Notebook ({safeNotes.length})
           </Typography>
-          <Box sx={{ display: 'flex', gap: 1 }}>
+          <Box sx={{ display: "flex", gap: 1 }}>
             {showOnlyFirst && safeNotes.length > 1 && (
-              <Button 
-                variant="outlined" 
+              <Button
+                variant="outlined"
                 startIcon={<ListIcon />}
                 onClick={handleViewAllNotes}
                 size="small"
-              >
-              </Button>
+              ></Button>
             )}
-            <Button 
-              variant="contained" 
+            <Button
+              variant="contained"
               startIcon={<AddIcon />}
               onClick={handleAddNote}
               size="small"
@@ -412,95 +416,134 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
             </Button>
           </Box>
         </Box>
-        
-        <Box sx={{ maxHeight: 400, overflowY: 'auto' }}>
+
+        <Box sx={{ maxHeight: 400, overflowY: "auto" }}>
           {displayedNotes.length === 0 ? (
-            <Box sx={{ 
-              textAlign: 'center', 
-              py: 4,
-              color: 'text.secondary'
-            }}>
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                Empty
-              </Typography>
-              <Button 
-                variant="outlined" 
-                startIcon={<AddIcon />}
-                onClick={handleAddNote}
-                size="small"
+            <Box
+              sx={{
+                textAlign: "center",
+                py: 4,
+                color: "text.secondary",
+                position: "relative", // Добавляем относительное позиционирование
+                minHeight: "80px", // Фиксированная высота для контейнера
+              }}
+            >
+              <Box
+                sx={{
+                  fontSize: "3rem",
+                  mb: 1,
+                  animation: "swing 3s infinite ease-in-out",
+                  transformOrigin: "top center",
+                  position: "absolute", // Абсолютное позиционирование
+                  top: "20%",// поднял иконку чуть выше
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  "@keyframes swing": {
+                    "0%, 100%": {
+                      transform: "translate(-50%, -50%) rotate(-10deg)",
+                    },
+                    "50%": { transform: "translate(-50%, -50%) rotate(10deg)" },
+                  },
+                }}
               >
-                Create
-              </Button>
+                📋
+              </Box>
+              <Box sx={{ pt: 6 }}>
+                {" "}
+                {/* Отступ для текста под иконкой */}
+                <Button
+                  variant="outlined"
+                  startIcon={<AddIcon />}
+                  onClick={handleAddNote}
+                  size="small"
+                >
+                  Create
+                </Button>
+              </Box>
             </Box>
           ) : (
-            displayedNotes.map(note => {
+            displayedNotes.map((note) => {
               const isExpanded = expandedNotes[note.noteId];
               const isChecklistCollapsed = collapsedChecklistNotes[note.noteId];
               const lineCount = countLines(note.contentNote);
               const shouldShowExpand = lineCount > 5;
-              const hasChecklistItems = parseChecklistItems(note.contentNote).length > 0;
-              
+              const hasChecklistItems =
+                parseChecklistItems(note.contentNote).length > 0;
+
               return (
-                <Box 
+                <Box
                   key={note.noteId}
                   sx={{
                     p: 2,
                     mb: 1,
                     borderRadius: 2,
-                    bgcolor: theme.palette.mode === 'dark' 
-                      ? 'rgba(255,255,255,0.05)' 
-                      : 'rgba(0, 0, 0, 0.03)',
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    '&:hover': {
-                      bgcolor: theme.palette.mode === 'dark' 
-                        ? 'rgba(255,255,255,0.08)' 
-                        : 'rgba(0,0,0,0.05)'
-                    }
+                    bgcolor:
+                      theme.palette.mode === "dark"
+                        ? "rgba(255,255,255,0.05)"
+                        : "rgba(0, 0, 0, 0.03)",
+                    border: "1px solid",
+                    borderColor: "divider",
+                    "&:hover": {
+                      bgcolor:
+                        theme.palette.mode === "dark"
+                          ? "rgba(255,255,255,0.08)"
+                          : "rgba(0,0,0,0.05)",
+                    },
                   }}
                 >
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "flex-start",
+                      mb: 1,
+                    }}
+                  >
                     <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                      {note.nameNote || 'Без названия'}
+                      {note.nameNote || "Без названия"}
                     </Typography>
-                    
-                    <Box sx={{ display: 'flex', gap: 0.5 }}>
+
+                    <Box sx={{ display: "flex", gap: 0.5 }}>
                       {/* Кнопка для обычных заметок (без чекбоксов) */}
                       {shouldShowExpand && !hasChecklistItems && (
-                        <IconButton 
+                        <IconButton
                           onClick={() => toggleExpandNote(note.noteId)}
                           size="small"
                           sx={{
-                            transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                            transition: 'transform 0.3s'
+                            transform: isExpanded
+                              ? "rotate(180deg)"
+                              : "rotate(0deg)",
+                            transition: "transform 0.3s",
                           }}
                         >
                           <ExpandMoreIcon fontSize="small" />
                         </IconButton>
                       )}
-                      
+
                       {/* Кнопка для заметок с чекбоксами */}
                       {hasChecklistItems && (
-                        <IconButton 
+                        <IconButton
                           onClick={() => toggleChecklistNote(note.noteId)}
                           size="small"
                           sx={{
-                            transform: isChecklistCollapsed ? 'rotate(0deg)' : 'rotate(180deg)',
-                            transition: 'transform 0.3s'
+                            transform: isChecklistCollapsed
+                              ? "rotate(0deg)"
+                              : "rotate(180deg)",
+                            transition: "transform 0.3s",
                           }}
                         >
                           <ExpandMoreIcon fontSize="small" />
                         </IconButton>
                       )}
-                      
-                      <IconButton 
+
+                      <IconButton
                         onClick={() => handleEditClick(note)}
                         size="small"
                         color="primary"
                       >
                         <EditIcon fontSize="small" />
                       </IconButton>
-                      <IconButton 
+                      <IconButton
                         onClick={() => deleteNote(note.noteId)}
                         size="small"
                         color="error"
@@ -509,21 +552,29 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
                       </IconButton>
                     </Box>
                   </Box>
-                  
-                  <Collapse 
-                    in={isExpanded || (hasChecklistItems && !isChecklistCollapsed)} 
-                    collapsedSize={hasChecklistItems ? (isChecklistCollapsed ? 60 : 'auto') : 60}
+
+                  <Collapse
+                    in={
+                      isExpanded || (hasChecklistItems && !isChecklistCollapsed)
+                    }
+                    collapsedSize={
+                      hasChecklistItems
+                        ? isChecklistCollapsed
+                          ? 60
+                          : "auto"
+                        : 60
+                    }
                   >
                     {renderChecklistItems(note)}
                   </Collapse>
-                  
+
                   {shouldShowExpand && !isExpanded && !hasChecklistItems && (
-                    <Typography 
-                      variant="caption" 
-                      sx={{ 
-                        color: 'text.secondary',
-                        cursor: 'pointer',
-                        '&:hover': { textDecoration: 'underline' }
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "text.secondary",
+                        cursor: "pointer",
+                        "&:hover": { textDecoration: "underline" },
                       }}
                       onClick={() => toggleExpandNote(note.noteId)}
                     >
@@ -538,20 +589,20 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
       </Card>
 
       {/* Диалог редактирования */}
-      <Dialog 
-        open={Boolean(editingNote)} 
-        onClose={handleCloseEdit} 
-        maxWidth="md" 
+      <Dialog
+        open={Boolean(editingNote)}
+        onClose={handleCloseEdit}
+        maxWidth="md"
         fullWidth
         PaperProps={{
           sx: {
-            minHeight: '500px',
-            maxHeight: '90vh'
-          }
+            minHeight: "500px",
+            maxHeight: "90vh",
+          },
         }}
       >
         <DialogTitle>Edit note</DialogTitle>
-        <DialogContent sx={{ minHeight: '400px' }}>
+        <DialogContent sx={{ minHeight: "400px" }}>
           <TextField
             fullWidth
             label="Название заметки"
@@ -563,11 +614,13 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
           <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
             Summury
           </Typography>
-          <Box sx={{ 
-            minHeight: '300px',
-            maxHeight: '60vh',
-            overflow: 'auto'
-          }}>
+          <Box
+            sx={{
+              minHeight: "300px",
+              maxHeight: "60vh",
+              overflow: "auto",
+            }}
+          >
             <MDEditor
               value={editContent}
               onChange={setEditContent}
@@ -582,12 +635,12 @@ const NotesWidget = ({ showOnlyFirst = false }) => {
           <Button onClick={handleCloseEdit} disabled={editLoading}>
             Cancel
           </Button>
-          <Button 
-            onClick={handleSaveEdit} 
-            variant="contained" 
+          <Button
+            onClick={handleSaveEdit}
+            variant="contained"
             disabled={editLoading}
           >
-            {editLoading ? <CircularProgress size={24} /> : 'Сохранить'}
+            {editLoading ? <CircularProgress size={24} /> : "Сохранить"}
           </Button>
         </DialogActions>
       </Dialog>
