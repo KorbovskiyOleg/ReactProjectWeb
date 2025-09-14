@@ -161,10 +161,14 @@ const NewNotePage = () => {
             height={400}
             preview="edit"
             disabled={loading}
-            className="green-editor"
+            className="green-editor "
+            data-color-mode="light"
             style={{
               borderRadius: "12px",
               border: `1px solid ${theme.palette.divider}`,
+              backgroundColor: 'transparent',
+    background: 'transparent',
+              
             }}
           />
         </Box>
