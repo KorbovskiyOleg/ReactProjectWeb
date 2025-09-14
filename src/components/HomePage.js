@@ -269,7 +269,7 @@ const HomePage = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               style={{ width: "50%" }}
             >
-              <NotesWidget />
+              <NotesWidget showOnlyFirst={true} />
             </motion.div>
 
             {/* Аудио-визуализатор 
