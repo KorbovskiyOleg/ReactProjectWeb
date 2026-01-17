@@ -24,18 +24,35 @@ import RealTimeClock from "./RealTimeClock";
 import CurrencyWidget from './CurrencyWidget';
 
 
-// Анимация для карточек
+// Анимация для карточек справа
 const cardVariants = {
   offscreen: {
-    y: 50,
+    x: 100,
     opacity: 0,
   },
   onscreen: {
-    y: 0,
+    x: 0,
     opacity: 1,
     transition: {
       type: "spring",
-      bounce: 0.4,
+      bounce: 0.3,
+      duration: 0.8,
+    },
+  },
+};
+
+// Анимация для компонентов слева
+const leftSlideVariants = {
+  offscreen: {
+    x: -100,
+    opacity: 0,
+  },
+  onscreen: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      bounce: 0.3,
       duration: 0.8,
     },
   },
@@ -99,9 +116,10 @@ const HomePage = () => {
         >
           {/* Заголовок и описание */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            initial="offscreen"
+            animate="onscreen"
+            variants={leftSlideVariants}
+            transition={{ delay: 0.1 }}
           >
             <Typography
               variant="h3"
@@ -129,15 +147,23 @@ const HomePage = () => {
             </Typography>
           </motion.div>
 
-          <RealTimeClock />
+          <motion.div
+            initial="offscreen"
+            animate="onscreen"
+            variants={leftSlideVariants}
+            transition={{ delay: 0.2 }}
+          >
+            <RealTimeClock />
+          </motion.div>
 
           {/* Блок с курсом валют, погодой и календарем */}
           <Box>
             {/* Курс валют */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              initial="offscreen"
+              animate="onscreen"
+              variants={leftSlideVariants}
+              transition={{ delay: 0.3 }}
             >
               <CurrencyWidget />
             </motion.div>
@@ -155,9 +181,10 @@ const HomePage = () => {
             >
               {/* Погода - теперь без вложенной карточки */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
+                initial="offscreen"
+                animate="onscreen"
+                variants={leftSlideVariants}
+                transition={{ delay: 0.4 }}
                 style={{ flex: 1 }}
               >
                 <WeatherWidget
@@ -175,9 +202,10 @@ const HomePage = () => {
 
               {/* Календарь */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
+                initial="offscreen"
+                animate="onscreen"
+                variants={leftSlideVariants}
+                transition={{ delay: 0.5 }}
                 style={{ flex: 1 }}
               >
                 <CalendarWidget />
@@ -207,7 +235,7 @@ const HomePage = () => {
                 animate="onscreen"
                 variants={cardVariants}
                 whileHover={{ scale: 1.03 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: 0.2 + index * 0.15 }}
               >
                 <Card
                   sx={{
@@ -263,9 +291,10 @@ const HomePage = () => {
           >
             {/* Блокнот */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
+              initial="offscreen"
+              animate="onscreen"
+              variants={cardVariants}
+              transition={{ delay: 0.8 }}
               style={{ width: "50%" }}
             >
               <NotesWidget showOnlyFirst={true} />
