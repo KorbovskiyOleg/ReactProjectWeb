@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
-//import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { motion } from "framer-motion";
 import { useTheme } from "@mui/material";
 
@@ -9,7 +8,6 @@ const RealTimeClock = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
-    //const theme = useTheme();
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);

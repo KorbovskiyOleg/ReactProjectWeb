@@ -18,7 +18,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import WeatherWidget from "./WeatherWidget";
-//import AudioVisualizer from "./AudioVisualizer";
 import CalendarWidget from "./CalendarWidget";
 import NotesWidget from "./NotesWidget";
 import RealTimeClock from "./RealTimeClock";
@@ -272,23 +271,6 @@ const HomePage = () => {
               <NotesWidget showOnlyFirst={true} />
             </motion.div>
 
-            {/* Аудио-визуализатор 
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.8 }}
-      style={{ width: "50%" }}
-    >
-      <AudioVisualizer
-        sx={{
-          width: "100%",
-          canvas: {
-            width: "100%!important",
-            height: "150px!important",
-          },
-        }}
-      />
-    </motion.div>*/}
           </Box>
         </Box>
       </Container>

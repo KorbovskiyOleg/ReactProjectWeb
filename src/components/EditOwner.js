@@ -10,8 +10,6 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-//import { emphasize } from "@mui/material";
-//import { fireEvent } from "@testing-library/dom";
 
 function EditOwner(props) {
   const [open, setOpen] = useState(false);

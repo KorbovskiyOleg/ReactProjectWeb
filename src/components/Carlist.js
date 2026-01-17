@@ -481,8 +481,8 @@ export default function Carlist() {
                 sx={{
                   fontSize: "3rem",
                   fontWeight: 500,
-                  color: "rgba(255, 68, )",
-                  fontStyle: ["italic", "normal"],
+                  color: "rgba(255, 68, 68, 0.8)",
+                  fontStyle: "italic",
                 }}
               >
                 Car Inventory

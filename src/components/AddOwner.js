@@ -9,7 +9,6 @@ import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 
-// проверка комита
 function AddOwner(props) {
   const [open, setOpen] = useState(false);
   const [owner, setOwner] = useState({
