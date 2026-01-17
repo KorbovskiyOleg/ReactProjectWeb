@@ -6,7 +6,7 @@ import { SERVER_URL } from "../constants";
 import { Snackbar } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -55,6 +55,7 @@ const StyledHeader = styled(Typography)(({ theme }) => ({
 }));
 
 export default function OwnersList() {
+  const theme = useTheme();
   const [owners, setOwners] = useState([]);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -367,7 +368,7 @@ export default function OwnersList() {
                 sx={{
                   fontSize: "3rem",
                   fontWeight: 500,
-                  color: "rgba(255, 68, 68, 0.8)",
+                  color: theme.palette.primary.dark,
                   fontStyle: "italic",
                 }}
               >
