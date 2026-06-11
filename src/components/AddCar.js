@@ -10,7 +10,6 @@ import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-// проверка комита
 function AddCar(props) {
   const [open, setOpen] = useState(false);
   const [car, setCar] = useState({

@@ -1,54 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { motion, AnimatePresence } from "framer-motion";
-//import AddOwner from "./AddOwner";
 import EditOwner from "./EditOwner";
 import { SERVER_URL } from "../constants";
 import { Snackbar } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExportData from "./ExportData";
-//имя фамилия 
-import { 
-  //Person, 
-  //PersonOutline, 
-  Badge, 
-  //Face,
-  AccountCircle 
-} from '@mui/icons-material';
-
-// номер телефона
-import { 
-  Phone, 
-  //PhoneAndroid, 
-  //Call, 
-  //ContactPhone,
-  //Smartphone 
-} from '@mui/icons-material';
-
-//email
-import { 
-  Email, 
-  //MailOutline, 
-  //AlternateEmail,
-  //MarkEmailRead,
-  //ContactMail 
-} from '@mui/icons-material';
-
-// адрес
-import { 
-  Home, 
-  //LocationOn, 
-  //House, 
-  //Place,
-  //Map,
-  //LocationCity 
-} from '@mui/icons-material';
+import { Badge, AccountCircle } from '@mui/icons-material';
+import { Phone } from '@mui/icons-material';
+import { Email } from '@mui/icons-material';
+import { Home } from '@mui/icons-material';
 
 
 const itemVariants = {
@@ -89,6 +55,7 @@ const StyledHeader = styled(Typography)(({ theme }) => ({
 }));
 
 export default function OwnersList() {
+  const theme = useTheme();
   const [owners, setOwners] = useState([]);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -401,8 +368,8 @@ export default function OwnersList() {
                 sx={{
                   fontSize: "3rem",
                   fontWeight: 500,
-                  color: "rgba(255, 68, )",
-                  fontStyle: ["italic", "normal"],
+                  color: theme.palette.primary.dark,
+                  fontStyle: "italic",
                 }}
               >
                 Car owners
@@ -423,9 +390,6 @@ export default function OwnersList() {
                   alignItems: "flex-start",
                 }}
               >
-                {/*<Box>
-                  <AddOwner addOwner={addOwner} />
-                </Box>*/}
                 <Box sx={{ mt: 1 }}>
                   <ExportData data={exportData} fileName="owners_export" />
                 </Box>

@@ -22,14 +22,11 @@ import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from
 import HomePage from "./components/HomePage";
 import StatsPage from "./components/StatsPage";
 import SettingsPage from "./components/SettingsPage";
-//import MainPage from './components/MainPage'; 
 import { AudioProvider } from './context/AudioContext';
 import { useAudio } from './context/AudioContext'; 
 import OwnerDetails from "./components/OwnerDetails";
 import NotesWidget from './components/NotesWidget';
-import NewNotePage from './components/NewNotePage'; // Добавляем импорт
-//import EditNotePage from './components/EditNotePage'; // Добавляем импорт
-//import NoteIcon from '@mui/icons-material/Note'; // Иконка для блокнота
+import NewNotePage from './components/NewNotePage';
 
 
 const backgroundImage = "/images/imagback.webp";
